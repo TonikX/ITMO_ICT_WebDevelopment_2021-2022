@@ -18,7 +18,7 @@
 3. Для тех, кто хочет поглубже изучить материал  (обзначается **(+++)**).
 
 ### Лекция 1.1 - Концепции разработки веб сервисов.
-Презентация с лекции [тут](https://drive.google.com/file/d/1uZMyzGn_42krfuEdR-pLmcrb2LGqYNmx/view?usp=sharing).
+Презентация с лекции [тут](https://drive.google.com/file/d/1uZMyzGn_42krfuEdR-pLmcrb2LGqYNmx/view?usp=sharing) (будет изменена 04.01.2021).
 
 Допонительные материалы:
 
