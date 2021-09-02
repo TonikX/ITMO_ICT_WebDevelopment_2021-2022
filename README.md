@@ -29,7 +29,7 @@
 5. [Что такое MVC: базовые концепции и пример приложения](https://skillbox.ru/media/code/chto_takoe_mvc_bazovye_kontseptsii_i_primer_prilozheniya/) **(++)**
 
 # Лабораторная работа 1. Работа с сокетами.
-[Лекция с практики](https://docs.google.com/presentation/d/1w1CxQJ8w6kxJ54H-ouiNOucqRlpPFcXW/edit?usp=sharing&ouid=112464767591249503382&rtpof=true&sd=true)
+[Лекция с практики](https://docs.google.com/presentation/d/1w1CxQJ8w6kxJ54H-ouiNOucqRlpPFcXW/edit?usp=sharing&ouid=112464767591249503382&rtpof=true&sd=true)<br>
 [Текст работы](https://drive.google.com/file/d/1p5FUB09uZlniENeAmPSuXjYvI-G7bCGy/view?usp=sharing)
 
 Срок сдачи: **25.09.2020** (включительно). Вес работы в баллах – 10. Выполнение пунктов 1-3 и 4 (однопользовательский чат без потоков) – 8. Выполнение пунктов 1-3 и 4 (многопользовательский чат с потоками) – 10. После срока сдачи максимальный бал 6.
