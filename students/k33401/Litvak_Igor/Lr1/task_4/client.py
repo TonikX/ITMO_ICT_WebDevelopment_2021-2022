@@ -15,7 +15,8 @@ class ChatClient:
         while True:
             try:
                 msg = input()
-                self.conn.send(f"{self.username}: {msg}".encode())
+                if msg:
+                    self.conn.send(f"{self.username}: {msg}".encode())
             except (KeyboardInterrupt, EOFError):
                 self.conn.close()
                 sys.exit(0)
@@ -24,7 +25,9 @@ class ChatClient:
         # Threaded function for recieving messages
         while True:
             try:
-                print(self.conn.recv(1024).decode())
+                msg = self.conn.recv(1024).decode()
+                if msg:
+                    print(msg)
             except KeyboardInterrupt:
                 self.conn.close()
                 sys.exit(0)
