@@ -144,3 +144,4 @@ cython_debug/
 # Word
 *.docx
 *.doc
+*.tmp
