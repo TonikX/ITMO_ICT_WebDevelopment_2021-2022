@@ -14,9 +14,9 @@ class Client:
             print(data.decode('utf-8'))                                             #print your friends messages
 
     def chat(self):
-        self.conn.sendto(('tuan is online').encode('utf-8'), self.server)           # notify everyone
+        self.conn.sendto(('client1 is online').encode('utf-8'), self.server)           # notify everyone
         while True:
-            self.conn.sendto(('tuan : ' + input()).encode('utf-8'), self.server)    # send message
+            self.conn.sendto(('client1 : ' + input()).encode('utf-8'), self.server)    # send message
 
 
 
