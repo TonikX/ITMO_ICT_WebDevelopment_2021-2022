@@ -39,8 +39,11 @@
 
 ## Дополнение по пункту 3 от 23.09.2021
 срок сдачи пункта: 8 октября
+
 Необходимо написать простой web-сервер для обработки GET и POST http запросов средствами Python и библиотеки socket.
+
 Базовый класс для простейшей реализации web-сервера доступен [тут](https://docs.google.com/document/d/1lv_3D9VtMxz8tNkA6rA1xu9zaWEIBGXiLWBo1cse-0k/edit?usp=sharing)
+
 Подробный мануал по работе доступен [тут](https://iximiuz.com/ru/posts/writing-python-web-server-part-3/)
 
 Задание: сделать сервер, который может:
