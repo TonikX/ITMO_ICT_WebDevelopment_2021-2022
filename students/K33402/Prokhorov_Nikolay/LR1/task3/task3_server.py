@@ -207,7 +207,7 @@ class MyHTTPServer:
 
         self._marks[student][discipline] = mark
 
-        return Response(204, 'Created')
+        return Response(201, 'Created')
 
     def send_response(self, conn, resp):
         wfile = conn.makefile('wb')

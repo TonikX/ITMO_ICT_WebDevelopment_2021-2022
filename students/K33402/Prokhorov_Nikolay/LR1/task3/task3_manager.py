@@ -25,7 +25,7 @@ for student in data.keys():
             'discipline': discipline,
             'mark': mark
         })
-        if response.status_code == 204:
+        if response.status_code == 201:
             print(' Done!' + ' ' * 30, end='', flush=True)
         else:
             print(f' Error for user {student}!')
