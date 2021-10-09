@@ -1,17 +1,22 @@
 import socket
-import time
-conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-conn.connect(("localhost", 8080))
-a = int(input('Введите количесво дисциплин\n'))
-list = ''
-for i in range(a):
-    list += (input('Введите ' + str(i+1) + ' дисциплину и количество баллов \n')) +' '
-conn.send(list.encode('utf-8'))
-data = conn.recv(22222)
-udata = data.decode()
-print(udata)
-data = conn.recv(22222)
-udata = data.decode()
-print(udata)
-time.sleep(15)
-conn.close
+
+sock = socket.socket()
+sock.connect(('localhost', 9090))
+
+GET_request = ["GET isu.ifmo.ru/pls/apex/f HTTP/1.1",
+        "Host: example.local",
+        "Accept: text/html",
+        "User-Agent: Mozilla/5.0"]
+
+POST_request = ["POST isu.ifmo.ru/pls/apex/f?Petrov=74 HTTP/1.1",
+        "Host: example.local",
+        "Accept: text/html",
+        "User-Agent: Mozilla/5.0"]
+
+sock.send("\r\n".join(POST_request).encode())
+
+print("Ждем ответ от сервера...")
+data = sock.recv(1024)
+sock.close()
+
+print(data.decode())
