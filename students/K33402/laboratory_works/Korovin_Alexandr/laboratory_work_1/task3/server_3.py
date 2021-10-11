@@ -1,256 +1,76 @@
-import json
 import socket
 import sys
-from email.parser import Parser
-from functools import lru_cache
-from urllib.parse import parse_qs, urlparse
-
-MAX_LINE = 64 * 1024
-MAX_HEADERS = 100
 
 
 class MyHTTPServer:
-    def __init__(self, host, port, server_name):
-        self._host = host
-        self._port = port
-        self._server_name = server_name
-        self._disciplines = {}
+
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
 
     def serve_forever(self):
-        serv_sock = socket.socket(
-            socket.AF_INET,
-            socket.SOCK_STREAM,
-            proto=0)
-
-        try:
-            serv_sock.bind((self._host, self._port))
-            serv_sock.listen()
-
-            while True:
-                conn, _ = serv_sock.accept()
-                try:
-                    self.serve_client(conn)
-                except Exception as e:
-                    print('Client serving failed', e)
-        finally:
-            serv_sock.close()
-
-    def serve_client(self, conn):
-        try:
-            req = self.parse_request(conn)
-            resp = self.handle_request(req)
-            self.send_response(conn, resp)
-        except ConnectionResetError:
-            conn = None
-        except Exception as e:
-            self.send_error(conn, e)
-
-        if conn:
-            req.rfile.close()
-            conn.close()
-
-    def parse_request(self, conn):
-        rfile = conn.makefile('rb')
-        method, target, ver = self.parse_request_line(rfile)
-        headers = self.parse_headers(rfile)
-        host = headers.get('Host')
-        if not host:
-            return HTTPError(400, 'Bad request',
-                             'Host header is missing')
-        if host not in (self._server_name,
-                        f'{self._server_name}:{self._port}'):
-            return HTTPError(404, 'Not found')
-        return Request(method, target, ver, headers, rfile)
-
-    def parse_request_line(self, rfile):
-        raw = rfile.readline(MAX_LINE + 1)
-        if len(raw) > MAX_LINE:
-            return HTTPError(400, 'Bad request',
-                             'Request line is too long')
-
-        req_line = str(raw, 'iso-8859-1')
-        words = req_line.split()
-        if len(words) != 3:
-            return HTTPError(400, 'Bad request',
-                             'Malformed request line')
-
-        method, target, ver = words
-        if ver != 'HTTP/1.1':
-            return HTTPError(505, 'HTTP Version Not Supported')
-        return method, target, ver
-
-    def parse_headers(self, rfile):
-        headers = []
+        # Начало рабты сервера
+        conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        conn.bind((self.host, self.port))
+        conn.listen(10)
         while True:
-            line = rfile.readline(MAX_LINE + 1)
-            if len(line) > MAX_LINE:
-                return HTTPError(494, 'Request header too large')
+            # Ждет клиентов
+            clientsocket, address = conn.accept()
+            self.serve_client(clientsocket)
 
-            if line in (b'\r\n', b'\n', b''):
-                break
+    def serve_client(self, clientsocket):
+        # Подключает клиента и вызывает parse_request
+        data = clientsocket.recv(16384)
+        data = data.decode('utf-8')
+        url, method, headers, body = self.parse_request(data)
+        resp = self.handle_request(url, method, body)
+        if resp:
+            self.send_response(clientsocket, resp)
 
-            headers.append(line)
-            if len(headers) > MAX_HEADERS:
-                return HTTPError(494, 'Too many headers')
+    def parse_request(self, data):
+        # Разбивает данные на куски
+        data = data.replace('\r', '')
+        lines = data.split('\n')
+        method, url, protocol = lines[0].split()
+        i = lines.index('')
+        headers = lines[1:i]
+        body = lines[-1]
+        return url, method, headers, body
 
-        sheaders = b''.join(headers).decode('iso-8859-1')
-        return Parser().parsestr(sheaders)
+    def handle_request(self, url, method, body):
+        # совершает проверку. И смотрит какой запрос пришел
+        if url == "/":
+            if method == "GET":
+                resp = "HTTP/1.1 200 OK\n\n"
+                with open('index.html', 'r') as f:
+                    resp += f.read()
+                return resp
+            if method == "POST":
 
-    def handle_request(self, req):
-        if req.path == '/disciplines' and req.method == 'POST':
-            return self.handle_post_disciplines(req)
+                newbody = body.split('&')
+                for a in newbody:
+                    if a.split('=')[0] == 'subject':
+                        subjects.append(a.split('=')[1])
+                    if a.split('=')[0] == 'mark':
+                        marks.append(a.split('=')[1])
 
-        if req.path == '/disciplines' and req.method == 'GET':
-            return self.handle_get_disciplines(req)
+                resp = "HTTP/1.1 200 OK\n\n"
+                resp += "<html><head><title>Journal</title></head><body><table border=1>"
+                for s, m in zip(subjects, marks):
+                    resp += f"<tr><td>{s}</td><td>{m}</td></tr>"
+                resp += "</table></body></html>"
+                return resp
 
-        if req.path.startswith('/disciplines/'):
-            discipline_id = req.path[len('/disciplines/'):]
-            if discipline_id.isdigit():
-                return self.handle_get_discipline(req, discipline_id)
-
-        return HTTPError(404, 'Not found')
-
-    def send_response(self, conn, resp):
-        wfile = conn.makefile('wb')
-        status_line = f'HTTP/1.1 {resp.status} {resp.reason}\r\n'
-        wfile.write(status_line.encode('iso-8859-1'))
-
-        if resp.headers:
-            for (key, value) in resp.headers:
-                header_line = f'{key}: {value}\r\n'
-                wfile.write(header_line.encode('iso-8859-1'))
-
-        wfile.write(b'\r\n')
-
-        if resp.body:
-            wfile.write(resp.body)
-
-        wfile.flush()
-        wfile.close()
-
-    def send_error(self, conn, err):
-        try:
-            status = err.status
-            reason = err.reason
-            body = (err.body or err.reason).encode('utf-8')
-        except:
-            status = 500
-            reason = b'Internal Server Error'
-            body = b'Internal Server Error'
-        resp = Response(status, reason,
-                        [('Content-Length', len(body))],
-                        body)
-        self.send_response(conn, resp)
-
-    def handle_post_disciplines(self, req):
-        discipline_id = len(self._disciplines) + 1
-        self._disciplines[discipline_id] = {'id': discipline_id,
-                                            'name': req.query['name'][0],
-                                            'grade': req.query['grade'][0]}
-        return Response(204, 'Created')
-
-    def handle_get_disciplines(self, req):
-        accept = req.headers.get('Accept')
-        if 'text/html' in accept:
-            contentType = 'text/html; charset=utf-8'
-            body = '<html><head></head><body>'
-            body += f'<div>Пользователи ({len(self._disciplines)})</div>'
-            body += '<ul>'
-            for u in self._disciplines.values():
-                body += f'<li>#{u["id"]} {u["name"]}, {u["grade"]}</li>'
-            body += '</ul>'
-            body += '</body></html>'
-
-        elif 'application/json' in accept:
-            contentType = 'application/json; charset=utf-8'
-            body = json.dumps(self._disciplines)
-
-        else:
-            # https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
-            return Response(406, 'Not Acceptable')
-
-        body = body.encode('utf-8')
-        headers = [('Content-Type', contentType),
-                   ('Content-Length', len(body))]
-        return Response(200, 'OK', headers, body)
-
-    def handle_get_discipline(self, req, discipline_id):
-        discipline = self._disciplines.get(int(discipline_id))
-        if not discipline:
-            return HTTPError(404, 'Not found')
-
-        accept = req.headers.get('Accept')
-        if 'text/html' in accept:
-            contentType = 'text/html; charset=utf-8'
-            body = '<html><head></head><body>'
-            body += f'#{discipline["id"]} {discipline["name"]}, {discipline["grade"]}'
-            body += '</body></html>'
-
-        elif 'application/json' in accept:
-            contentType = 'application/json; charset=utf-8'
-            body = json.dumps(discipline)
-
-        else:
-            # https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
-            return Response(406, 'Not Acceptable')
-
-        body = body.encode('utf-8')
-        headers = [('Content-Type', contentType),
-                   ('Content-Length', len(body))]
-        return Response(200, 'OK', headers, body)
-
-
-class Request:
-    def __init__(self, method, target, version, headers, rfile):
-        self.method = method
-        self.target = target
-        self.version = version
-        self.headers = headers
-        self.rfile = rfile
-
-    @property
-    def path(self):
-        return self.url.path
-
-    @property
-    @lru_cache(maxsize=None)
-    def query(self):
-        return parse_qs(self.url.query)
-
-    @property
-    @lru_cache(maxsize=None)
-    def url(self):
-        return urlparse(self.target)
-
-    def body(self):
-        size = self.headers.get('Content-Length')
-        if not size:
-            return None
-        return self.rfile.read(size)
-
-
-class Response:
-    def __init__(self, status, reason, headers=None, body=None):
-        self.status = status
-        self.reason = reason
-        self.headers = headers
-        self.body = body
-
-
-class HTTPError(Exception):
-    def __init__(self, status, reason, body=None):
-        super()
-        self.status = status
-        self.reason = reason
-        self.body = body
+    def send_response(self, clientsocket, resp):
+        clientsocket.send(resp.encode('utf-8'))
 
 
 if __name__ == '__main__':
-    host = sys.argv[1]
-    port = int(sys.argv[2])
-    name = sys.argv[3]
-
-    serv = MyHTTPServer(host, port, name)
+    host = '127.0.0.1'
+    port = 5000
+    serv = MyHTTPServer(host, port)
+    subjects = []
+    marks = []
     try:
         serv.serve_forever()
     except KeyboardInterrupt:
