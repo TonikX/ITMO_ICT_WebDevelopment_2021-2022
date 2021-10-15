@@ -1,20 +1,22 @@
 import socket
-import threading
-
-conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-conn.connect(("127.0.0.1", 8000))
-
-
-def listen():
-    while True:
-        msg = conn.recv(16384)
-        print(msg.decode("utf-8"))
+from threading import Thread
 
 
 def send():
-    listen_thread = threading.Thread(target=listen)
-    listen_thread.start()
     while True:
-        conn.send(input(">> ").encode("utf-8"))
+        message = input()
+        conn.send(message.encode('utf-8'))
 
-send()
+
+def get():
+    while True:
+        data = conn.recv(16384)
+        data = data.decode('utf-8')
+        print(data)
+
+
+conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+conn.connect(("127.0.0.1", 5000))
+
+Thread(target=send).start()
+Thread(target=get).start()

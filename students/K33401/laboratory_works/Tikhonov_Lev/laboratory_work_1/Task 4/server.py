@@ -1,22 +1,26 @@
 import socket
-import threading
+from threading import Thread
 
 conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-conn.connect(("127.0.0.1", 8000))
-username = input("Enter your username: ")
+conn.bind(('127.0.0.1', 5000))
+conn.listen(10)
 
 
-def listen():
+def send(message, sender):
+    for client in clients:
+        if sender != client:
+            client.send(message)
+
+
+def listen(client):
     while True:
-        msg = conn.recv(16384)
-        print(msg.decode("utf-8"))
+        message = client.recv(1024)
+        send(message, client)
 
 
-def send():
-    listen_thread = threading.Thread(target=listen)
-    listen_thread.start()
-    while True:
-        text = input()
-        conn.send((username + ": " + text).encode("utf-8"))
-
-send()
+clients = []
+while True:
+    new_client, _ = conn.accept()
+    if new_client not in clients:
+        clients.append(new_client)
+    Thread(target=listen, args=[new_client]).start()
