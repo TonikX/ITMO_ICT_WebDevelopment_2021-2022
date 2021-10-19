@@ -1,6 +1,9 @@
 from django.http import Http404
 from django.shortcuts import render
-from project_first_app.models import Owner
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+
+from .forms import OwnerForm
+from .models import Owner, Car
 
 
 def show_owner(request, owner_id):
@@ -8,5 +11,47 @@ def show_owner(request, owner_id):
         owner = Owner.objects.get(pk=owner_id)
     except Owner.DoesNotExist:
         raise Http404("Owner does not exist")
-    return render(request, 'owner.html', {'owner': owner})
+    return render(request, 'project_first_app/owner.html', {'owner': owner})
 
+
+def list_owners(request):
+    data = {'owners': Owner.objects.all()}
+    return render(request, 'project_first_app/owner_list.html', data)
+
+def create_owner(request):
+    data = {}
+
+    form = OwnerForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+
+    data['form'] = form
+    return render(request, 'project_first_app/create_owner.html', data)
+
+
+class CarRetrieveView(DetailView):
+    model = Car
+
+
+class CarListView(ListView):
+    model = Car
+
+
+class CarUpdateView(UpdateView):
+    model = Car
+    template_name = 'project_first_app/car_update.html'
+    fields = ['plate', 'color']
+    success_url = '/car/list'
+
+
+class CarCreateView(CreateView):
+    model = Car
+    template_name = 'project_first_app/car_create.html'
+    fields = ['plate', 'make', 'model', 'color']
+    success_url = '/car/list'
+
+
+class CarDeleteView(DeleteView):
+    model = Car
+    template_name = 'project_first_app/car_delete.html'
+    success_url = '/car/list'
