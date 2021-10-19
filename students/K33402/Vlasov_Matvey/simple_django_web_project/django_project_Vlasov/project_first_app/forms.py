@@ -1,9 +1,10 @@
 from django import forms
-from .models import Owner
+from .models import OwnerUser
 
 
 class OwnerForm(forms.ModelForm):
 
     class Meta:
-        model = Owner
-        fields = ['first_name', 'last_name', 'birthday']
+        model = OwnerUser
+        fields = ['username', 'password', 'first_name', 'last_name', 'birthday',
+                  'passport', 'address', 'nationality']

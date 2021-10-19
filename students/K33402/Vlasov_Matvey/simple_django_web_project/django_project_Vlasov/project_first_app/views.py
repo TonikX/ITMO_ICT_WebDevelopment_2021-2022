@@ -3,20 +3,21 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 
 from .forms import OwnerForm
-from .models import Owner, Car
+from .models import OwnerUser, Car
 
 
 def show_owner(request, owner_id):
     try:
-        owner = Owner.objects.get(pk=owner_id)
-    except Owner.DoesNotExist:
+        owner = OwnerUser.objects.get(pk=owner_id)
+    except OwnerUser.DoesNotExist:
         raise Http404("Owner does not exist")
     return render(request, 'project_first_app/owner.html', {'owner': owner})
 
 
 def list_owners(request):
-    data = {'owners': Owner.objects.all()}
+    data = {'owners': OwnerUser.objects.all()}
     return render(request, 'project_first_app/owner_list.html', data)
+
 
 def create_owner(request):
     data = {}
