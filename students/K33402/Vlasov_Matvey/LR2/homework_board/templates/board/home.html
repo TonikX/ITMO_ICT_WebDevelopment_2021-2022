@@ -1,0 +1,8 @@
+<h1>Main page</h1>
+{% if user.is_authenticated %}
+    <p>Welcome {{ user.username }}</p>
+    <a href="{% url 'account_logout' %}">Log out</a>
+{% else %}
+    <a href="{% url 'account_signup' %}">Log in</a><br/>
+    <a href="{% url 'account_signup' %}">Sign Up</a>
+{% endif %}

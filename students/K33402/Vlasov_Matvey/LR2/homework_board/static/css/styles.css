@@ -1,0 +1,15 @@
+body {
+    padding-top: 3.5rem;
+}
+
+.registration-main, .login-main {
+    background-color: #e9ecef;
+}
+
+.footer-text {
+    color: rgba(255,255,255,.5)
+}
+
+.errorlist {
+    padding-inline-start: 1.0rem;
+}
