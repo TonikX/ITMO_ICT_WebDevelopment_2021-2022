@@ -7,9 +7,11 @@ body {
 }
 
 .footer-text {
-    color: rgba(255,255,255,.5)
+    color: rgba(255,255,255,.5);
 }
 
 .errorlist {
-    padding-inline-start: 1.0rem;
+    padding-inline-start: 1.2rem;
+    margin: 0;
 }
+
