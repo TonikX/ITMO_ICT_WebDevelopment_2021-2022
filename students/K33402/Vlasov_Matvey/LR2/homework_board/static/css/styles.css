@@ -1,13 +1,6 @@
 body {
     padding-top: 3.5rem;
-}
-
-.registration-main, .login-main {
     background-color: #e9ecef;
-}
-
-.footer-text {
-    color: rgba(255,255,255,.5);
 }
 
 .errorlist {
@@ -15,3 +8,7 @@ body {
     margin: 0;
 }
 
+.profile-text p, .profile-text a {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
