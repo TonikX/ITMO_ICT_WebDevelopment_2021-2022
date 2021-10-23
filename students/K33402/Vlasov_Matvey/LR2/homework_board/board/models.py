@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.contrib import admin
 
 
 class Teacher(models.Model):
@@ -11,7 +12,6 @@ class Teacher(models.Model):
 
 class Discipline(models.Model):
     name = models.CharField(max_length=50)
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -22,10 +22,32 @@ class Class(models.Model):
         verbose_name_plural = "classes"
 
     name = models.CharField(max_length=5)
-    disciplines = models.ManyToManyField(Discipline, related_name='classes')
+    disciplines = models.ManyToManyField(Discipline, through='ClassDiscipline')
 
     def __str__(self):
         return self.name
+
+
+class ClassDiscipline(models.Model):
+    class_school = models.ForeignKey(Class, on_delete=models.CASCADE)
+    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.class_school.name} {self.discipline.name}'
+
+
+class ClassDisciplineInline(admin.TabularInline):
+    model = ClassDiscipline
+    extra = 1
+
+
+class ClassAdmin(admin.ModelAdmin):
+    inlines = (ClassDisciplineInline, )
+
+
+class DisciplineAdmin(admin.ModelAdmin):
+    inlines = (ClassDisciplineInline, )
 
 
 class Student(models.Model):
