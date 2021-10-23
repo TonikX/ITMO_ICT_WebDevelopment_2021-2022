@@ -143,3 +143,4 @@ SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_FORMS = {'signup': 'board.forms.RegistrationForm'}
+ACCOUNT_LOGOUT_ON_GET = True

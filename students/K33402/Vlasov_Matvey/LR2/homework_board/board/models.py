@@ -7,7 +7,7 @@ class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     def __str__(self):
-        return self.user.username
+        return f'{self.user.first_name} {self.user.last_name}'
 
 
 class Discipline(models.Model):
@@ -62,7 +62,6 @@ class Assignment(models.Model):
     discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=500)
-    deadline = models.DateTimeField()
 
     def __str__(self):
         return f"{self.discipline}: {self.title}"
@@ -76,8 +75,11 @@ class Submission(models.Model):
         POOR = 2, '2'
 
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    assigned = models.DateTimeField(auto_now_add=True)
+    deadline = models.DateTimeField()
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     solution = models.CharField(max_length=500, blank=True)
+    last_submission = models.DateTimeField(auto_now=True)
     grade = models.IntegerField(choices=Grade.choices, null=True, blank=True)
 
     def __str__(self):

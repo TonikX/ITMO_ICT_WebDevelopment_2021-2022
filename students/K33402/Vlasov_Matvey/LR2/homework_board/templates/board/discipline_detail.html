@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{%  block title %}
+    My Assignments
+{% endblock %}
+
+{%  block content %}
+    <main role="main">
+        <div class="container py-3">
+            <div class="d-flex justify-content-center">
+                <h1>My {{ discipline }} Assignments</h1>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Discipline</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Deadline</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Grade</th>
+                    </tr>
+                </thead>
+                    {% for obj in tasks %}
+                        <tbody>
+                            <tr>
+                                <th scope="row"><a href="{% url 'discipline' pk=discipline.pk %}">{{ discipline }}</a></th>
+                                <th><a href="{% url 'submission' pk=obj.pk %}">{{ obj.assignment.title }}</a></th>
+                                <td>{{ obj.assignment.description|truncatechars:50 }}</td>
+                                <td>{{ obj.deadline }}</td>
+                                {% if obj.grade is not None  %}
+                                    <td>graded</td>
+                                {% elif obj.assigned|date:"YmdHis" != obj.last_submission|date:"YmdHis"  %}
+                                    <td>submitted</td>
+                                {% else %}
+                                    <td>not done</td>
+                                {% endif %}
+                                <td>{{ obj.grade }}</td>
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+            </table>
+        </div>
+    </main>
+{% endblock %}

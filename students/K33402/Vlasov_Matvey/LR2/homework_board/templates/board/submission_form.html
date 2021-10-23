@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{%  block title %}
+    Assignment Submission
+{% endblock %}
+
+{%  block content %}
+    <main role="main">
+        <div class="container py-3">
+            <div class="d-flex justify-content-center">
+                <h2>Assignment Submission</h2>
+            </div>
+            {% if user.pk != object.student.user.pk %}
+                <div class="alert alert-danger">
+                    You have no right to view this information.
+                    You can only see you submissions
+                </div>
+            {% else %}
+                <div class="row">
+                     <div class="py-3 col-xl-5 offset-xl-1 order-2 order-xl-1">
+                    <form method="post">
+                            {% csrf_token %}
+                            <div class="info-text">
+                                 <p>Discipline: <a href="{% url 'discipline' pk=object.assignment.discipline.pk %}">
+                                     {{ object.assignment.discipline }}</a></p>
+                                 <p>Title: {{ object.assignment.title }}</p>
+                                 <p>Assigned: {{ object.assigned }}</p>
+                                 <p>Deadline: {{ object.deadline }}</p>
+                                 {% if object.assigned|date:"YmdHis" == object.last_submission|date:"YmdHis" %}
+                                    <p>Last submission: None</p>
+                                 {% else %}
+                                     <p>Last submission: {{ object.last_submission }}</p>
+                                 {% endif %}
+                                 <p>Grade: {{ object.grade }}</p>
+
+                                <fieldset {% if object.grade is not None %}disabled="disabled"{% endif %}>
+                                    {% for field in form.visible_fields %}
+                                        <div class="mb-1">
+                                            <p>{{ field.label_tag }}</p>
+                                            <div class="mb-1">
+                                                {{ field }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <input class="btn btn-primary" type="submit" value="Submit" />
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="py-3 col-xl-6 info-text order-1 order-xl-2">
+                        <p>Description: {{ object.assignment.description }}</p>
+                     </div>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}
