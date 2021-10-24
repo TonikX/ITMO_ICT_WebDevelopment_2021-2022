@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{%  block title %}
+    Task Update
+{% endblock %}
+
+{%  block content %}
+    <main role="main">
+        <div class="container py-3">
+            <div class="d-flex justify-content-center">
+                <h2>Task Update</h2>
+            </div>
+            {% if user.pk != object.author.user.pk %}
+                <div class="alert alert-danger">
+                    You have no right to update this task.
+                    Only author {{ object.author.user.first_name }} {{ object.author.user.last_name }} can do it
+                    <p class="pt-1 mb-0"><a href="javascript:history.back()">Go Back</a></p>
+                </div>
+            {% else %}
+                <div class="row">
+                     <div class="py-3 col-xl-5 offset-xl-1">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="info-text">
+                                {% for field in form.visible_fields %}
+                                    <div class="mb-1">
+                                        <p>{{ field.label_tag }}</p>
+                                        <div class="mb-1">
+                                            {{ field }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="mt-2 mb-0 p-1 alert alert-success">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="pt-3">
+                                    <input class="btn btn-primary" type="submit" value="Update" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}

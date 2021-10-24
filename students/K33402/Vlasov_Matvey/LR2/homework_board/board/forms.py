@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from board.models import Submission
+from board.models import Assignment, Task
 
 
 class RegistrationForm(UserCreationForm):
@@ -16,10 +16,29 @@ class RegistrationForm(UserCreationForm):
         fields = ["username", "first_name", "last_name", "password1", "password2"]
 
 
-class SubmissionForm(forms.ModelForm):
+class AssignmentStudentForm(forms.ModelForm):
     class Meta:
-        model = Submission
+        model = Assignment
         fields = ["solution"]
         widgets = {
             'solution': forms.Textarea(attrs={'maxlength': 500, 'cols': 38, 'required': 'true'}),
+        }
+
+
+class AssignmentGradeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['grade'].widget.attrs.update(required='required')
+
+    class Meta:
+        model = Assignment
+        fields = ["grade"]
+
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ["discipline", "title", "description"]
+        widgets = {
+            'description': forms.Textarea(attrs={'maxlength': 500, 'cols': 38, 'required': 'true'}),
         }

@@ -1,12 +1,18 @@
 from django.urls import path, include
 
-from board.views import HomeView, ProfileDetailView, DisciplineListView, DisciplineDetailView, SubmissionUpdateView
+from board.views import *
 
 urlpatterns = [
     path('profile/', ProfileDetailView.as_view(), name='profile'),
     path('discipline/list', DisciplineListView.as_view(), name='discipline_list'),
-    path('discipline/<int:pk>/', DisciplineDetailView.as_view(), name='discipline'),
-    path('submission/<int:pk>/', SubmissionUpdateView.as_view(), name='submission'),
+    path('discipline/<int:pk>/<int:class>', DisciplineDetailView.as_view(), name='discipline'),
+    path('assignment/<int:pk>/', AssignmentStudentUpdateView.as_view(), name='assignment_student_update'),
+    path('assignment/grade/<int:pk>/', AssignmentGradeView.as_view(), name='assignment_grade'),
+    path('assignment/delete/<int:pk>/', AssignmentDeleteView.as_view(), name='assignment_delete'),
+    path('task/list', TaskListView.as_view(), name='task_list'),
+    path('task/create', TaskCreateView.as_view(), name='task_create'),
+    path('task/<int:pk>/<int:class>', TaskDetailView.as_view(), name='task'),
+    path('task/update/<int:pk>/', TaskUpdateView.as_view(), name='task_update'),
     path('', include('allauth.urls')),
     path('', HomeView.as_view(), name='home'),
 ]

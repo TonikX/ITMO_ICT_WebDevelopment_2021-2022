@@ -1,17 +1,18 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load index %}
 
 {%  block title %}
-    My {{ discipline }} Tasks
+    My tasks
 {% endblock %}
 
 {%  block content %}
     <main role="main">
         <div class="container py-3">
             <div class="d-flex justify-content-center">
-                <h1>My {{ discipline }} Tasks</h1>
+                <h1>My tasks</h1>
             </div>
-            {% if teacher is None and student is None %}
+            {% if tasks is None %}
                 <div class="alert alert-danger">
                     You have no right to view this information.
                     Ask the admin to give you access
@@ -33,8 +34,10 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
-                                    <th><a href="{% url 'discipline' pk=discipline.pk class=class.pk %}">{{ discipline }} {{ class }}</a></th>
-                                    <th><a href="{% url 'task' pk=obj.pk class=class.pk %}">{{ obj.title }}</a></th>
+                                    {% with obj_class=class|index:forloop.counter0 %}
+                                        <th><a href="{% url 'discipline' pk=obj.discipline.pk class=obj_class.pk %}">{{ obj.discipline }} {{ obj_class }}</a></th>
+                                        <th><a href="{% url 'task' pk=obj.pk class=obj_class.pk %}">{{ obj.title }}</a></th>
+                                    {% endwith %}
                                     <td>{{ obj.description|truncatechars:50 }}</td>
                                     <td>{{ assignments_graded|index:forloop.counter0 }} /
                                         {{ assignments_total|index:forloop.counter0 }}</td>
@@ -49,24 +52,25 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Discipline</th>
-                            <th scope="col">Task</th>
+                            <th scope="col">Title</th>
                             <th scope="col">Description</th>
                             <th scope="col">Deadline</th>
                             <th scope="col">Status</th>
                             <th scope="col">Grade</th>
                         </tr>
                     </thead>
-                        {% for obj in assignments %}
+                        {% for obj in tasks %}
                             <tbody>
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
-                                    <th><a href="{% url 'discipline' pk=discipline.pk class=class.pk %}">{{ discipline }}</a></th>
+                                    <th><a href="{% url 'discipline' pk=obj.task.discipline.pk class=obj.student.class_school.pk %}">
+                                        {{ obj.task.discipline }}</a></th>
                                     <th><a href="{% url 'assignment_student_update' pk=obj.pk %}">{{ obj.task.title }}</a></th>
                                     <td>{{ obj.task.description|truncatechars:50 }}</td>
                                     <td>{{ obj.deadline }}</td>
-                                    {% if obj.grade is not None %}
+                                    {% if obj.grade is not None  %}
                                         <td>graded</td>
-                                    {% elif obj.assigned|date:"YmdHis" != obj.last_submission|date:"YmdHis" %}
+                                    {% elif obj.assigned|date:"YmdHis" != obj.last_submission|date:"YmdHis"  %}
                                         <td>submitted</td>
                                     {% else %}
                                         <td>not done</td>
@@ -81,4 +85,4 @@
                    onclick="location.href='javascript:history.back()'" value="Go back" />
         </div>
     </main>
-{% endblock %}z
+{% endblock %}

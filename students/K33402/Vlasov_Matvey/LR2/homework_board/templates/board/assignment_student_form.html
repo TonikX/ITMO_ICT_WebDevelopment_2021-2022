@@ -13,7 +13,8 @@
             {% if user.pk != object.student.user.pk %}
                 <div class="alert alert-danger">
                     You have no right to view this information.
-                    You can only see you submissions
+                    You can only see your submissions
+                    <p class="pt-1 mb-0"><a href="javascript:history.back()">Go Back</a></p>
                 </div>
             {% else %}
                 <div class="row">
@@ -21,9 +22,9 @@
                     <form method="post">
                             {% csrf_token %}
                             <div class="info-text">
-                                 <p>Discipline: <a href="{% url 'discipline' pk=object.assignment.discipline.pk %}">
-                                     {{ object.assignment.discipline }}</a></p>
-                                 <p>Title: {{ object.assignment.title }}</p>
+                                 <p>Discipline: <a href="{% url 'discipline' pk=object.task.discipline.pk class=object.student.class_school.pk %}">
+                                     {{ object.task.discipline }}</a></p>
+                                 <p>Title: {{ object.task.title }}</p>
                                  <p>Assigned: {{ object.assigned }}</p>
                                  <p>Deadline: {{ object.deadline }}</p>
                                  {% if object.assigned|date:"YmdHis" == object.last_submission|date:"YmdHis" %}
@@ -55,7 +56,7 @@
                         </form>
                     </div>
                     <div class="py-3 col-xl-6 info-text order-1 order-xl-2">
-                        <p>Description: {{ object.assignment.description }}</p>
+                        <p>Description: {{ object.task.description }}</p>
                      </div>
                 </div>
             {% endif %}

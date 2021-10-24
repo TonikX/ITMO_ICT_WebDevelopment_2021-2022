@@ -58,23 +58,24 @@ class Student(models.Model):
         return self.user.username
 
 
-class Assignment(models.Model):
+class Task(models.Model):
     discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=500)
+    author = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.discipline}: {self.title}"
 
 
-class Submission(models.Model):
+class Assignment(models.Model):
     class Grade(models.IntegerChoices):
         EXCELLENT = 5, '5'
         GOOD = 4, '4'
         FAIR = 3, '3'
         POOR = 2, '2'
 
-    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
     assigned = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField()
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -83,6 +84,11 @@ class Submission(models.Model):
     grade = models.IntegerField(choices=Grade.choices, null=True, blank=True)
 
     def __str__(self):
-        return f"""{self.assignment.discipline}: {self.assignment.title} |
+        return f"""{self.task.discipline}: {self.task.title} |
          {self.student.user.first_name} {self.student.user.last_name} |
          Grade: {self.grade}"""
+
+    def get_teacher(self):
+        teacher = ClassDiscipline.objects.get(class_school=self.student.class_school,
+                                              discipline=self.task.discipline).teacher
+        return teacher
