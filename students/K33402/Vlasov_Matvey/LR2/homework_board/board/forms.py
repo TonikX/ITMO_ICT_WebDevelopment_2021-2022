@@ -21,5 +21,5 @@ class SubmissionForm(forms.ModelForm):
         model = Submission
         fields = ["solution"]
         widgets = {
-            'solution': forms.Textarea(attrs={'maxlength': 500, 'cols': 38}),
+            'solution': forms.Textarea(attrs={'maxlength': 500, 'cols': 38, 'required': 'true'}),
         }

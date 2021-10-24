@@ -42,6 +42,13 @@
                                             </div>
                                         </div>
                                     {% endfor %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <div class="mt-2 p-1 alert alert-success">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
                                     <input class="btn btn-primary" type="submit" value="Submit" />
                                 </fieldset>
                             </div>

@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models.functions import Length
 from django.shortcuts import render
 from django.urls import reverse
 
@@ -36,18 +38,19 @@ class DisciplineListView(LoginRequiredMixin, ListView):
         if teacher is not None:
             context['class_disciplines'] = ClassDiscipline.objects.filter(teacher=teacher)
         elif student is not None:
-            class_disciplines = ClassDiscipline.objects.filter(class_school=student.class_school)
-            tasks_done = []
+            class_disciplines = ClassDiscipline.objects.filter(class_school=student.class_school)\
+                .order_by('discipline')
+            tasks_graded = []
             tasks_total = []
             average_grade = []
 
             for obj in class_disciplines.all():
-                tasks_done.append(Submission.objects.filter(
+                tasks_graded.append(Submission.objects.filter(
                     student__user=user, assignment__discipline=obj.discipline, grade__isnull=False))
                 tasks_total.append(Submission.objects.filter(
                     student__user=user, assignment__discipline=obj.discipline))
 
-            for obj in tasks_done:
+            for obj in tasks_graded:
                 grades = list(map(lambda x: x.grade, obj.all()))
                 if len(grades) == 0:
                     average_grade.append(None)
@@ -55,10 +58,9 @@ class DisciplineListView(LoginRequiredMixin, ListView):
                 average_grade.append(sum(grades) / len(grades))
 
             context['class_disciplines'] = class_disciplines
-            context['tasks_done'] = list(map(lambda x: len(x), tasks_done))
+            context['tasks_graded'] = list(map(lambda x: len(x), tasks_graded))
             context['tasks_total'] = list(map(lambda x: len(x), tasks_total))
             context['average_grade'] = average_grade
-            print(average_grade)
 
         return render(request, 'board/discipline_list.html', context)
 
@@ -67,19 +69,30 @@ class DisciplineDetailView(LoginRequiredMixin, DetailView):
     login_url = '/login/'
 
     def get(self, request, *args, **kwargs):
-        user = self.request.user
         discipline = Discipline.objects.get(pk=kwargs['pk'])
-        tasks = Submission.objects.filter(student=user.pk, assignment__discipline=discipline)
+        tasks = Submission.objects.filter(student=self.request.user.pk, assignment__discipline=discipline)\
+            .order_by('grade', Length('solution'), 'deadline', '-last_submission')
         context = {'discipline': discipline, 'tasks': tasks}
         return render(request, 'board/discipline_detail.html', context)
 
 
-class SubmissionUpdateView(LoginRequiredMixin, UpdateView):
+class SubmissionUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     login_url = '/login/'
 
     model = Submission
     form_class = SubmissionForm
+    success_message = "Assignment successfully submitted"
 
     def get_success_url(self):
         return reverse('submission', kwargs={'pk': self.kwargs['pk']})
+
+
+class AssignmentListView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
+
+    def get(self, request, *args, **kwargs):
+        tasks = Submission.objects.filter(student=self.request.user.pk)\
+            .order_by('grade', 0**0**Length('solution'), 'deadline', '-last_submission')
+        context = {'tasks': tasks}
+        return render(request, 'board/assignment_list.html', context)
 
