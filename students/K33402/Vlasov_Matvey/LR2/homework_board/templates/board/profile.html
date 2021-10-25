@@ -26,17 +26,12 @@
                            onclick="location.href='{% url 'account_change_password' %}'" value="Change password" />
                 </div>
                 <div class="pt-3 pt-lg-0 mt-3 mt-md-0 mx-md-3 info-text col-12 col-md-4">
-                    <a href="{% url 'discipline_list' %}">My disciplines</a><br/>
-                    <a href="{% url 'task_list' %}">My tasks</a>
-                </div>
-            </div>
-
-        <div class="pt-5 row">
-                <div class="pt-3 info-text col-12 col-md-5 offset-md-2 order-2 order-xl-1">
+                    <p><a href="{% url 'discipline_list' %}">My disciplines</a></p>
+                    <p><a href="{% url 'task_list' %}">My tasks</a></p>
                     {% if teacher is not None %}
-                        <input class="btn btn-danger" type="button"
-                                            onclick="location.href='{% url 'task_create' %}'" value="Create task" />
+                        <p><a href="{% url 'task_available_list' %}">Available tasks</a></p>
                     {% endif %}
+                </div>
             </div>
         </div>
     </main>

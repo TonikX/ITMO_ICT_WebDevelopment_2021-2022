@@ -40,5 +40,5 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ["discipline", "title", "description"]
         widgets = {
-            'description': forms.Textarea(attrs={'maxlength': 500, 'cols': 38, 'required': 'true'}),
+            'description': forms.Textarea(attrs={'maxlength': 500, 'required': 'true'}),
         }

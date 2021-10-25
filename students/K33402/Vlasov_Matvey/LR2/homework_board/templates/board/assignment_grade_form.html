@@ -18,7 +18,7 @@
                 </div>
             {% else %}
                 <div class="row">
-                     <div class="py-3 col-xl-5 offset-xl-1 order-2 order-xl-1">
+                     <div class="py-3 col-md-6 col-xl-5 offset-xl-1 order-2 order-xl-1">
                     <form method="post">
                             {% csrf_token %}
                             <div class="info-text">
@@ -50,9 +50,13 @@
                                     {% endfor %}
                                 {% endif %}
                                 <div class="pt-3">
-                                    <input class="btn btn-primary" type="submit" value="Grade" />
-                                    <input class="btn btn-danger float-right" type="button"
-                                            onclick="location.href='{% url 'assignment_delete' pk=object.pk %}'" value="Delete assignment" />
+                                    <input class="btn btn-danger col-4 col-lg-2" type="submit" value="Grade" />
+                                    <input class="btn btn-primary float-right" type="button"
+                                            onclick="location.href='javascript:history.back()'" value="Cancel" />
+                                </div>
+                                <div class="pt-3">
+                                    <input class="btn btn-danger col-4 col-lg-2" type="button"
+                                            onclick="location.href='{% url 'assignment_delete' pk=object.pk %}'" value="Delete" />
                                 </div>
                             </div>
                         </form>
