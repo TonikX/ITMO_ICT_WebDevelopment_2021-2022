@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{%  block title %}
+    Assign Task
+{% endblock %}
+
+{%  block content %}
+    <main role="main">
+        <div class="container py-3">
+            <div class="d-flex justify-content-center">
+                <h2>Assign Task</h2>
+            </div>
+            <div class="row">
+                 <div class="py-3 col-md-6 col-xl-5 offset-xl-1 order-2 order-md-1 order-xl-1">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="info-text">
+                            {% for field in form.visible_fields %}
+                                <div class="mb-1">
+                                    <p>{{ field.label_tag }}</p>
+                                    <div class="mb-1">
+                                        {{ field }}
+                                    </div>
+                                    {% if field.errors %}
+                                        <div class="mt-2 p-1 alert alert-danger">
+                                            {{ field.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            <div class="pt-3">
+                                <input class="btn btn-danger" type="submit" value="Assign" />
+                                <input class="btn btn-primary float-right" type="button"
+                                        onclick="location.href='javascript:history.back()'" value="Cancel" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="py-3 col-md-6 col-xl-6 info-text order-1 order-md-2 order-xl-2">
+                        <div class="alert alert-primary">
+                            Date formats: </br></br>
+                            '2006-10-25 14:30:59' </br>
+                            '2006-10-25 14:30' </br>
+                            '2006-10-25'</br>
+                            '10/25/2006 14:30:59'</br>
+                            '10/25/2006 14:30' </br>
+                            '10/25/2006' </br>
+                            '10/25/06 14:30:59' </br>
+                            '10/25/06 14:30' </br>
+                            '10/25/06' </br>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

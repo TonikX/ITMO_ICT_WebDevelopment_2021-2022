@@ -55,7 +55,7 @@ class Student(models.Model):
     class_school = models.ForeignKey(Class, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.user.last_name} {self.user.first_name} | {self.class_school}"
 
 
 class Task(models.Model):
@@ -65,7 +65,7 @@ class Task(models.Model):
     author = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.discipline}: {self.title}"
+        return f"{self.discipline}: {self.title} | Author: {self.author}"
 
 
 class Assignment(models.Model):

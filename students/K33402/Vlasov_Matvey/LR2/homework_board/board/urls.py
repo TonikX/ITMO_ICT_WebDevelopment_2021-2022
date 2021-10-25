@@ -6,6 +6,7 @@ urlpatterns = [
     path('profile/', ProfileDetailView.as_view(), name='profile'),
     path('discipline/list', DisciplineListView.as_view(), name='discipline_list'),
     path('discipline/<int:pk>/<int:class>', DisciplineDetailView.as_view(), name='discipline'),
+    path('assignment/create', AssignmentCreateView.as_view(), name='assignment_create'),
     path('assignment/<int:pk>/', AssignmentStudentUpdateView.as_view(), name='assignment_student_update'),
     path('assignment/grade/<int:pk>/', AssignmentGradeView.as_view(), name='assignment_grade'),
     path('assignment/delete/<int:pk>/', AssignmentDeleteView.as_view(), name='assignment_delete'),

@@ -10,36 +10,28 @@
             <div class="d-flex justify-content-center">
                 <h2>Task Creation</h2>
             </div>
-{#            {% if user.pk != object.author.user.pk %}#}
-{#                <div class="alert alert-danger">#}
-{#                    You have no right to update this assignment.#}
-{#                    Only author {{ object.author.user.first_name }} {{ object.author.user.last_name }} can do it#}
-{#                    <p class="pt-1 mb-0"><a href="javascript:history.back()">Go Back</a></p>#}
-{#                </div>#}
-{#            {% else %}#}
-                <div class="row">
-                     <div class="py-3 col-xl-5 offset-xl-1">
-                        <form method="post">
-                            {% csrf_token %}
-                            <div class="info-text">
-                                {% for field in form.visible_fields %}
+            <div class="row">
+                 <div class="py-3 col-xl-5 offset-xl-1">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="info-text">
+                            {% for field in form.visible_fields %}
+                                <div class="mb-1">
+                                    <p>{{ field.label_tag }}</p>
                                     <div class="mb-1">
-                                        <p>{{ field.label_tag }}</p>
-                                        <div class="mb-1">
-                                            {{ field }}
-                                        </div>
+                                        {{ field }}
                                     </div>
-                                {% endfor %}
-                                <div class="pt-3">
-                                    <input class="btn btn-danger" type="submit" value="Create" />
-                                    <input class="btn btn-primary float-right" type="button"
-                                            onclick="location.href='javascript:history.back()'" value="Cancel" />
                                 </div>
+                            {% endfor %}
+                            <div class="pt-3">
+                                <input class="btn btn-danger" type="submit" value="Create" />
+                                <input class="btn btn-primary float-right" type="button"
+                                        onclick="location.href='javascript:history.back()'" value="Cancel" />
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
-{#            {% endif %}#}
+            </div>
         </div>
     </main>
 {% endblock %}

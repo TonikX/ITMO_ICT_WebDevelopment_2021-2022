@@ -18,15 +18,14 @@
                 </div>
             {% else %}
                 <div class="row">
-                     <div class="py-3 col-md-6 col-xl-5 offset-xl-1">
+                     <div class="py-3 col-md-6 col-xl-5 offset-xl-1 order-1 order-md-2 order-xl-2">
                         <form method="post">
                             {% csrf_token %}
                             <div class="info-text">
                                 <p>Discipline: {{ object.discipline }} </p>
                                 <p>Title: {{ object.title }}</p>
-                                <p>Description: {{ object.description }}</p>
                                 <div class="alert alert-danger mb-0">
-                                    Do you really want to delete this assignment?
+                                    Do you really want to delete this task?
                                  </div>
                                 <div class="pt-3">
                                     <input class="btn btn-danger col-4 col-lg-2" type="submit" value="Delete" />
@@ -36,6 +35,9 @@
                             </div>
                         </form>
                     </div>
+                    <div class="py-3 col-md-6 col-xl-6 info-text order-1 order-md-2 order-xl-2">
+                        <p>Description: {{ object.description }}</p>
+                     </div>
                 </div>
             {% endif %}
         </div>

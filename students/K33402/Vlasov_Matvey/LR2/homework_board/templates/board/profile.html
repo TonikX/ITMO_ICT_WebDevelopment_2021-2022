@@ -27,7 +27,9 @@
                 </div>
                 <div class="pt-3 pt-lg-0 mt-3 mt-md-0 mx-md-3 info-text col-12 col-md-4">
                     <p><a href="{% url 'discipline_list' %}">My disciplines</a></p>
-                    <p><a href="{% url 'task_list' %}">My tasks</a></p>
+                    {% if student is not None %}
+                        <p><a href="{% url 'task_list' %}">My tasks</a></p>
+                    {% endif %}
                     {% if teacher is not None %}
                         <p><a href="{% url 'task_available_list' %}">Available tasks</a></p>
                     {% endif %}

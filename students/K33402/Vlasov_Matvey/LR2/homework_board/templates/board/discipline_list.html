@@ -25,6 +25,7 @@
                             <th scope="col">Discipline</th>
                             <th scope="col">Class</th>
                             <th scope="col">Tasks</th>
+                            <th scope="col">Assignments (graded/total)</th>
                             <th scope="col">Average grade</th>
                         </tr>
                     </thead>
@@ -35,6 +36,7 @@
                                 <th><a href="{% url 'discipline' pk=obj.discipline.pk class=obj.class_school.pk %}">{{ obj.discipline }}</a></th>
                                 <td>{{ obj.class_school }}</td>
                                 <td>{{ tasks_total|index:forloop.counter0 }}</td>
+                                <td>{{ assignments_graded|index:forloop.counter0 }} / {{ assignments_total|index:forloop.counter0 }}</td>
                                 <td>{{ average_grade|index:forloop.counter0 }}</td>
                             </tr>
                         </tbody>
@@ -57,7 +59,7 @@
                                 <th scope="row">{{ forloop.counter }}</th>
                                 <th><a href="{% url 'discipline' pk=obj.discipline.pk class=obj.class_school.pk %}">{{ obj.discipline }}</a></th>
                                 <td>{{ obj.teacher }}</td>
-                                <td>{{ tasks_graded|index:forloop.counter0 }} / {{ tasks_total|index:forloop.counter0 }}</td>
+                                <td>{{ assignments_graded|index:forloop.counter0 }} / {{ assignments_total|index:forloop.counter0 }}</td>
                                 <td>{{ average_grade|index:forloop.counter0 }}</td>
                             </tr>
                         </tbody>
@@ -66,6 +68,8 @@
             {% endif %}
             <input class="btn btn-primary" type="button"
                    onclick="location.href='javascript:history.back()'" value="Go back" />
+            <input class="btn btn-danger float-right" type="button"
+                   onclick="location.href='{% url 'assignment_create' %}'" value="Assign task" />
         </div>
     </main>
 {% endblock %}

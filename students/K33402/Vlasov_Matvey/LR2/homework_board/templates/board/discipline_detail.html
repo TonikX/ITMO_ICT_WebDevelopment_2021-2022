@@ -79,6 +79,8 @@
             {% endif %}
             <input class="btn btn-primary" type="button"
                    onclick="location.href='javascript:history.back()'" value="Go back" />
+            <input class="btn btn-danger float-right" type="button"
+                    onclick="location.href='{% url 'assignment_create' %}'" value="Assign task" />
         </div>
     </main>
 {% endblock %}z

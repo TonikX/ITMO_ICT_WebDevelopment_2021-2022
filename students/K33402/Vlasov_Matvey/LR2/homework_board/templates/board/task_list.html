@@ -18,34 +18,36 @@
                     Ask the admin to give you access
                     <p class="pt-1 mb-0"><a href="javascript:history.back()">Go Back</a></p>
                 </div>
-            {% elif teacher is not None %}
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Discipline</th>
-                            <th scope="col">Task</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Assignments (graded/total)</th>
-                            <th scope="col">Average grade</th>
-                        </tr>
-                    </thead>
-                        {% for obj in tasks %}
-                            <tbody>
-                                <tr>
-                                    <th scope="row">{{ forloop.counter }}</th>
-                                    {% with obj_class=class|index:forloop.counter0 %}
-                                        <th><a href="{% url 'discipline' pk=obj.discipline.pk class=obj_class.pk %}">{{ obj.discipline }} {{ obj_class }}</a></th>
-                                        <th><a href="{% url 'task' pk=obj.pk class=obj_class.pk %}">{{ obj.title }}</a></th>
-                                    {% endwith %}
-                                    <td>{{ obj.description|truncatechars:50 }}</td>
-                                    <td>{{ assignments_graded|index:forloop.counter0 }} /
-                                        {{ assignments_total|index:forloop.counter0 }}</td>
-                                    <td>{{ average_grade|index:forloop.counter0 }}</td>
-                                </tr>
-                            </tbody>
-                        {% endfor %}
-                </table>
+{#            {% elif teacher is not None %}#}
+{#                <table class="table table-bordered table-hover">#}
+{#                    <thead>#}
+{#                        <tr>#}
+{#                            <th scope="col">#</th>#}
+{#                            <th scope="col">Discipline</th>#}
+{#                            <th scope="col">Task</th>#}
+{#                            <th scope="col">Description</th>#}
+{#                            <th scope="col">Assignments (graded/total)</th>#}
+{#                            <th scope="col">Average grade</th>#}
+{#                        </tr>#}
+{#                    </thead>#}
+{#                        {% for obj in tasks %}#}
+{#                            <tbody>#}
+{#                                <tr>#}
+{#                                    <th scope="row">{{ forloop.counter }}</th>#}
+{#                                    {% with obj_class=class|index:forloop.counter0 %}#}
+{#                                        <th><a href="{% url 'discipline' pk=obj.discipline.pk class=obj_class.pk %}">{{ obj.discipline }} {{ obj_class }}</a></th>#}
+{#                                        <th><a href="{% url 'task' pk=obj.pk class=obj_class.pk %}">{{ obj.title }}</a></th>#}
+{#                                    {% endwith %}#}
+{#                                    <td>{{ obj.description|truncatechars:50 }}</td>#}
+{#                                 {% with id=obj.pk %}#}
+{#                                    <td>{{ assignments_graded|index:id }} /#}
+{#                                        {{ assignments_total|index:id }}</td>#}
+{#                                {% endwith %}#}
+{#                                    <td>{{ average_grade|index:forloop.counter0 }}</td>#}
+{#                                </tr>#}
+{#                            </tbody>#}
+{#                        {% endfor %}#}
+{#                </table>#}
             {% else %}
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -83,6 +85,10 @@
             {% endif %}
             <input class="btn btn-primary" type="button"
                    onclick="location.href='javascript:history.back()'" value="Go back" />
+            {% if teacher is not None %}
+                <input class="btn btn-danger float-right" type="button"
+                    onclick="location.href='{% url 'assignment_create' %}'" value="Assign task" />
+             {% endif %}
         </div>
     </main>
 {% endblock %}
