@@ -96,7 +96,7 @@ class DisciplineDetailView(LoginRequiredMixin, DetailView):
         if teacher is not None:
             context = get_teacher_discipline_tasks(class_school, discipline, context)
         else:
-            context['assignments'] = Assignment.objects.filter(student=user, task__discipline=discipline) \
+            context['assignments'] = Assignment.objects.filter(student__pk=user.pk, task__discipline__pk=discipline.pk) \
                 .order_by('grade', 0 ** 0 ** Length('solution'), 'deadline', '-last_submission')
 
         context['discipline'] = discipline
@@ -162,16 +162,17 @@ class AssignmentStudentUpdateView(LoginRequiredMixin, SuccessMessageMixin, Updat
         return reverse('assignment_student_update', kwargs={'pk': self.kwargs['pk']})
 
 
-class AssignmentGradeView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class AssignmentGradeView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
 
     model = Assignment
     form_class = AssignmentGradeForm
     template_name = 'board/assignment_grade_form.html'
-    success_message = "Assignment successfully graded"
 
     def get_success_url(self):
-        return reverse('assignment_grade', kwargs={'pk': self.kwargs['pk']})
+        pk = self.kwargs['pk']
+        assignment = Assignment.objects.get(pk=pk)
+        return reverse('task', kwargs={'pk': assignment.task.pk, 'class': assignment.student.class_school.pk})
 
 
 class AssignmentDeleteView(LoginRequiredMixin, DeleteView):
@@ -224,29 +225,54 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
         return render(request, 'board/task_detail.html', context)
 
 
-class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
 
     model = Task
     form_class = TaskForm
     template_name = "board/task_update_form.html"
-    success_message = "Task successfully updated"
 
     def get_success_url(self):
-        return reverse('task_update', kwargs={'pk': self.kwargs['pk']})
+        return reverse('task_available_list')
 
 
-class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
 
     model = Task
     form_class = TaskForm
     template_name = "board/task_create_form.html"
-    success_message = "Task successfully created"
 
     def form_valid(self, form):
         form.instance.author = Teacher.objects.get(user=self.request.user.pk)
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('task_create')
+        return reverse('task_available_list')
+
+
+class TaskAvailableListView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        teacher = Teacher.objects.all().filter(pk=user.pk).first()
+        context = {'teacher': teacher, 'tasks': None}
+
+        if teacher is None:
+            return render(request, 'board/task_available_list.html', context)
+
+        tasks = Task.objects.all().order_by('discipline')
+        context['tasks'] = tasks
+
+        return render(request, 'board/task_available_list.html', context)
+
+
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = '/login/'
+
+    model = Task
+    template_name = 'board/task_delete_form.html'
+
+    def get_success_url(self):
+        return reverse('task_list')

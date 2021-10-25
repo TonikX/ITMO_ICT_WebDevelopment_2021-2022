@@ -10,9 +10,11 @@ urlpatterns = [
     path('assignment/grade/<int:pk>/', AssignmentGradeView.as_view(), name='assignment_grade'),
     path('assignment/delete/<int:pk>/', AssignmentDeleteView.as_view(), name='assignment_delete'),
     path('task/list', TaskListView.as_view(), name='task_list'),
+    path('task/available/list', TaskAvailableListView.as_view(), name='task_available_list'),
     path('task/create', TaskCreateView.as_view(), name='task_create'),
     path('task/<int:pk>/<int:class>', TaskDetailView.as_view(), name='task'),
     path('task/update/<int:pk>/', TaskUpdateView.as_view(), name='task_update'),
+    path('task/delete/<int:pk>/', TaskDeleteView.as_view(), name='task_delete'),
     path('', include('allauth.urls')),
     path('', HomeView.as_view(), name='home'),
 ]
