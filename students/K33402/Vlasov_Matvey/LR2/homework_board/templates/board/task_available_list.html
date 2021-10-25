@@ -26,19 +26,28 @@
                             <th scope="col">Discipline</th>
                             <th scope="col">Task</th>
                             <th scope="col">Description</th>
-                            <th scope="col">Author</th>
+                            <th scope="col">Author</br>
+                                {% if not mine %}
+                                    <input type="checkbox" id="filter_mine" onclick="location.href='{% url 'task_available_list_mine' %}'"/>
+                                {% else %}
+                                    <input type="checkbox" id="filter_mine" checked onclick="location.href='{% url 'task_available_list' %}'"/>
+                                {% endif %}
+                                <label class="m-0" for="filter_mine">Only me</label>
+                            </th>
                         </tr>
                     </thead>
                         {% for obj in tasks %}
-                            <tbody>
-                                <tr>
-                                    <th scope="row">{{ forloop.counter }}</th>
-                                    <th>{{ obj.discipline }}</th>
-                                    <th><a href="{% url 'task_update' pk=obj.pk %}">{{ obj.title }}</a></th>
-                                    <td>{{ obj.description|truncatechars:50 }}</td>
-                                    <td>{{ obj.author }}</td>
-                                </tr>
-                            </tbody>
+                            {% if not mine or obj.author.pk == teacher.pk %}
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }} {{  scales.size }}</th>
+                                        <th>{{ obj.discipline }}</th>
+                                        <th><a href="{% url 'task_update' pk=obj.pk %}">{{ obj.title }}</a></th>
+                                        <td>{{ obj.description|truncatechars:50 }}</td>
+                                        <td>{{ obj.author }}</td>
+                                    </tr>
+                                </tbody>
+                            {% endif %}
                         {% endfor %}
                 </table>
                 <input class="btn btn-primary" type="button"
@@ -48,4 +57,25 @@
             {% endif %}
         </div>
     </main>
+
+
+{#    <script>#}
+{#        $('#scales').on('change', function() {#}
+{#            location.reload();#}
+{#            console.log("Hey here")#}
+{#        });#}
+{#    </script>#}
+{##}
+{#    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>#}
+{#    <script>#}
+{#$(function(){#}
+{#    var test = localStorage.input === 'true'? true: false;#}
+{#    $('input').prop('checked', test || false);#}
+{#});#}
+{##}
+{#$('input').on('change', function() {#}
+{#    localStorage.input = $(this).is(':checked');#}
+{#    console.log($(this).is(':checked'));#}
+{#});#}
+{#</script>#}
 {% endblock %}

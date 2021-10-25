@@ -264,6 +264,8 @@ class TaskAvailableListView(LoginRequiredMixin, ListView):
 
         tasks = Task.objects.all().order_by('discipline')
         context['tasks'] = tasks
+        context['mine'] = 'mine' in str(request)
+        print(context['mine'])
 
         return render(request, 'board/task_available_list.html', context)
 
