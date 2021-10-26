@@ -11,7 +11,7 @@ class Teacher(models.Model):
 
 
 class Discipline(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
@@ -21,7 +21,7 @@ class Class(models.Model):
     class Meta:
         verbose_name_plural = "classes"
 
-    name = models.CharField(max_length=5)
+    name = models.CharField(max_length=5, unique=True)
     disciplines = models.ManyToManyField(Discipline, through='ClassDiscipline')
 
     def __str__(self):
@@ -29,6 +29,9 @@ class Class(models.Model):
 
 
 class ClassDiscipline(models.Model):
+    class Meta:
+        unique_together = ['class_school', 'discipline']
+
     class_school = models.ForeignKey(Class, on_delete=models.CASCADE)
     discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
