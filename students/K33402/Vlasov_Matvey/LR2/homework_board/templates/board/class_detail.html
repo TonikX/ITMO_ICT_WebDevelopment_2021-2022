@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load index %}
+
+{%  block title %}
+    {{ discipline }} {{ class }} Students
+{% endblock %}
+
+{%  block content %}
+    <main role="main">
+        <div class="container py-3">
+            <div class="d-flex justify-content-center">
+                <h1>{{ discipline }} {{ class }} Students</h1>
+            </div>
+            {% if teacher is None %}
+                <div class="alert alert-danger">
+                    You have no right to view this information.
+                    Ask the admin to give you access
+                    <p class="pt-1 mb-0"><a href="javascript:history.back()">Go Back</a></p>
+                </div>
+            {% else %}
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Discipline</th>
+                            <th scope="col">Student</th>
+                            <th scope="col">Assignments (graded/total)</th>
+                            <th scope="col">Grades</th>
+                            <th scope="col">Average grade</th>
+                        </tr>
+                    </thead>
+                        {% for obj in students %}
+                            <tbody>
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <th><a href="{% url 'discipline' pk=discipline.pk class=class.pk %}">{{ discipline }} {{ class }}</a></th>
+                                    <th>{{ obj.name }}</th>
+                                    <td>{{ obj.assignments_graded }} /
+                                        {{ obj.assignments_total }}</td>
+                                    <td>{{ obj.grades }}</td>
+                                    <td>{{ obj.average_grade }}</td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                </table>
+            {% endif %}
+            <input class="btn btn-primary" type="button"
+                   onclick="location.href='javascript:history.back()'" value="Go back" />
+            <input class="btn btn-danger float-right" type="button"
+                    onclick="location.href='{% url 'assignment_create' %}'" value="Assign task" />
+        </div>
+    </main>
+{% endblock %}z
