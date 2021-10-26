@@ -1,21 +1,15 @@
-import datetime
-
-from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.exceptions import ValidationError
 from django.db.models.functions import Length
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.template import RequestContext
 from django.urls import reverse
 from django.utils import timezone
 
 from django.views.generic import TemplateView, DetailView, ListView, UpdateView, DeleteView, CreateView
 
-from board.forms import AssignmentStudentForm, AssignmentGradeForm, TaskForm
-from board.models import ClassDiscipline, Teacher, Student, Discipline, Assignment, Task, Class
+from board.forms import *
+from board.models import *
 
 
 class HomeView(TemplateView):
@@ -160,7 +154,7 @@ def dictionary_append(dictionary, key, value):
     if key not in dictionary or dictionary[key] is None:
         dictionary[key] = value
     else:
-        if type(value) == list:
+        if type(value) == list or type(value) == int:
             dictionary[key] += value
         else:
             dictionary[key] |= value
@@ -245,11 +239,20 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
     def get(self, request, *args, **kwargs):
         task = Task.objects.get(pk=kwargs['pk'])
         class_school = Class.objects.get(pk=kwargs['class'])
-        teacher = ClassDiscipline.objects.get(class_school=class_school, discipline=task.discipline)
+        teacher = None
+        try:
+            teacher = ClassDiscipline.objects.filter(class_school=class_school.pk, discipline=task.discipline.pk)\
+                .first.teacher
+        except AttributeError:
+            pass
 
-        assignments = Assignment.objects.filter(task__pk=task.pk, student__class_school=class_school) \
-            .order_by('student__user__last_name', 'student__user__first_name')
-        context = {'task': task, 'class': class_school, 'teacher': teacher, 'assignments': assignments}
+        context = {'task': task, 'class': class_school, 'teacher': teacher}
+
+        if teacher is not None:
+            assignments = Assignment.objects.filter(task__pk=task.pk, student__class_school=class_school) \
+                .order_by('student__user__last_name', 'student__user__first_name')
+            context['assignments'] = assignments
+
         return render(request, 'board/task_detail.html', context)
 
 
@@ -292,8 +295,11 @@ class TaskAvailableListView(LoginRequiredMixin, ListView):
 
         tasks = Task.objects.all().order_by('discipline__name')
         context['tasks'] = tasks
-        context['mine'] = 'mine' in str(request)
-        print(context['mine'])
+        class_disciplines = ClassDiscipline.objects.filter(teacher=teacher.pk)
+        disciplines = set(map(lambda x: x.discipline.pk, class_disciplines))
+        context['disciplines'] = disciplines
+        request_filters = str(request).split('/')[-2]
+        context['filter_by'] = request_filters
 
         return render(request, 'board/task_available_list.html', context)
 
@@ -312,7 +318,7 @@ class AssignmentCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
 
     model = Assignment
-    fields = ["task", "deadline", "student"]
+    form_class = AssignmentCreateForm
     template_name = "board/assignment_create_form.html"
 
     def form_valid(self, form):
@@ -337,3 +343,48 @@ class AssignmentCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('task_list')
+
+
+class ClassDetailView(LoginRequiredMixin, DetailView):
+    login_url = '/login/'
+
+    def get(self, request, *args, **kwargs):
+        class_school = Class.objects.get(pk=kwargs['pk'])
+        discipline = Discipline.objects.get(pk=kwargs['discipline'])
+        teacher = None
+        try:
+            teacher = ClassDiscipline.objects.filter(class_school=class_school.pk, discipline=discipline.pk)\
+                .first().teacher
+        except AttributeError:
+            pass
+
+        context = {'class': class_school, 'discipline': discipline, 'teacher': teacher}
+
+        if teacher is not None:
+            assignments = Assignment.objects.values('student__pk', 'student__user__last_name',
+                                                    'student__user__first_name', 'grade')\
+                .order_by('student__user__last_name', 'student__user__first_name')
+            students = {}
+            for obj in assignments:
+                student_id = obj['student__pk']
+                if student_id not in students.keys():
+                    students[student_id] = \
+                        {'name': f"{obj['student__user__last_name']} {obj['student__user__first_name']}",
+                         'grades': [obj['grade']], 'assignments_total': 0, 'assignments_graded': 0, 'average_grade': None }
+                else:
+                    students[student_id]['grades'].append(obj['grade'])
+            print(students)
+            for key in students.keys():
+                grades = list(filter(lambda x: x is not None, students[key]['grades']))
+                students[key]['assignments_total'] = len(students[key]['grades'])
+                students[key]['assignments_graded'] = len(grades)
+                students[key]['grades'] = ', '.join(str(g) for g in grades)
+
+                if len(grades) == 0:
+                    continue
+                avg_grade = sum(grades) / len(grades)
+                avg_grade = float("{:.2f}".format(avg_grade))
+                students[key]['average_grade'] = avg_grade
+
+            context['students'] = students.values()
+        return render(request, 'board/class_detail.html', context)
