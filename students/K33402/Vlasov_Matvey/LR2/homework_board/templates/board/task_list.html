@@ -12,42 +12,12 @@
             <div class="d-flex justify-content-center">
                 <h1>My tasks</h1>
             </div>
-            {% if tasks is None %}
+            {% if student is None %}
                 <div class="alert alert-danger">
                     You have no right to view this information.
                     Ask the admin to give you access
                     <p class="pt-1 mb-0"><a href="javascript:history.back()">Go Back</a></p>
                 </div>
-{#            {% elif teacher is not None %}#}
-{#                <table class="table table-bordered table-hover">#}
-{#                    <thead>#}
-{#                        <tr>#}
-{#                            <th scope="col">#</th>#}
-{#                            <th scope="col">Discipline</th>#}
-{#                            <th scope="col">Task</th>#}
-{#                            <th scope="col">Description</th>#}
-{#                            <th scope="col">Assignments (graded/total)</th>#}
-{#                            <th scope="col">Average grade</th>#}
-{#                        </tr>#}
-{#                    </thead>#}
-{#                        {% for obj in tasks %}#}
-{#                            <tbody>#}
-{#                                <tr>#}
-{#                                    <th scope="row">{{ forloop.counter }}</th>#}
-{#                                    {% with obj_class=class|index:forloop.counter0 %}#}
-{#                                        <th><a href="{% url 'discipline' pk=obj.discipline.pk class=obj_class.pk %}">{{ obj.discipline }} {{ obj_class }}</a></th>#}
-{#                                        <th><a href="{% url 'task' pk=obj.pk class=obj_class.pk %}">{{ obj.title }}</a></th>#}
-{#                                    {% endwith %}#}
-{#                                    <td>{{ obj.description|truncatechars:50 }}</td>#}
-{#                                 {% with id=obj.pk %}#}
-{#                                    <td>{{ assignments_graded|index:id }} /#}
-{#                                        {{ assignments_total|index:id }}</td>#}
-{#                                {% endwith %}#}
-{#                                    <td>{{ average_grade|index:forloop.counter0 }}</td>#}
-{#                                </tr>#}
-{#                            </tbody>#}
-{#                        {% endfor %}#}
-{#                </table>#}
             {% else %}
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -65,7 +35,7 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
-                                    <th><a href="{% url 'discipline' pk=obj.task.discipline.pk class=obj.student.class_school.pk %}">
+                                    <th><a href="{% url 'discipline_student' pk=obj.task.discipline.pk class=obj.student.class_school.pk %}">
                                         {{ obj.task.discipline }}</a></th>
                                     <th><a href="{% url 'assignment_student_update' pk=obj.pk %}">{{ obj.task.title }}</a></th>
                                     <td>{{ obj.task.description|truncatechars:50 }}</td>

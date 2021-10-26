@@ -36,7 +36,7 @@
                                 <th>{{ obj.discipline }}</th>
                                 <th><a href="{% url 'class_students' pk=obj.class_school.pk discipline=obj.discipline.pk %}">
                                     {{ obj.class_school }}</a></th>
-                                <td><a href="{% url 'discipline' pk=obj.discipline.pk class=obj.class_school.pk %}">
+                                <td><a href="{% url 'discipline_teacher' pk=obj.discipline.pk class=obj.class_school.pk %}">
                                     {{ tasks_total|index:forloop.counter0 }}</a></td>
                                 <td>{{ assignments_graded|index:forloop.counter0 }} / {{ assignments_total|index:forloop.counter0 }}</td>
                                 <td>{{ average_grade|index:forloop.counter0 }}</td>
@@ -59,7 +59,7 @@
                         <tbody>
                             <tr>
                                 <th scope="row">{{ forloop.counter }}</th>
-                                <th><a href="{% url 'discipline' pk=obj.discipline.pk class=obj.class_school.pk %}">{{ obj.discipline }}</a></th>
+                                <th><a href="{% url 'discipline_student' pk=obj.discipline.pk class=obj.class_school.pk %}">{{ obj.discipline }}</a></th>
                                 <td>{{ obj.teacher }}</td>
                                 <td>{{ assignments_graded|index:forloop.counter0 }} / {{ assignments_total|index:forloop.counter0 }}</td>
                                 <td>{{ average_grade|index:forloop.counter0 }}</td>

@@ -22,7 +22,7 @@
                     <form method="post">
                             {% csrf_token %}
                             <div class="info-text">
-                                 <p>Discipline: <a href="{% url 'discipline' pk=object.task.discipline.pk class=object.student.class_school.pk %}">
+                                 <p>Discipline: <a href="{% url 'discipline_student' pk=object.task.discipline.pk class=object.student.class_school.pk %}">
                                      {{ object.task.discipline }}</a></p>
                                  <p>Title: {{ object.task.title }}</p>
                                  <p>Assigned: {{ object.assigned }}</p>
