@@ -21,12 +21,15 @@ class AssignmentCreateForm(forms.ModelForm):
         user = kwargs.pop('user')
         class_school = kwargs.pop('class')
         student = kwargs.pop('student')
+        task = kwargs.pop('task')
         super().__init__(*args, **kwargs)
 
         self.fields["student"].queryset = Student.objects.all().order_by(
             'class_school__name', 'user__last_name', 'user__first_name')
         if student is not None:
             self.fields["student"].initial = student
+        if task is not None:
+            self.fields["task"].initial = task
 
         try:
             teacher = Teacher.objects.all().filter(user__pk=user.pk).first()

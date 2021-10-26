@@ -315,6 +315,7 @@ class AssignmentCreateView(LoginRequiredMixin, CreateView):
         kwargs['user'] = self.request.user
         kwargs['class'] = self.kwargs.get('class', None)
         kwargs['student'] = self.kwargs.get('student', None)
+        kwargs['task'] = self.kwargs.get('task', None)
         return kwargs
 
     def form_valid(self, form):

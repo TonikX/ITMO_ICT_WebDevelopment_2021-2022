@@ -25,13 +25,6 @@
                             <th scope="col">#</th>
                             <th scope="col">Discipline</br>
                                 {% if 'discipline_me' not in filter_by %}
-{#                                    <input type="checkbox" id="filter_discipline_me" onclick="#}
-{#                                        {% if author_me %}#}
-{#                                            location.href='{% url 'task_available_list_filter' filter='author_me_discipline_me' %}'#}
-{#                                        {% else %}#}
-{#                                            location.href='{% url 'task_available_list_filter' filter='discipline_me' %}'#}
-{#                                        {% endif %}#}
-{#                                        "/>#}
                                     <input type="checkbox" id="filter_discipline_me" onclick="location.href='{% url 'task_available_list_filter' filter=filter_by|add:'discipline_me' %}'"/>
                                 {% else %}
                                     <input type="checkbox" id="filter_discipline_me" checked onclick="location.href='{% url 'task_available_list_filter' filter=filter_by|cut:'discipline_me' %}'"/>
@@ -48,6 +41,7 @@
                                 {% endif %}
                                 <label class="m-0" for="filter_author_me">Only me</label>
                             </th>
+                            <th scope="col" class="d-flex justify-content-center"></br>Assign task</th>
                         </tr>
                     </thead>
                         {% for obj in tasks %}
@@ -60,6 +54,14 @@
                                             <th><a href="{% url 'task_update' pk=obj.pk %}">{{ obj.title }}</a></th>
                                             <td>{{ obj.description|truncatechars:50 }}</td>
                                             <td>{{ obj.author }}</td>
+                                            <td>
+                                                 {% if obj.discipline.pk in disciplines %}
+                                                    <div class="d-flex justify-content-center">
+                                                        <input class="btn btn-danger" type="button"
+                                                        onclick="location.href='{% url 'assignment_task_create' task=obj.pk %}'" value="Assign task" />
+                                                    </div>
+                                                 {% endif %}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 {% endif %}
