@@ -363,7 +363,9 @@ class ClassDetailView(LoginRequiredMixin, DetailView):
         if teacher is not None:
             assignments = Assignment.objects.values('student__pk', 'student__user__last_name',
                                                     'student__user__first_name', 'grade')\
+                .filter(student__class_school__pk=class_school.pk, task__discipline__pk=discipline.pk)\
                 .order_by('student__user__last_name', 'student__user__first_name')
+
             students = {}
             for obj in assignments:
                 student_id = obj['student__pk']
