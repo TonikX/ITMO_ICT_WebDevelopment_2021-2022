@@ -27,10 +27,10 @@
                                  <p>Title: {{ object.task.title }}</p>
                                  <p>Assigned: {{ object.assigned }}</p>
                                  <p>Deadline: {{ object.deadline }}</p>
-                                 {% if object.assigned|date:"YmdHis" == object.last_submission|date:"YmdHis" %}
-                                    <p>Last submission: None</p>
+                                 {% if object.assigned|date:"YmdHis" == object.last_changed|date:"YmdHis" %}
+                                    <p>Last changed: None</p>
                                  {% else %}
-                                     <p>Last submission: {{ object.last_submission }}</p>
+                                     <p>Last changed: {{ object.last_changed }}</p>
                                  {% endif %}
                                  <p>Grade: {{ object.grade }}</p>
                                 {% if object.grade_comment|length > 0 %}

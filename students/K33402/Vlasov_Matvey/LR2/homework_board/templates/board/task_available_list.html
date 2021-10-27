@@ -41,7 +41,7 @@
                                 {% endif %}
                                 <label class="m-0" for="filter_author_me">Only me</label>
                             </th>
-                            <th scope="col" class="d-flex justify-content-center"></br>Assign task</th>
+                            <th scope="col" class="d-flex justify-content-center"></br>Assign</th>
                         </tr>
                     </thead>
                         {% for obj in tasks %}
@@ -58,7 +58,7 @@
                                                  {% if obj.discipline.pk in disciplines %}
                                                     <div class="d-flex justify-content-center">
                                                         <input class="btn btn-danger" type="button"
-                                                        onclick="location.href='{% url 'assignment_task_create' task=obj.pk %}'" value="Assign task" />
+                                                        onclick="location.href='{% url 'assignment_task_create' task=obj.pk %}'" value="Assign" />
                                                     </div>
                                                  {% endif %}
                                             </td>

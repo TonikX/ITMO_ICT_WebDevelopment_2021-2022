@@ -16,6 +16,15 @@ class RegistrationForm(UserCreationForm):
         fields = ["username", "first_name", "last_name", "password1", "password2"]
 
 
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ["discipline", "title", "description"]
+        widgets = {
+            'description': forms.Textarea(attrs={'maxlength': 500, 'required': 'true'}),
+        }
+
+
 class AssignmentCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
@@ -36,7 +45,7 @@ class AssignmentCreateForm(forms.ModelForm):
         except AttributeError:
             return
 
-        class_disciplines = ClassDiscipline.objects.filter(teacher=teacher.pk)
+        class_disciplines = ClassDiscipline.objects.filter(teacher__pk=teacher.pk)
         disciplines = set(map(lambda x: x.discipline.pk, class_disciplines))
         classes = set(map(lambda x: x.class_school.pk, class_disciplines))
 
@@ -49,8 +58,8 @@ class AssignmentCreateForm(forms.ModelForm):
                 choices += ((elem, class_choices[i]), )
 
             self.fields["class_school"] = forms.ChoiceField(choices=choices, initial=class_school)
-            self.fields["student"].required = False
             self.fields["student"].widget = forms.HiddenInput()
+            self.fields["student"].required = False
 
     class Meta:
         model = Assignment
@@ -67,22 +76,9 @@ class AssignmentStudentForm(forms.ModelForm):
 
 
 class AssignmentGradeForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['grade'].widget.attrs.update(required='required')
-
     class Meta:
         model = Assignment
         fields = ["grade", "grade_comment"]
         widgets = {
             'grade_comment': forms.Textarea(attrs={'maxlength': 500, 'cols': 38}),
-        }
-
-
-class TaskForm(forms.ModelForm):
-    class Meta:
-        model = Task
-        fields = ["discipline", "title", "description"]
-        widgets = {
-            'description': forms.Textarea(attrs={'maxlength': 500, 'required': 'true'}),
         }

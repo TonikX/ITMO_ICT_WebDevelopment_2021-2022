@@ -40,9 +40,11 @@
                                     <th><a href="{% url 'assignment_student_update' pk=obj.pk %}">{{ obj.task.title }}</a></th>
                                     <td>{{ obj.task.description|truncatechars:50 }}</td>
                                     <td>{{ obj.deadline }}</td>
-                                    {% if obj.grade is not None  %}
+                                    {% if obj.grade is not None %}
                                         <td>graded</td>
-                                    {% elif obj.assigned|date:"YmdHis" != obj.last_submission|date:"YmdHis"  %}
+                                    {% elif obj.grade_comment|length > 0 %}
+                                        <td>commented</td>
+                                    {% elif obj.solution|length > 0 %}
                                         <td>submitted</td>
                                     {% else %}
                                         <td>not done</td>

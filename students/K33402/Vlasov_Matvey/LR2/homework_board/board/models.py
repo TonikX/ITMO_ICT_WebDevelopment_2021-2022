@@ -83,7 +83,7 @@ class Assignment(models.Model):
     deadline = models.DateTimeField()
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     solution = models.CharField(max_length=500, blank=True)
-    last_submission = models.DateTimeField(auto_now=True)
+    last_changed = models.DateTimeField(auto_now=True)
     grade = models.IntegerField(choices=Grade.choices, null=True, blank=True)
     grade_comment = models.CharField(max_length=500, blank=True)
 
