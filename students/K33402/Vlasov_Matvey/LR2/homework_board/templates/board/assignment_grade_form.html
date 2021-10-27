@@ -33,6 +33,7 @@
                                  {% else %}
                                      <p>Last changed: {{ object.last_changed }}</p>
                                  {% endif %}
+                                 <p>Student: {{ object.student.user.last_name }} {{ object.student.user.first_name }}</p>
                                  <p>Solution: {{ object.solution }}</p>
 
                                 {% for field in form.visible_fields %}

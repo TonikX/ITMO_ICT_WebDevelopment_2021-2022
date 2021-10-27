@@ -33,11 +33,12 @@
                                  {% else %}
                                      <p>Last changed: {{ object.last_changed }}</p>
                                  {% endif %}
+                                 <p>Student: {{ object.student.user.last_name }} {{ object.student.user.first_name }}</p>
                                  <p>Solution: {{ object.solution }}</p>
                                  <p>Grade: {{ object.grade }}</p>
-                                {% if object.grade_comment|length > 0 %}
+                                 {% if object.grade_comment|length > 0 %}
                                      <p>Grade comment: {{ object.grade_comment }}</p>
-                                {% endif %}
+                                 {% endif %}
                                  <div class="alert alert-danger mb-0">
                                     Do you really want to delete this assignment?
                                  </div>

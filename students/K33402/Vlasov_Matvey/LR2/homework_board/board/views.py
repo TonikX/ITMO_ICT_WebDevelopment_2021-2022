@@ -77,7 +77,7 @@ class DisciplineListView(LoginRequiredMixin, ListView):
 
         if teacher is not None:
             class_disciplines = ClassDiscipline.objects.filter(teacher=teacher) \
-                .order_by('discipline__name', 'class_school__name')
+                .order_by('discipline__name', Length('class_school__name'), 'class_school__name')
             for obj in class_disciplines.all():
                 task_list = get_task_list(obj.class_school.pk, obj.discipline.pk)
                 tasks_total.append(len(set(task_list)))
@@ -181,7 +181,7 @@ class TaskAvailableListView(LoginRequiredMixin, ListView):
         return render(request, 'board/task_available_list.html', context)
 
 
-class TaskListView(LoginRequiredMixin, ListView):
+class AssignmentListView(LoginRequiredMixin, ListView):
     login_url = '/login/'
 
     def get(self, request, *args, **kwargs):
@@ -190,13 +190,13 @@ class TaskListView(LoginRequiredMixin, ListView):
         context = {'student': student, 'tasks': None}
 
         if student is None:
-            return render(request, 'board/task_list.html', context)
+            return render(request, 'board/assignment_list.html', context)
         else:
             # order by grade_comment/solution length to check whether task commented/submitted
             context['tasks'] = Assignment.objects.filter(student__pk=self.request.user.pk) \
                 .order_by('grade', 0 ** 0 ** Length('grade_comment'), 0 ** 0 ** Length('solution'), 'deadline', '-last_changed')
 
-        return render(request, 'board/task_list.html', context)
+        return render(request, 'board/assignment_list.html', context)
 
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
@@ -377,13 +377,13 @@ class ClassDetailView(LoginRequiredMixin, DetailView):
                 'user__last_name', 'user__first_name')
             all_students_ids = list(map(lambda x: x.pk, all_students))
             students = {}
+
             last_student = -1
-            i = -1
+            i = 0
             for obj in assignments:
                 student_id = obj['student__pk']
 
                 if last_student != student_id:
-                    i += 1
                     # this loop is necessary to add students without assignments
                     while student_id != all_students_ids[i]:
                         student = all_students.filter(pk=all_students_ids[i]).first()
@@ -392,16 +392,24 @@ class ClassDetailView(LoginRequiredMixin, DetailView):
                              'grades': [], 'assignments_total': 0, 'assignments_graded': 0,
                              'average_grade': None}
                         i += 1
+                    i += 1
 
                 last_student = student_id
 
                 if student_id not in students.keys():
                     students[student_id] = \
                         {'name': f"{obj['student__user__last_name']} {obj['student__user__first_name']}",
-                         'grades': [obj['grade']], 'assignments_total': 0, 'assignments_graded': 0,
+                         'grades': list([obj['grade']]), 'assignments_total': 0, 'assignments_graded': 0,
                          'average_grade': None}
                 else:
                     students[student_id]['grades'].append(obj['grade'])
+
+            for student in all_students[i:]:
+                students[all_students_ids[i]] = \
+                    {'name': f"{student.user.first_name} {student.user.last_name}",
+                     'grades': [], 'assignments_total': 0, 'assignments_graded': 0,
+                     'average_grade': None}
+                i += 1
 
             for key in students.keys():
                 grades = list(filter(lambda x: x is not None, students[key]['grades']))

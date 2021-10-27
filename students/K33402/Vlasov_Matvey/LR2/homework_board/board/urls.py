@@ -10,7 +10,6 @@ urlpatterns = [
     path('discipline/<int:pk>/<int:class>/<int:student>', DisciplineDetailView.as_view(), name='discipline_teacher_student'),
     path('discipline/teacher/<int:pk>/<int:class>/', DisciplineDetailView.as_view(), name='discipline_teacher'),
 
-    path('task/list/', TaskListView.as_view(), name='task_list'),
     path('task/available/list/', TaskAvailableListView.as_view(), name='task_available_list'),
     path('task/available/list/<str:filter>/', TaskAvailableListView.as_view(), name='task_available_list_filter'),
     path('task/<int:pk>/<int:class>/', TaskDetailView.as_view(), name='task'),
@@ -18,6 +17,8 @@ urlpatterns = [
     path('task/update/<int:pk>/', TaskUpdateView.as_view(), name='task_update'),
     path('task/delete/<int:pk>/', TaskDeleteView.as_view(), name='task_delete'),
 
+
+    path('assignment/list/', AssignmentListView.as_view(), name='task_list'),
     path('assignment/<int:pk>/', AssignmentStudentUpdateView.as_view(), name='assignment_student_update'),
     path('assignment/create/', AssignmentCreateView.as_view(), name='assignment_create'),
     path('assignment/create/<int:student>', AssignmentCreateView.as_view(), name='assignment_student_create'),

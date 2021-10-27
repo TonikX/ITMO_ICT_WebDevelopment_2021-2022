@@ -3,9 +3,11 @@
 
 {%  block title %}
     {% if student is not None %}
-        My {{ discipline }} Tasks
+        My {{ discipline }} Assignments
+    {% elif student_argument is not None %}
+        {{ student_argument.user.last_name }} {{ student_argument.user.first_name }} {{ discipline }} Assignments
     {% else %}
-        {{ student_argument.user.last_name }} {{ student_argument.user.first_name }} {{ disicpline }} Tasks
+        {{ discipline }} {{ class }} Tasks
     {% endif %}
 {% endblock %}
 
@@ -15,9 +17,12 @@
             <div class="d-flex justify-content-center">
                 <h1>
                     {% if student is not None %}
-                        My {{ discipline }} Tasks
+                        My {{ discipline }} Assignments
+                    {% elif student_argument is not None %}
+                        {{ student_argument.user.last_name }} {{ student_argument.user.first_name }}
+                        {{ discipline }} Assignments
                     {% else %}
-                        {{ student_argument.user.last_name }} {{ student_argument.user.first_name }} {{ disicpline }} Tasks
+                        {{ discipline }} {{ class }} Tasks
                     {% endif %}
                 </h1>
             </div>
@@ -59,7 +64,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Discipline</th>
-                            <th scope="col">Task</th>
+                            <th scope="col">Assignment</th>
                             <th scope="col">Description</th>
                             <th scope="col">Deadline</th>
                             <th scope="col">Status</th>
@@ -74,7 +79,7 @@
                                         {% if student is not None %}
                                             {% url 'discipline_student' pk=discipline.pk class=class.pk %}
                                         {% else %}
-                                             {% url 'discipline_teacher_student' pk=discipline.pk class=class.pk student=obj.student.pk %}
+                                             {% url 'discipline_teacher' pk=discipline.pk class=class.pk %}
                                         {% endif %}
                                     ">{{ discipline }}</a></th>
                                     <th><a href="

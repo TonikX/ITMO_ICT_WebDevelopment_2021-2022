@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.db.models.functions import Length
 
 from board.models import Assignment, Task, Teacher, ClassDiscipline, Class, Student
 
@@ -34,7 +35,7 @@ class AssignmentCreateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields["student"].queryset = Student.objects.all().order_by(
-            'class_school__name', 'user__last_name', 'user__first_name')
+            Length('class_school__name'), 'class_school__name', 'user__last_name', 'user__first_name')
         if student is not None:
             self.fields["student"].initial = student
         if task is not None:
