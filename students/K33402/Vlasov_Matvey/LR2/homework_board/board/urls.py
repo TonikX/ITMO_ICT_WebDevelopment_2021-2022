@@ -18,7 +18,7 @@ urlpatterns = [
     path('task/delete/<int:pk>/', TaskDeleteView.as_view(), name='task_delete'),
 
 
-    path('assignment/list/', AssignmentListView.as_view(), name='task_list'),
+    path('assignment/list/', AssignmentListView.as_view(), name='assignment_list'),
     path('assignment/<int:pk>/', AssignmentStudentUpdateView.as_view(), name='assignment_student_update'),
     path('assignment/create/', AssignmentCreateView.as_view(), name='assignment_create'),
     path('assignment/create/<int:student>', AssignmentCreateView.as_view(), name='assignment_student_create'),

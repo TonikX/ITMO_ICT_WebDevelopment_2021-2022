@@ -21,7 +21,7 @@
                     <p><a href="{% url 'profile' %}">My profile</a></p>
                     <p><a href="{% url 'discipline_list' %}">My disciplines</a></p>
                     {% if student is not None %}
-                        <p><a href="{% url 'task_list' %}">My tasks</a></p>
+                        <p><a href="{% url 'assignment_list' %}">My assignments</a></p>
                     {% endif %}
                     {% if teacher is not None %}
                         <p><a href="{% url 'task_available_list' %}">Available tasks</a></p>
