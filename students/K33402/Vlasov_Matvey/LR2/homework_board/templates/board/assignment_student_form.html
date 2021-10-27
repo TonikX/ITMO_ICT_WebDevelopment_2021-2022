@@ -33,7 +33,9 @@
                                      <p>Last submission: {{ object.last_submission }}</p>
                                  {% endif %}
                                  <p>Grade: {{ object.grade }}</p>
-
+                                {% if object.grade_comment|length > 0 %}
+                                     <p>Grade comment: {{ object.grade_comment }}</p>
+                                {% endif %}
                                 <fieldset {% if object.grade is not None %}disabled="disabled"{% endif %} class="m-0">
                                     {% for field in form.visible_fields %}
                                         <div class="mb-1">

@@ -40,7 +40,7 @@ class AssignmentCreateForm(forms.ModelForm):
         disciplines = set(map(lambda x: x.discipline.pk, class_disciplines))
         classes = set(map(lambda x: x.class_school.pk, class_disciplines))
 
-        self.fields["task"].queryset = Task.objects.filter(discipline__pk__in=disciplines)
+        self.fields["task"].queryset = Task.objects.filter(discipline__pk__in=disciplines).order_by('discipline__name')
 
         if class_school is not None:
             class_choices = Class.objects.filter(pk__in=classes)
@@ -73,7 +73,10 @@ class AssignmentGradeForm(forms.ModelForm):
 
     class Meta:
         model = Assignment
-        fields = ["grade"]
+        fields = ["grade", "grade_comment"]
+        widgets = {
+            'grade_comment': forms.Textarea(attrs={'maxlength': 500, 'cols': 38}),
+        }
 
 
 class TaskForm(forms.ModelForm):

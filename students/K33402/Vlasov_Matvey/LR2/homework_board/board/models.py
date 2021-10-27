@@ -85,6 +85,7 @@ class Assignment(models.Model):
     solution = models.CharField(max_length=500, blank=True)
     last_submission = models.DateTimeField(auto_now=True)
     grade = models.IntegerField(choices=Grade.choices, null=True, blank=True)
+    grade_comment = models.CharField(max_length=500, blank=True)
 
     def __str__(self):
         return f"""{self.task.discipline}: {self.task.title} |
