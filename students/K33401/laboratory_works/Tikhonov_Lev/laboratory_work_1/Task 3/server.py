@@ -10,8 +10,8 @@ MAX_HEADERS = 100
 
 class MyHTTPServer:
     def __init__(self, host, port, server_name):
-        self._host = host
-        self._port = port
+        self._host = "127.0.0.1"
+        self._port = 9000
         self._server_name = server_name
         self._lessons = {}
 
@@ -203,7 +203,7 @@ class HTTPError(Exception):
 
 if __name__ == '__main__':
     host = "127.0.0.1"
-    port = 14900
+    port = 15983
     name = "server.local"
     serv = MyHTTPServer(host, port, name)
     try:
