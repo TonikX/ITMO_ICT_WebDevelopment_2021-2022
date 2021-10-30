@@ -34,3 +34,29 @@ class OwnerDeleteView(DeleteView):
     model = CarOwner
     template_name = 'owner_list.html'
     success_url = '/owner_list/list/'
+
+
+class CarListView(ListView):
+    model = Car
+    template_name = 'cars.html'
+    queryset = model.objects.all()
+
+
+class CarCreateView(CreateView):
+    model = Car
+    template_name = 'car_form.html'
+    fields = ['number', 'mark', 'model', 'color']
+    success_url = '/cars/'
+
+
+class CarUpdateView(UpdateView):
+    model = Car
+    template_name = 'car_form.html'
+    fields = ['number', 'mark', 'model', 'color']
+    success_url = '/cars/'
+
+
+class CarRetrieveView(DetailView):
+    model = Car
+    template_name = 'car_detail.html'
+
