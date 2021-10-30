@@ -1,6 +1,10 @@
 from django.urls import path
-from . import views
+from .views import *
 
 urlpatterns = [
-    path('owner/<int:CarOwner_id>/', views.owner)
+    path('owner_list/<int:pk>/', OwnerRetrieveView.as_view()),
+    path('owner_list/list/', OwnerListView.as_view()),
+    path('owner_list/<int:pk>/update/', OwnerUpdateView.as_view()),
+    path('owner_form/create/', OwnerCreateView.as_view()),
+    path('owner_list/<int:pk>/delete/', OwnerDeleteView.as_view()),
 ]

@@ -1,13 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.views.generic.list import ListView
+from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .models import *
 
-from django.http import Http404
-from django.shortcuts import render
-from simple_django_web_project.djangoApp.models import CarOwner
+
+class OwnerRetrieveView(DetailView):
+    model = CarOwner
 
 
-def owner(request, CarOwner_id):
-    try:
-        p = CarOwner.objects.get(pk=CarOwner_id)
-    except CarOwner.DoesNotExist:
-        raise Http404("CarOwner does not exist")
-    return render(request, 'owner.html', {'owner': p})
+class OwnerListView(ListView):
+    model = CarOwner
+    template_name = 'owner_list.html'
+    queryset = model.objects.all()
+
+
+class OwnerUpdateView(UpdateView):
+    model = CarOwner
+    template_name = 'owner_list.html'
+    fields = ['first_name', 'last_name', 'birth_date']
+    success_url = '/owner_list/list/'
+
+
+class OwnerCreateView(CreateView):
+    model = CarOwner
+    template_name = 'owner_form.html'
+    fields = ['first_name', 'last_name', 'birth_date']
+    success_url = '/owner_list/list/'
+
+
+class OwnerDeleteView(DeleteView):
+    model = CarOwner
+    template_name = 'owner_list.html'
+    success_url = '/owner_list/list/'
