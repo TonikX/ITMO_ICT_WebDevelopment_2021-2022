@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Owners</title>
+</head>
+<body>
+        <div class="main">
+            {% for owner in owners %}
+                <li>Last name: {{ owner.last_name }}</li>
+                <li>First name: {{ owner.first_name }}</li>
+                <li>Birthday: {{ owner.birthday }}</li>
+                <hr/>
+            {% endfor %}
+        </div>
+</body>
+</html>
