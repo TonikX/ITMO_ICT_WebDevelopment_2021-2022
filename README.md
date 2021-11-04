@@ -152,7 +152,7 @@
 
 ## Лабораторная часть
 
-Срок сдачи **04.12.2021**
+Срок сдачи **03.12.2021**
 
 Реализация серверной части приложения средствами django и djangorestframework в соответствии с заданием из [текста работы](
 https://drive.google.com/file/d/1QxQo5jln6soFUj6EmOVEo1yauCo375PP/view?usp=sharing).<br>
