@@ -100,7 +100,7 @@ class MyHTTPServer:
 
 if __name__ == '__main__':
     host = 'localhost'
-    port = 9090
+    port = 9091
     name = 'example'
     serv = MyHTTPServer(host, port, name)
     Discipline = []
