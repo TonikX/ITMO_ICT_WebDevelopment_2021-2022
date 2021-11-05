@@ -1,21 +1,44 @@
 import socket
-import pickle
+from threading import Thread
 
-sock = socket.socket()
-sock.bind(('', 9090))
-sock.listen(1)
-conn, addr = sock.accept()
+server = socket.socket(
+    socket.AF_INET,
+    socket.SOCK_STREAM
+)
+server.bind(('127.0.0.1', 9090))
+server.listen(10)
 
-while True:
-    data = conn.recv(4096)
-    data_variable = pickle.loads(data)
-    if not data:
-        break
-    print('a = ', data_variable['a'])
-    print('b = ', data_variable['b'])
-    print('h = ', data_variable['h'])
-    summ = str(int(data_variable['h'])*(int(data_variable['a'])+int(data_variable['b']))/2)
+users = []
 
-    conn.send(summ.encode())
+# отправляем новое сообщение всем юзерам
+def send_all(mes):
+    for user in users:
+        user.send(mes)
 
-conn.close()
+# случшаем юзеров
+def user_listen(user):
+    print(users)
+    print('user listen')
+    while True:
+        data = user.recv(2048)  # не раскодируем байты, так как их будем дальше отправлять
+        if not data:
+            # Клиент отключился
+            break
+        send_all(data)
+
+
+# запусск сервера и добавление юзеров
+def start_server():
+    while True:
+        user_sock, addr = server.accept()  # блокирующий поток
+        print(f'User<{addr[0]}> con')
+
+        users.append(user_sock)
+        user_thread = Thread(target=user_listen,
+                             args=[user_sock])  # запятая - показывает питону, что список неизменяемый
+        user_thread.start()  # запуск потока
+
+
+
+if __name__ == '__main__':
+    start_server()

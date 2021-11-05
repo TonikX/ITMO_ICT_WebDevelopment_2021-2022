@@ -1,23 +1,25 @@
 import socket
-import pickle
+from threading import Thread
 
-sock = socket.socket()
-sock.connect(('localhost', 9090))
+client = socket.socket(
+    socket.AF_INET,
+    socket.SOCK_STREAM
+)
+client.connect(('127.0.0.1', 9090))
 
-print('Поиск площади трапеции.')
-obj = {
-    'a': input('Введите первое оснвоание a: '),
-    'b': input('Введите второе оснвоание b: '),
-    'h': input('Введите расстояние между основаниями - высоту h: ')
-}
-data = pickle.dumps(obj)
-if data:
-    sock.send(data)
+def listen():
+    while True:
+        data = client.recv(2048)
+        print(data.decode('utf-8'))
 
-data = sock.recv(4096)
-sock.close()
-udata = data.decode("utf-8")
-print(udata)
+def send():
+    lis_thread = Thread(target=listen) #слушаем в потоке
+    lis_thread.start()
+    while True:
+        client.send((nick + ': ' + input()).encode('utf-8'))
 
+if __name__== '__main__':
+    nick = input('Введите ник: ')
+    send()
 
 
