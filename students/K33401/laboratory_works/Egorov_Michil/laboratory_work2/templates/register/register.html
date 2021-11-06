@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Войти</title>
+
+  <link rel="stylesheet" href="{% static 'stylesheets/bootstrap.min.css' %}">
+
+  <style>
+    .form-signin {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: auto;
+    }
+
+    body {
+      align-items: center;
+      padding-bottom: 40px;
+      background-color: #f5f5f5;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">StudyDo</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Главная</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="mb-3">Регистрация</h4>
+        <p>Уже зарегистрированы? <a href="{% url 'login' %}">Войти</a></p>
+        {% if error_text %}
+          <div class="alert alert-warning" role="alert">
+            {{error_text}}
+          </div>
+        {% endif %}
+        <form class="needs-validation" action="." method="POST">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="firstName">Фамилия</label>
+              <input type="text" class="form-control" name="last_name" id="firstName" placeholder="Фамилия" value="" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="lastName">Имя</label>
+              <input type="text" class="form-control" name="first_name" id="lastName" placeholder="Имя" value="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="lastName">Отчество</label>
+              <input type="text" class="form-control" name="father_name" id="lastName" placeholder="Отчество" value="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="username">Логин</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="username" id="username" placeholder="Логин" required>
+              <div class="invalid-feedback" style="width: 100%;">
+                Your username is required.
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="username">Пароль</label>
+            <div class="input-group">
+              <input type="password" class="form-control" name="password" id="username" placeholder="Пароль" required>
+              <div class="invalid-feedback" style="width: 100%;">
+                Your username is required.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8 mb-3">
+              <label for="country">Школа</label>
+              <select class="custom-select d-block w-100" name="school" id="country" required>
+                <option value="">Выбрать...</option>
+                <option value="mbout">Нюрбинский технический лицей</option>
+              </select>
+              <div class="invalid-feedback">
+                Выберите из списка
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="state">Класс</label>
+              <select class="custom-select d-block w-100" name="grade" id="state" required>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+              </select>
+            </div>
+          </div>
+          <hr class="mb-4">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="same-address">
+            <label class="custom-control-label" for="same-address">Соглашаюсь на обработку данных</label>
+          </div>
+          <hr class="mb-4">
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Зарегистрироваться</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">© 2020 Yklab</p>
+  </footer>
+</body>
+</html>
