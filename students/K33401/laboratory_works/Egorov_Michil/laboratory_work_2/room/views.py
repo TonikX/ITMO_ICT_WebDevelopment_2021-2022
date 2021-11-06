@@ -16,8 +16,9 @@ from room.models import Room
 @login_required
 def room_list(request):
     subject = request.GET.get('subject', '')
+    subject_rooms = Room.objects.filter(subject__icontains=subject).order_by('-pub_date')
 
-    paginator = Paginator(Room.objects.filter(subject__icontains=subject).order_by('-pub_date'), 10)
+    paginator = Paginator(subject_rooms, 10)
     page_number = request.GET.get('page', 1)
     room_list = paginator.get_page(page_number)
     subjects = Room.SUBJECTS
@@ -35,7 +36,6 @@ def room(request, id):
 def create_room(request):
     room_name = 'create_room'
     subjects = Room.SUBJECTS
-
 
     if request.method == "POST":
         room_name = request.POST.get('room-name')

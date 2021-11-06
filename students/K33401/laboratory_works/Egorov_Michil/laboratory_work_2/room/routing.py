@@ -8,5 +8,4 @@ websocket_urlpatterns = [
     re_path(r'^ws/chat/(?P<room_name>\w+)/$', consumers.ChatConsumer.as_asgi()),
     re_path(r'^ws/tasks/(?P<room_name>\w+)/$', consumers.TasksConsumer.as_asgi()),
     re_path(r'^ws/board/(?P<room_name>\w+)/$', consumers.BoardConsumer.as_asgi()),
-    re_path(r'^ws/room/(?P<room_name>\w+)/$', consumers.RoomConsumer.as_asgi()),
 ]
