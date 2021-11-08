@@ -4,6 +4,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import *
+from .forms import *
 
 
 class OwnerListView(ListView):
@@ -39,6 +40,12 @@ class CarUpdateView(UpdateView):
     success_url = '/cars/'
 
 
+class CarDeleteView(DeleteView):
+    model = Car
+    template_name = 'car_delete_confirm.html'
+    success_url = '/cars/'
+
+
 class CarRetrieveView(DetailView):
     model = Car
     template_name = 'car_detail.html'
@@ -48,3 +55,12 @@ def list_view(request):
     context = {}
     context["dataset"] = CarOwner.objects.all()
     return render(request, "owner_list.html", context)
+
+
+def create_view(request):
+    context = {}
+    form = CarOwnerForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    context['form'] = form
+    return render(request, "owner_create_view.html", context)
