@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Owner list</title>
 </head>
 <body>
-$END$
+<span><h1>Owners</h1><a href="/owner_form/create/">Add new one</a></span>
+  <ul>
+    {% for owner in dataset %}
+    <li><strong>Name:</strong> {{ owner.first_name }},{{ owner.last_name }}
+      <p><strong>Birth date:</strong> {{ owner.birth_date }}</p>
+    </li>
+    {% empty %}
+    <li>No owners yet.</li>
+    {% endfor %}
+  </ul>
 </body>
 </html>

@@ -6,33 +6,16 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import *
 
 
-class OwnerRetrieveView(DetailView):
-    model = CarOwner
-
-
 class OwnerListView(ListView):
     model = CarOwner
     template_name = 'owner_list.html'
     queryset = model.objects.all()
 
 
-class OwnerUpdateView(UpdateView):
-    model = CarOwner
-    template_name = 'owner_list.html'
-    fields = ['first_name', 'last_name', 'birth_date']
-    success_url = '/owner_list/list/'
-
-
 class OwnerCreateView(CreateView):
     model = CarOwner
     template_name = 'owner_form.html'
     fields = ['first_name', 'last_name', 'birth_date']
-    success_url = '/owner_list/list/'
-
-
-class OwnerDeleteView(DeleteView):
-    model = CarOwner
-    template_name = 'owner_list.html'
     success_url = '/owner_list/list/'
 
 
@@ -60,3 +43,8 @@ class CarRetrieveView(DetailView):
     model = Car
     template_name = 'car_detail.html'
 
+
+def list_view(request):
+    context = {}
+    context["dataset"] = CarOwner.objects.all()
+    return render(request, "owner_list.html", context)
