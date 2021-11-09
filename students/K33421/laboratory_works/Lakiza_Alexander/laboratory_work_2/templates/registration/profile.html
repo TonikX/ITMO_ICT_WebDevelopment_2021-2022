@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container" style="margin-left: 30px;">
+        <h3> Username: {{ user.username }}</h3>
+        <h4>Статус: {% if is_racer %} гонщик {% else %} зритель {% endif %}</h4>
+        {% if is_racer %}
+        <h4>Описание:  {{ racer.description }}</h4>
+        <h4>Описание:  {{ racer.experience }}</h4>
+        <h4>Рейтинг: {{ racer.raiting }}</h4>
+        {% endif %}
+        <div class="racers_list">
+            <h3>Racers:</h3>
+            <ul style="list-style: none;">
+                {% for race in race_list %}
+                    <li style="height: 45px; line-height: 45px; background-color: #E0E0E0; margin-top: 7px; padding-left: 25px">
+                        <a href="/race/{{ race.pk }}" style="text-decoration: none;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <div>{{ race.name }}</div>
+                                <div style="margin-right: 27px;">{{ race.date }}</div>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+{% endblock %}
