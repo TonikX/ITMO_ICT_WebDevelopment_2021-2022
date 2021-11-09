@@ -8,13 +8,13 @@ from .forms import *
 
 
 class OwnerListView(ListView):
-    model = CarOwner
+    model = User
     template_name = 'owner_list.html'
     queryset = model.objects.all()
 
 
 class OwnerCreateView(CreateView):
-    model = CarOwner
+    model = User
     template_name = 'owner_form.html'
     fields = ['first_name', 'last_name', 'birth_date']
     success_url = '/owner_list/list/'
@@ -53,7 +53,7 @@ class CarRetrieveView(DetailView):
 
 def list_view(request):
     context = {}
-    context["dataset"] = CarOwner.objects.all()
+    context["dataset"] = User.objects.all()
     return render(request, "owner_list.html", context)
 
 
