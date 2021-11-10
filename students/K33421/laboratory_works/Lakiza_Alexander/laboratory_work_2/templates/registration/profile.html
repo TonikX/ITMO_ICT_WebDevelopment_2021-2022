@@ -2,15 +2,18 @@
 
 {% block content %}
     <div class="container" style="margin-left: 30px;">
-        <h3> Username: {{ user.username }}</h3>
-        <h4>Статус: {% if is_racer %} гонщик {% else %} зритель {% endif %}</h4>
+        <h2>Username:</h2>
+        <b>{{ user.username }}</b>
+        <h4>Статус:</h4>
+        {% if is_racer %} гонщик {% else %} зритель {% endif %}
         {% if is_racer %}
-        <h4>Описание:  {{ racer.description }}</h4>
-        <h4>Описание:  {{ racer.experience }}</h4>
-        <h4>Рейтинг: {{ racer.raiting }}</h4>
+            <h4>Описание:</h4>
+            {{ racer.description }}
+            <h4>Опыт:</h4>
+            {{ racer.experience }}
         {% endif %}
         <div class="racers_list">
-            <h3>Racers:</h3>
+            <h3>Your races:</h3>
             <ul style="list-style: none;">
                 {% for race in race_list %}
                     <li style="height: 45px; line-height: 45px; background-color: #E0E0E0; margin-top: 7px; padding-left: 25px">
@@ -25,5 +28,5 @@
             </ul>
         </div>
     </div>
-    
+
 {% endblock %}
