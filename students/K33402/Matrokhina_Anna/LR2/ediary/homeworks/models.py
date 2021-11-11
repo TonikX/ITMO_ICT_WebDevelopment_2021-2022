@@ -24,14 +24,18 @@ class Homeworks(models.Model):
     penalty = models.CharField(max_length=200)
 
     def __str__(self):
+
         return f'{self.discipline} {self.teacher.first_name} {self.teacher.last_name} {self.name}'
 
 
 class HomeworkWork(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
+
     homework = models.ForeignKey(Homeworks, on_delete=models.CASCADE)
-
     text = models.TextField()
-    date = models.DateTimeField(default=timezone.now)
 
+    date = models.DateTimeField(default=timezone.now)
     mark = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.homework.name} от {self.student}, {self.date}'

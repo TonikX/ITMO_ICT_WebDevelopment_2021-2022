@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'ediary.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME':   BASE_DIR / 'db.sqlite3',
+        'NAME':   BASE_DIR / 'db-sample.sqlite3',
     }
 }
 

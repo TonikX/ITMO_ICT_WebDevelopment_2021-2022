@@ -16,4 +16,4 @@ class HomeworksAdmin(admin.ModelAdmin):
 
 @admin.register(HomeworkWork)
 class HomeworkWorkAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('homework', 'student', 'date', 'mark')

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for discipline in object_list %}
+        <h1 class="mt-4">{{ discipline.name }}</h1>
+
+        {% for homework in discipline.homeworks_set.all %}
+            <div>
+                <p><b>{{ homework.name }}</b></p>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Студент</th>
+                        <th scope="col">Дата сдачи</th>
+                        <th scope="col">Оценка</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for work in homework.homeworkwork_set.all %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ work.student }}</td>
+                            <td>{{ work.date }}</td>
+                            {% if work.mark %}
+                                <td>{{ work.mark }}</td>
+                            {% else %}
+                                <td>Не оценено</td>
+                            {% endif %}
+                        <tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="mt-5">
+        <a class="btn btn-primary" href="{% url 'index' %}">Назад</a>
+    </div>
+{% endblock %}

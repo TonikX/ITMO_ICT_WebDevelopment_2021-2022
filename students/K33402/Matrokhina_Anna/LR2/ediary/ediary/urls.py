@@ -18,7 +18,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import path, include
 from django.views.generic import CreateView
 
-from homeworks.views import HomeworkListView
+from homeworks.views import HomeworkListView, HomeworkWorkCreateView, DiaryListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +26,7 @@ urlpatterns = [
     path('accounts/register', CreateView.as_view(template_name='registration/register.html', form_class=UserCreationForm, success_url='/'), name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
 
-    path('', HomeworkListView.as_view(), name='index')
+    path('', HomeworkListView.as_view(), name='index'),
+    path('submit', HomeworkWorkCreateView.as_view(), name='homework_submit'),
+    path('diary', DiaryListView.as_view(), name='diary'),
 ]

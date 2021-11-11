@@ -13,6 +13,8 @@
     {% endfor %}
 
     <div class="mt-5">
-        <a class="btn btn-secondary" href="{% url 'logout' %}">Выйти</a>
+        <a class="btn btn-primary" href="{% url 'homework_submit' %}">Сдать домашнее задание</a>
+        <a class="btn btn-secondary" href="{% url 'diary' %}">Дневник</a>
+        <a class="btn btn-danger" href="{% url 'logout' %}">Выйти</a>
     </div>
 {% endblock %}
