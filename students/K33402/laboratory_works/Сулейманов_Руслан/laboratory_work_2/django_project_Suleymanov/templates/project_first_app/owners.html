@@ -6,9 +6,8 @@
 </head>
 <body>
     <div class="main">
-
         {% for data in dataset %}
-
+            {{ data.pk }} {{ data.username }}
         {{ data.first_name }} {{ data.last_name }} {{ data.birthday }}
             <a href="/owner/{{ data.pk }}">Подробнее</a>
             <br/>
