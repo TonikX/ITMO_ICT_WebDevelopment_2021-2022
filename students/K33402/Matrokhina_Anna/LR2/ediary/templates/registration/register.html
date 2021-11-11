@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <p>Вы уже авторизованы</p>
+        <a class="btn btn-primary" href="{% url 'index' %}">Домашние задания</a>
+    {% else %}
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <input type="hidden" name="next" value="{% url 'index' %}"/>
+
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-primary" type="submit">Создать пользователя</button>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}

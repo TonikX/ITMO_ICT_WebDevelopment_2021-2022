@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for homework in object_list %}
+        <div class="mt-4">
+            <p><b>{{ homework.discipline }}</b>, {{ homework.name }}</p>
+            <p>Выдана {{ homework.teacher.last_name }} {{ homework.teacher.first_name }} {{ homework.date }}</p>
+            <p>Дедлайн: {{ homework.deadline }}, штрафы: {{ homework.penalty }}</p>
+            <div>
+                <p>{{ homework.text }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="mt-5">
+        <a class="btn btn-secondary" href="{% url 'logout' %}">Выйти</a>
+    </div>
+{% endblock %}
