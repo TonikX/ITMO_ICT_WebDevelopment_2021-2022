@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+    <div class="main">
+        <span><h1>Users</h1><a href="/create/">Create new user.</a></span>
+        <ul>
+            {% for object in dataset %}
+            <li>First Name: {{ object.first_name }}</li>
+            <li>Last Name: {{ object.last_name }}</li>
+            <li>Birthday: {{ object.date_of_birth }}</li>
+            <li>Sex: {{ object.sex }}</li>
+            <li>Passport: {{ object.passport }}</li>
+            <li>Address: {{ object.address }}</li>
+            <li>Nationality: {{ object.address }}</li>
+
+            <hr>
+            {% empty %}
+            <li>No objects yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

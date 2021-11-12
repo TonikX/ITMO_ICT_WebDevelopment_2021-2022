@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+</head>
+<body>
+<span><h1>List clients last month:</h1></span>
+    <ul>
+        {% for user in dataset %}
+        <li><strong>First name: </strong> {{ user.id_user.first_name }}
+        <p><strong>Last name: </strong> {{ user.id_user.last_name }}</p>
+        <p><strong>Birthdate: </strong> {{ user.id_user.date_of_birth}}</p>
+        <p><strong>Sex: </strong> {{ user.id_user.sex }}</p>
+        <p><strong>Passport: </strong> {{ user.id_user.passport }}</p>
+        <p><strong>Address: </strong> {{ user.id_user.address }}</p>
+        <p><strong>Nationality: </strong> {{ user.id_user.natinality }}</p>
+	    <hr>
+        </li>
+	    {% empty %}
+        <li>No clients yet.</li>
+	    {% endfor %}
+    </ul>
+</body>
+</html>
