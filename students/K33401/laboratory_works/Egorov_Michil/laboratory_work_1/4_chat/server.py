@@ -35,7 +35,8 @@ class ChatServer(BaseServer):
         if address in self.clients_rooms and self.clients_rooms[address] == room_id:
             return
 
-        self.rooms[room_id].discard(address)
+        if self.clients_rooms[address] in self.rooms:
+            self.rooms[room_id].discard(address)
         self.clients_rooms[address] = room_id
         self.rooms[room_id].add(address)
 

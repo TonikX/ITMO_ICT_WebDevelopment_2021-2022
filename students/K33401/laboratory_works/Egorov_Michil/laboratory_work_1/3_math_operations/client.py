@@ -14,8 +14,6 @@ TASKS = [
     'parallelogram_area 4 0',
 ]
 
-# TODO: TASKS += [''] а что можно сделать с пустымы запросами?
-
 if __name__ == "__main__":
     for task in TASKS:
         conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

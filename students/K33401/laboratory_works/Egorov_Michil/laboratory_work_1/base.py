@@ -5,6 +5,7 @@ from typing import Tuple
 import socket
 
 logger = logging.getLogger(__name__)
+logger.addHandler(logging.StreamHandler())
 
 
 class BaseServer:
@@ -16,7 +17,7 @@ class BaseServer:
         self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.conn.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, True)
         self.conn.bind((self.address, self.port))
-        self.conn.settimeout(10)
+        self.conn.settimeout(60)
 
     def _client_handler(self, client_socket: socket.socket, address: Tuple[str, int]) -> None:
         while True:
@@ -26,15 +27,17 @@ class BaseServer:
                 except OSError:
                     break
 
-                if len(message) == 0:
+                if not message:
                     break
 
                 self._handle(client_socket, address, message)
-            except KeyboardInterrupt as e:
+                break
+            except (KeyboardInterrupt, socket.timeout) as e:
                 break
             except Exception as e:
                 if client_socket:
                     self._send_message(client_socket, repr(e))
+                    break
 
         self._close_client(client_socket, address)
 
@@ -50,7 +53,7 @@ class BaseServer:
         raise NotImplemented()
 
     def _close_client(self, client_socket: socket.socket, address: Tuple[str, int]) -> None:
-        pass
+        client_socket.close()
 
     def _close_connection(self) -> None:
         self.conn.shutdown(socket.SHUT_RDWR)
@@ -81,5 +84,6 @@ class BaseServer:
                 client_thread.start()
         except KeyboardInterrupt:
             logger.info("Выключаемся...")
-        finally:
+        except Exception as e:
+            print(e)
             self._close_connection()
