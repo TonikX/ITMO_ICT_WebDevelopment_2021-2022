@@ -1,5 +1,5 @@
 from django import forms
-from mysite.raceWinners.models import Users
+from raceWinners.models import Users
 
 
 # creating a form

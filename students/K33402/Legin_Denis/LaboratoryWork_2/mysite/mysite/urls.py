@@ -16,7 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from raceWinners.views import list_view, create_view
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('', list_view),
+    path('registration/', create_view),
 ]

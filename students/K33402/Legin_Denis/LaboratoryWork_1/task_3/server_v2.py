@@ -3,76 +3,74 @@ import sys
 
 
 class MyHTTPServer:
-    # Параметры сервера
-    def __init__(self, host, port, server_name):
-        self._host = host
-        self._port = port
-        self._server_name = server_name
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
 
+    # Server polls start
     def serve_forever(self):
-        serv_sock = socket.socket(
-            socket.AF_INET,
-            socket.SOCK_STREAM,
-            proto=0)
-        try:
-            serv_sock.bind((self._host, self._port))
-            serv_sock.listen()
+        conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        conn.bind((self.host, self.port))
+        conn.listen(10)
+        while True:
+            # Waiting for user
+            clientsocket, address = conn.accept()
+            self.serve_client(clientsocket)
 
-            while True:
-                conn, _ = serv_sock.accept()
-                try:
-                    self.serve_client(conn)
-                except Exception as e:
-                    print('Client serving failed', e)
-        finally:
-            serv_sock.close()
+    def serve_client(self, clientsocket):
+        # Connect user; call pareRequest
+        data = clientsocket.recv(16384)
+        data = data.decode('utf-8')
+        url, method, headers, body = self.parse_request(data)
+        resp = self.handle_request(url, method, body)
+        if resp:
+            self.send_response(clientsocket, resp)
 
-    # 1. Запуск сервера на сокете, обработка входящих соединений
+    def parse_request(self, data):
+        # dataFormatting
+        data = data.replace('\r', '')
+        lines = data.split('\n')
+        method, url, protocol = lines[0].split()
+        i = lines.index('')
+        headers = lines[1:i]
+        body = lines[-1]
+        return url, method, headers, body
 
-    def serve_client(self, conn):
-        try:
-            req = self.parse_request(conn)
-            resp = self.handle_request(req)
-            self.send_response(conn, resp)
-        except ConnectionResetError:
-            conn = None
+    def handle_request(self, url, method, body):
+        # check request
+        if url == "/":
+            if method == "GET":
+                resp = "HTTP/1.1 200 OK\n\n"
+                with open('index.html', 'r') as f:
+                    resp += f.read()
+                return resp
+            if method == "POST":
 
-        if conn:
-            conn.close()
+                newbody = body.split('&')
+                for a in newbody:
+                    if a.split('=')[0] == 'subject':
+                        subjects.append(a.split('=')[1])
+                    if a.split('=')[0] == 'mark':
+                        marks.append(a.split('=')[1])
 
-    # 2. Обработка клиентского подключения
+                resp = "HTTP/1.1 200 OK\n\n"
+                resp += "<html><head><title>Journal</title></head><body><table border=1>"
+                for s, m in zip(subjects, marks):
+                    resp += f"<tr><td>{s}</td><td>{m}</td></tr>"
+                resp += "</table></body></html>"
+                return resp
 
-    def parse_request(self, conn):
-        pass
+    def send_response(self, clientsocket, resp):
+        clientsocket.send(resp.encode('utf-8'))
 
-    # 3. функция для обработки заголовка http+запроса. Python, сокет предоставляет возможность создать вокруг него
-    # некоторую обертку, которая предоставляет file object интерфейс. Это дайте возможность построчно обработать
-    # запрос. Заголовок всегда - первая строка. Первую строку нужно разбить на 3 элемента  (метод + url + версия
-    # протокола). URL необходимо разбить на адрес и параметры (isu.ifmo.ru/pls/apex/f?p=2143 ,
-    # где isu.ifmo.ru/pls/apex/f, а p=2143 - параметр p со значением 2143)
-
-    def parse_headers(self):
-        pass
-
-    # 4. Функция для обработки headers. Необходимо прочитать все заголовки после первой строки до появления пустой
-    # строки и сохранить их в массив.
-
-    def handle_request(self, req):
-        pass
-
-    # 5. Функция для обработки url в соответствии с нужным методом. В случае данной работы, нужно будет создать набор
-    # условий, который обрабатывает GET или POST запрос. GET запрос должен возвращать данные. POST запрос должен
-    # записывать данные на основе переданных параметров.
-
-    def send_response(self, conn, resp):
-        pass
-
-
-# 6. Функция для отправки ответа. Необходимо записать в соединение status line вида HTTP/1.1 <status_code> <reason>.
-# Затем, построчно записать заголовки и пустую строку, обозначающую конец секции заголовков.
 
 if __name__ == '__main__':
-    hostS = "127.0.0.1"
-    portS = 1028
-    name = 'index.html'
-    serv = MyHTTPServer(hostS, portS, name)
+    host = '127.0.0.1'
+    port = 5000
+    serv = MyHTTPServer(host, port)
+    subjects = []
+    marks = []
+    try:
+        serv.serve_forever()
+    except KeyboardInterrupt:
+        pass
