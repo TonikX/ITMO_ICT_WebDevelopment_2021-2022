@@ -1,0 +1,30 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Registration</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<H1>Регистрация</H1>-->
+<!--<form action="/" method="post">-->
+<!--    <label for="username">Логин: </label>-->
+<!--    <input id="username" type="text" name="username" maxlength="100" required>-->
+<!--    <label for="password">Пароль: </label>-->
+<!--    <input id="password" type="password" name="password" maxlength="100" required>-->
+<!--    <button onclick="document.location='mainPage.html'" type="submit">Отправка формы</button>-->
+<!--</form>-->
+
+
+<!--</body>-->
+<!--</html>-->
+
+<form method="POST" enctype="multipart/form-data">
+
+    <!-- Security token -->
+    {% csrf_token %}
+
+    <!-- Using the formset -->
+    {{ form.as_p }}
+
+    <input type="submit" value="Submit">
+</form>
