@@ -7,6 +7,9 @@ class Users(models.Model):
     username = models.CharField(max_length=25)
     password = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.username
+
 
 class Racers(models.Model):
     __tablename__ = "racers"
