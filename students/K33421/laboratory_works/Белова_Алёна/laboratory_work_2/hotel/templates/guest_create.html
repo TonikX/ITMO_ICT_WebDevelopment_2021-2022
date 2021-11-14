@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guest create</title>
+</head>
+<body>
+<style>
+    body {
+        background-color: #F1FAEE;
+        font-family: sans-serif;
+        font-size: large;
+    }
+
+    a:link {
+        color: #1D3557;
+    }
+
+    a:visited {
+        color: #457B9D;
+    }
+
+    a:hover {
+        color: #E63946;
+    }
+
+    a:active {
+        color: #E63946;
+    }
+</style>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create">
+</form>
+<br>
+<a href="/home/">Home</a>
+</body>
+</html>
