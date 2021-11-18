@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
+
 
 class OwnerUser(AbstractUser):
     first_name = models.CharField(max_length=30, null=False)
@@ -12,8 +14,13 @@ class OwnerUser(AbstractUser):
     address = models.CharField(max_length=50, null=True, blank=True)
     nationality = models.CharField(max_length=20, null=True, blank=True)
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular author instance."""
+        return reverse('author-detail', args=[str(self.id)])
+
     def __str__(self):
-        return "{} {}".format(self.first_name, self.last_name)
+        """String for representing the Model object."""
+        return f'{self.last_name}, {self.first_name}'
 
 class License(models.Model):
     user = get_user_model()

@@ -1,0 +1,18 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="d-flex justify-content-center mt-5">
+    <div class="card w-50" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Выход</h5>
+        <p>Вы уверены, что хотите выйти?</p>
+        <form method="post" class="d-flex justify-content-center" action="{% url 'account_logout' %}">
+          {% csrf_token %}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+          {% endif %}
+          <button class="btn btn-primary" type="submit">Выход</button>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}
