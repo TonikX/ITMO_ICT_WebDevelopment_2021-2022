@@ -1,0 +1,14 @@
+body {
+    padding-top: 3.5rem;
+    background-color: #e9ecef;
+}
+
+.errorlist {
+    padding-inline-start: 1.2rem;
+    margin: 0;
+}
+
+.info-text p, .info-text a {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}

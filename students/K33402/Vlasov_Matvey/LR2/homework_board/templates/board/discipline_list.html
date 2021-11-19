@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load index %}
+
+{%  block title %}
+    My Disciplines
+{% endblock %}
+
+{%  block content %}
+    <main role="main">
+        <div class="container py-3">
+            <div class="d-flex justify-content-center">
+                <h1>My Disciplines</h1>
+            </div>
+            {% if class_disciplines is None %}
+                <div class="alert alert-danger">
+                    You have no right to view this information.
+                    Ask the admin to give you access
+                    <p class="pt-1 mb-0"><a href="javascript:history.back()">Go Back</a></p>
+                </div>
+            {% elif teacher is not None %}
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Discipline</th>
+                            <th scope="col">Class</th>
+                            <th scope="col">Tasks</th>
+                            <th scope="col">Assignments (graded/total)</th>
+                            <th scope="col">Average grade</th>
+                        </tr>
+                    </thead>
+                    {% for obj in class_disciplines %}
+                        <tbody>
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <th>{{ obj.discipline }}</th>
+                                <th><a href="{% url 'class_students' pk=obj.class_school.pk discipline=obj.discipline.pk %}">
+                                    {{ obj.class_school }}</a></th>
+                                <td><a href="{% url 'discipline_teacher' pk=obj.discipline.pk class=obj.class_school.pk %}">
+                                    {{ tasks_total|index:forloop.counter0 }}</a></td>
+                                <td>{{ assignments_graded|index:forloop.counter0 }} / {{ assignments_total|index:forloop.counter0 }}</td>
+                                <td>{{ average_grade|index:forloop.counter0 }}</td>
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Discipline</th>
+                            <th scope="col">Teacher</th>
+                            <th scope="col">Assignments (graded/total)</th>
+                            <th scope="col">Average grade</th>
+                        </tr>
+                    </thead>
+                    {% for obj in class_disciplines %}
+                        <tbody>
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <th><a href="{% url 'discipline_student' pk=obj.discipline.pk class=obj.class_school.pk %}">{{ obj.discipline }}</a></th>
+                                <td>{{ obj.teacher }}</td>
+                                <td>{{ assignments_graded|index:forloop.counter0 }} / {{ assignments_total|index:forloop.counter0 }}</td>
+                                <td>{{ average_grade|index:forloop.counter0 }}</td>
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            <input class="btn btn-primary" type="button"
+                   onclick="location.href='javascript:history.back()'" value="Go back" />
+            {% if teacher is not None %}
+                <input class="btn btn-danger float-right" type="button"
+                        onclick="location.href='{% url 'assignment_create' %}'" value="Assign task" />
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}

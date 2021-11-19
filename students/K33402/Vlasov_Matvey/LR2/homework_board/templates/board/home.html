@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{%  block title %}
+    Home
+{% endblock %}
+
+{%  block content %}
+    <main role="main">
+        <div class="container py-3">
+            <h1>Home</h1>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mt-2 mb-0 p-1 alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="info-text">
+                {% if user.is_authenticated %}
+                    <p>Welcome, {{ user.username }}!</p>
+                    <p><a href="{% url 'profile' %}">My profile</a></p>
+                    <p><a href="{% url 'discipline_list' %}">My disciplines</a></p>
+                    {% if student is not None %}
+                        <p><a href="{% url 'assignment_list' %}">My assignments</a></p>
+                    {% endif %}
+                    {% if teacher is not None %}
+                        <p><a href="{% url 'task_available_list' %}">Available tasks</a></p>
+                    {% endif %}
+                    <p><a href="{% url 'account_logout' %}">Log out</a>
+                {% else %}
+                    <p><a href="{% url 'account_login' %}">Log in</a></p>
+                    <p><a href="{% url 'account_signup' %}">Sign Up</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}
