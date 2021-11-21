@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <title>Отзывы</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light">
+            <a class="navbar-brand">Отели! Отели! Отели!</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/hotel/">Отели</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reservation/">Резервирование</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/review/">Отзывы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/guests/">Таблица постояльцев</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout/">Выйти</a>
+                </li>
+            </ul>
+            </div>
+        </nav>
+    </header>
+{% block page %}
+<h2>Отзывы об отелях:</h2>
+    {% for review in object_list %}	
+        <p><strong>Автор отзыва:</strong> {{ review.reservation }} </p>
+	    <p><strong>Оценка:</strong> {{ review.rating }}/10</p>
+        <p><strong>Комментарий:</strong> {{ review.comment }}</p>
+        <br>
+        {% empty %}
+	    <p>На данный момент отзывов нет.</p>
+	    {% endfor %}
+<a href="/hotel/review/" role="button">Добавить отзыв</a>
+{% load bootstrap3 %}
+<div class="pagination justify-content-center">
+{% bootstrap_pagination page_obj %}
+</div>
+{% endblock %}
+</body>
+</html>
