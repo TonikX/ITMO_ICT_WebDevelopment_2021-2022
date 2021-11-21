@@ -7,6 +7,14 @@ from .forms import HomeworkWorkForm
 class HomeworkListView(ListView):
     model = Homeworks
     template_name = 'index.html'
+    paginate_by = 1
+
+    def get_queryset(self):
+        search = self.request.GET.get('q', None)
+        object_list = Homeworks.objects.all()
+        if search:
+            object_list = object_list.filter(discipline__name=search)
+        return object_list
 
 
 class HomeworkWorkCreateView(CreateView):

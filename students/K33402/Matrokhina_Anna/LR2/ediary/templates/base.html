@@ -7,6 +7,8 @@
     <title>Django Lab 2</title>
 </head>
 <body>
+    {% include 'components/navbar.html' with user=user %}
+
     <div class="container mt-4">
         {% block content %}
         {% endblock %}
