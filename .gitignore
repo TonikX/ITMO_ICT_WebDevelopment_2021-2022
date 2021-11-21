@@ -127,4 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-.idea
+*.idea
+/ITMO_ICT_WebDevelopment_2021-2022/students/K33401/laboratory_works/Kasatkin_Daniil/.idea
