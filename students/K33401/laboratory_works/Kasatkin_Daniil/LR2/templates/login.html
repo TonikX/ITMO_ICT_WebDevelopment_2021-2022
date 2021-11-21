@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div style="display: flex; align-items: center; flex-direction: column">
+    <h1>Login below</h1>
+    {% for message in messages %}
+        <h5 style="color: red;">{{ message }}</h5>
+    {% endfor %}
+    <form method="post" action="login">
+        {% csrf_token %}
+        <p>Username: </p>
+        <input type="text" name="username"/>
+        <p>Password: </p>
+        <input type="password" name="password"/>
+        <button type="submit">Login</button>
+    </form>
+</div>
+</body>
+</html>

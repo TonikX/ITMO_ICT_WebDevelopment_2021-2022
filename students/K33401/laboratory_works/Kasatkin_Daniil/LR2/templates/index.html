@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<div style="display: flex; align-items: center; flex-direction: column">
+    <h1>This is hotel project for WebDev</h1>
+    {% if user.is_authenticated %}
+        <h2><a href="rooms">Rooms page</a></h2>
+        <h2><a href="logout">Logout</a></h2>
+        <h2><a href="profile">Profile</a></h2>
+        <h2><a href="lastmonth">Show the guest of last month</a></h2>
+    {% else %}
+        <h2><a href="register">Sign up</a></h2>
+        <h2><a href="login">Login</a></h2>
+    {% endif %}
+</div>
+</body>
+</html>

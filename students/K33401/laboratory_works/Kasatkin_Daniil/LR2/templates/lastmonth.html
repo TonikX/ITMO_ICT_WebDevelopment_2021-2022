@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="display: flex; align-items: center; flex-direction: column">
+    <h1>Last month guests :</h1>
+    {% for object in objects %}
+        <h3 style="color: blue">Guest : {{ object.user.username }}</h3>
+    {% empty %}
+        <h2 style="color: red;">There is no guests of last month</h2>
+    {% endfor %}
+    <h2><a href="/">Home</a></h2>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rooms</title>
+</head>
+<body>
+<div style="display: flex; align-items: center; flex-direction: column">
+    <h1>List of rooms : </h1>
+    {% for room in rooms reversed %}
+        <div>
+            <h1><a href="room/{{ room.id }}" style="text-decoration: none; color: black">Room {{ room.number }}</a></h1>
+            <h4>Room type : {{ room.type }}</h4>
+            <h4>Max occupancy : {{ room.max_occupancy }}</h4>
+            <h4><a href="/comment/{{ room.id }}" style="text-decoration: none">Add comment</a></h4>
+        </div>
+    {% endfor %}
+    <h2><a href="/">Home</a></h2>
+</div>
+</body>
+</html>
