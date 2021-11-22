@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from django.views.generic.edit import UpdateView
 from .models import *
 from .forms import *
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage
 
 
 def index(request):
@@ -61,8 +61,20 @@ def logout(request):
 
 
 def rooms(request):
-    free_rooms = Room.objects.filter(is_reserved=False).order_by('-number')
-    return render(request, 'rooms.html', {'rooms': free_rooms})
+    free_rooms = Room.objects.filter(is_reserved=False)
+    p = Paginator(free_rooms, 1)
+    page_num = request.GET.get('page', 1)
+    try:
+        page = p.page(page_num)
+    except EmptyPage:
+        page = p.page(1)
+    return render(request, 'rooms.html', {'rooms': page})
+
+
+def search_rooms(request):
+    searched = request.POST['search_value']
+    obj = Room.objects.filter(number=searched, is_reserved=False)
+    return render(request, 'search_rooms.html', {'room': obj})
 
 
 def room(request, pk):

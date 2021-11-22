@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+     {% load static %}
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>Comment</title>
 </head>
 <body>
+<div class="navbar">
+    <div class="logo">Hotel project</div>
+    <div class="navbar-content">
+        {% if user.is_authenticated %}
+            <div><a href="rooms">Rooms page</a></div>
+            <div><a href="lastmonth">Guests</a></div>
+            <div><a href="profile">Profile</a></div>
+            <div><a href="logout">Logout</a></div>
+        {% else %}
+            <div><a href="register">Sign up</a></div>
+            <div><a href="login">Login</a></div>
+        {% endif %}
+    </div>
+</div>
 <div style="display: flex; align-items: center; flex-direction: column">
     {% for message in messages %}
         <h5 style="color: red">{{ message }}</h5>

@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>Index</title>
 </head>
 <body>
-<div style="display: flex; align-items: center; flex-direction: column">
-    <h1>This is hotel project for WebDev</h1>
-    {% if user.is_authenticated %}
-        <h2><a href="rooms">Rooms page</a></h2>
-        <h2><a href="logout">Logout</a></h2>
-        <h2><a href="profile">Profile</a></h2>
-        <h2><a href="lastmonth">Show the guest of last month</a></h2>
-    {% else %}
-        <h2><a href="register">Sign up</a></h2>
-        <h2><a href="login">Login</a></h2>
-    {% endif %}
+<div class="navbar">
+    <div class="logo">Hotel project</div>
+    <div class="navbar-content">
+        {% if user.is_authenticated %}
+            <div><a href="rooms">Rooms page</a></div>
+            <div><a href="lastmonth">Guests</a></div>
+            <div><a href="profile">Profile</a></div>
+            <div><a href="logout">Logout</a></div>
+        {% else %}
+            <div><a href="register">Sign up</a></div>
+            <div><a href="login">Login</a></div>
+        {% endif %}
+    </div>
 </div>
 </body>
 </html>

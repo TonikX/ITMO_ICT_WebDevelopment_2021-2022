@@ -13,5 +13,6 @@ urlpatterns = [
     path('delete_res/<str:pk>', views.delete_reservation, name='delete_reservation'),
     path('edit_res/<str:pk>', views.edit_reservation, name='edit_reservation'),
     path('comment/<str:pk>', views.add_comment, name='add_comment'),
-    path('lastmonth', views.show_last_month, name='last_month')
+    path('lastmonth', views.show_last_month, name='last_month'),
+    path('search_rooms', views.search_rooms, name='search_rooms')
 ]
