@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{%  block title %}
+    Task Creation
+{% endblock %}
+
+{%  block content %}
+    <main role="main">
+        <div class="container py-3">
+            <div class="d-flex justify-content-center">
+                <h2>Task Creation</h2>
+            </div>
+            <div class="row">
+                 <div class="py-3 col-xl-5 offset-xl-1">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="info-text">
+                            {% for field in form.visible_fields %}
+                                <div class="mb-1">
+                                    <p>{{ field.label_tag }}</p>
+                                    <div class="mb-1">
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="pt-3">
+                                <input class="btn btn-danger" type="submit" value="Create" />
+                                <input class="btn btn-primary float-right" type="button"
+                                        onclick="location.href='javascript:history.back()'" value="Cancel" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

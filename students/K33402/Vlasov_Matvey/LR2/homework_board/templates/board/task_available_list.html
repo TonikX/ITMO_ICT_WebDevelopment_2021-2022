@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load index %}
+
+{%  block title %}
+    Available tasks
+{% endblock %}
+
+{%  block content %}
+    <main role="main">
+        <div class="container py-3">
+            <div class="d-flex justify-content-center">
+                <h1>Available tasks</h1>
+            </div>
+            {% if teacher is None %}
+                <div class="alert alert-danger">
+                    You have no right to view this information.
+                    Ask the admin to give you access
+                    <p class="pt-1 mb-0"><a href="javascript:history.back()">Go Back</a></p>
+                </div>
+            {% else %}
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Discipline</br>
+                                {% if 'discipline_me' not in filter_by %}
+                                    <input type="checkbox" id="filter_discipline_me" onclick="location.href='{% url 'task_available_list_filter' filter=filter_by|add:'discipline_me' %}'"/>
+                                {% else %}
+                                    <input type="checkbox" id="filter_discipline_me" checked onclick="location.href='{% url 'task_available_list_filter' filter=filter_by|cut:'discipline_me' %}'"/>
+                                {% endif %}
+                                <label class="m-0" for="filter_discipline_me">Only mine</label>
+                            </th>
+                            <th scope="col">Task</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Author</br>
+                                {% if 'author_me' not in filter_by %}
+                                    <input type="checkbox" id="filter_author_me" onclick="location.href='{% url 'task_available_list_filter' filter=filter_by|add:'author_me' %}'"/>
+                                {% else %}
+                                    <input type="checkbox" id="filter_author_me" checked onclick="location.href='{% url 'task_available_list_filter' filter=filter_by|cut:'author_me' %}'"/>
+                                {% endif %}
+                                <label class="m-0" for="filter_author_me">Only me</label>
+                            </th>
+                            <th scope="col" class="d-flex justify-content-center"></br>Assign</th>
+                        </tr>
+                    </thead>
+                        {% for obj in tasks %}
+                            {% if 'author_me' not in filter_by or obj.author.pk == teacher.pk %}
+                                {% if 'discipline_me' not in filter_by or obj.discipline.pk in disciplines %}
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }} {{  scales.size }}</th>
+                                            <th>{{ obj.discipline }}</th>
+                                            <th><a href="{% url 'task_update' pk=obj.pk %}">{{ obj.title }}</a></th>
+                                            <td>{{ obj.description|truncatechars:50 }}</td>
+                                            <td>{{ obj.author }}</td>
+                                            <td>
+                                                 {% if obj.discipline.pk in disciplines %}
+                                                    <div class="d-flex justify-content-center">
+                                                        <input class="btn btn-danger" type="button"
+                                                        onclick="location.href='{% url 'assignment_task_create' task=obj.pk %}'" value="Assign" />
+                                                    </div>
+                                                 {% endif %}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                </table>
+                <input class="btn btn-primary" type="button"
+                       onclick="location.href='javascript:history.back()'" value="Go back" />
+                <input class="btn btn-danger float-right" type="button"
+                       onclick="location.href='{% url 'task_create' %}'" value="Create task" />
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}
