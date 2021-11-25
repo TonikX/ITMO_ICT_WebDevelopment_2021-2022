@@ -4,7 +4,7 @@ from bookings.models import Hotel, Room, Booking
 
 @admin.register(Hotel)
 class HotelAdmin(admin.ModelAdmin):
-    fields = ['name', 'address', 'owner']
+    fields = ['name', 'address', 'stars', 'owner']
 
 
 @admin.register(Room)
