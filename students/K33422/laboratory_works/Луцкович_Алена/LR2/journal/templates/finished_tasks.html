@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список выполненных заданий</title>
+</head>
+<body>
+<h1>Список выполненных заданий:</h1>
+ {% if request.user.is_authenticated %}
+
+	{% for entry in object_list %}
+    {% if entry.student == user %}
+
+    <p class="h5"><b>{{ entry.task }}</b>
+        <a href="/finished/{{ entry.id }}/update/" role="button">Изменить</a>
+        <a href="/finished/{{ entry.id }}/delete/" role="button">Удалить</a></p>
+    <p><strong>Ответ:</strong> {{ entry.submission}}</p>
+        <p align="center"><a href="/tasks/{{ entry.task.id }}" role="button">Вернуться к заданию</a></p>
+    {% endif %}
+
+	{% empty %}
+	<p>Выполненных заданий нет.</p>
+	{% endfor %}
+
+ {% else %}
+ <div>Войдите в систему, чтобы открыть список выполненных заданий.</div>
+ {% endif %}
+</body>
+</html>

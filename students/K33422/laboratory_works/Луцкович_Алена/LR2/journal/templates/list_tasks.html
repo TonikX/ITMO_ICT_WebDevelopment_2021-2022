@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список заданий</title>
+</head>
+<body>
+<p align="center"><a class="btn btn-primary" href="/logout/" role="button">Выйти</a></p>
+<h2>Список заданий:</h2>
+    <p></p>
+
+	{% for task in object_list %}
+        <p class="h5"><b> {{ task }} </b></p>
+        <p><strong>Дисциплина:</strong> {{ task.discipline }} </p>
+      	<p><strong>Дата выдачи:</strong> {{ task.post_date  }}</p>
+	    <p><strong>Дата сдачи:</strong> {{ task.due_date }}</p>
+        <p><strong>Задание:</strong> {{ task.assignment }}</p>
+        <p align="center"><a class="btn btn-primary" href="/tasks/{{ task.id }}" role="button">Перейти</a></p>
+	{% empty %}
+	<p>На данный момент заданий нет.</p>
+	{% endfor %}
+<a href="/finished/" role="button">Выполненные задания</a>
+<br>
+<br>
+<a href="/grades/" role="button">Посмотреть журнал</a>
+</body>
+</html>

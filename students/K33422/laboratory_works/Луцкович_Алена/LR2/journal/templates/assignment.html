@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Описание задания</title>
+</head>
+<body>
+<h1>{{ object }}</h1>
+  <p><strong>Дисциплина:</strong> {{ task.discipline }}</p>
+  <p><strong>Преподаватель:</strong> {{ task.prof }}</p>
+  <p><strong>Дата выдачи:</strong> {{ task.post_date }}</p>
+  <p><strong>Дата сдачи:</strong> {{ task.due_date }}</p>
+  <p><strong>Задание:</strong> {{ task.assignment }}</p>
+  <p><strong>Штраф:</strong> {{ task.penalty }}</p>
+  <a class="btn btn-primary" href="/tasks/" role="button">Вернуться к списку</a><p></p>
+    {% if request.user.is_authenticated %}
+  <a class="btn btn-success" href="/finished/{{task.id}}/add/" role="button">Перейти к выполнению</a>
+    {% else %}
+  <a class="btn btn-warning" href="/login/" role="button">Войти, чтобы приступить к заданию</a>
+    {% endif %}
+</body>
+</html>
