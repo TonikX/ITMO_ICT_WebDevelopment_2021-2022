@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Оценки</title>
+</head>
+<body>
+<table class="table table-hover" id="myTable" width="40%">
+  <thead>
+   <tr>
+    <th scope="col">Ученик</th>
+    <th scope="col">Дисциплина</th>
+    <th scope="col">Задание</th>
+    <th scope="col">Оценка</th>
+   </tr>
+  </thead>
+
+  <tbody>
+
+  {% for object in object_list %}
+
+      <tr>
+          <td>{{ object.student.first_name }} {{ object.student.last_name }}</td>
+          <td>{{ object.task.discipline }}</td>
+          <td ><a href="/tasks/{{object.task.id}}">{{ object.task }}</a></td>
+          <td>{{ object.grade }}</td>
+      </tr>
+
+  {% endfor %}
+  </tbody>
+</table>
+<br>
+<br>
+<p align="center"><a href="/tasks/" role="button">К списку заданий</a></p>
+</body>
+</html>
