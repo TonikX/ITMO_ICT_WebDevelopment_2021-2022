@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List bookings</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body class="p-3">
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Hotel</th>
+        <th>Room</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Price</th>
+    </tr>
+    {% for booking in object_list %}
+        <tr>
+            <td><a class="link-secondary" href="{% url 'booking-view' booking.id %}">{{ booking.id }}</a></td>
+            <td>{{ booking.room.hotel.name }}</td>
+            <td>{{ booking.room.number }}</td>
+            <td>{{ booking.start }}</td>
+            <td>{{ booking.end }}</td>
+            <td>{{ booking.price }}</td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td>No bookings...</td>
+        </tr>
+    {% endfor %}
+</table>
+<a class="link-primary" href="{% url 'booking-create' %}">Create booking</a>
+</body>
+</html>

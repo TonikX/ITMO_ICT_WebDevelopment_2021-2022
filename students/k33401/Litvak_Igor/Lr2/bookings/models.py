@@ -46,7 +46,8 @@ class Booking(models.Model):
         day = timedelta(days=1)
         intersecting_bookings = self.room.bookings.filter(
             Q(start__range=(self.start, self.end - day)) | Q(end__range=(self.start + day, self.end)))
-        if intersecting_bookings.count() > 1 or intersecting_bookings.first() != self:
+        if intersecting_bookings.exists() and (
+                intersecting_bookings.count() > 1 or intersecting_bookings.first() != self):
             raise ValidationError("Booking dates intersect")
 
     def save(self, *args, **kwargs):
