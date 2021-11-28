@@ -1,0 +1,8 @@
+site_name: College
+nav:
+  - Info: index.md
+  - Server:
+      - Teacher:
+         - "teacher list": teacher/list.md
+         - "teacher create": teacher/create.md
+         - "teacher delete/update/retrieve": teacher/edit.md
