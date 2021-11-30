@@ -3,6 +3,36 @@ nav:
   - Info: index.md
   - Server:
       - Teacher:
-         - "teacher list": teacher/list.md
-         - "teacher create": teacher/create.md
-         - "teacher delete/update/retrieve": teacher/edit.md
+          - "teacher list": teacher/list.md
+          - "teacher create": teacher/create.md
+          - "teacher delete/update/retrieve": teacher/edit.md
+      - Subject:
+          - "subject list": subject/list.md
+          - "subject create": subject/create.md
+          - "subject delete/update/retrieve": subject/edit.md
+      - Teacher's subjects:
+          - "subjects to teacher list": subteach/list.md
+          - "subjects to teacher create": subteach/create.md
+          - "subjects to teacher delete/update/retrieve": subteach/edit.md
+      - Group:
+          - "group list": group/list.md
+          - "group create": group/create.md
+          - "group delete/update/retrieve": group/edit.md
+      - Student:
+          - "student list": student/list.md
+          - "student create": student/create.md
+          - "student delete/update/retrieve": student/edit.md
+      - Student's groups:
+          - "student to groups list": stugroup/list.md
+          - "student to groups create": stugroup/create.md
+          - "student to groups delete/update/retrieve": stugroup/edit.md
+      - Mark:
+          - "mark list": mark/list.md
+          - "mark create": mark/create.md
+          - "mark delete/update/retrieve": mark/edit.md
+      - Pair:
+          - "pair list": pair/list.md
+          - "pair create": pair/create.md
+          - "pair delete/update/retrieve": pair/edit.md
+theme:
+  name: material
