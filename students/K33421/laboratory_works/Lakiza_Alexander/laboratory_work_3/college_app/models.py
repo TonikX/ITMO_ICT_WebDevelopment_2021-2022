@@ -41,10 +41,25 @@ class Subject(models.Model):
         return self.name
 
 
+class Group(models.Model):
+    name = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.name
+
+
+class StudentToGroup(models.Model):
+    student = models.ForeignKey('Student', on_delete=models.CASCADE)
+    group = models.ForeignKey('Group', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{} {}'.format(self.student, self.group)
+
+
 class Student(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    group = models.CharField(max_length=40)
+    group = models.ManyToManyField('Group', through='StudentToGroup')
 
     def __str__(self):
         return '{} {}'.format(self.last_name, self.first_name)
@@ -61,15 +76,15 @@ class Mark(models.Model):
 
 class Pair(models.Model):
     day_choices = [
-        ('mon', 'Понедельник'),
-        ('tue', 'Вторник'),
-        ('wed', 'Среда'),
-        ('thu', 'Четверг'),
-        ('fri', 'Пятница'),
-        ('sat', 'Суббота'),
-        ('sun', 'Воскресенье'),
+        ('Mon', 'Понедельник'),
+        ('Tue', 'Вторник'),
+        ('Wed', 'Среда'),
+        ('Thu', 'Четверг'),
+        ('Fri', 'Пятница'),
+        ('Sat', 'Суббота'),
+        ('Sun', 'Воскресенье'),
     ]
-    group = models.CharField(max_length=40)
+    group = models.ForeignKey('Group', on_delete=models.CASCADE)
     pair_number = models.IntegerField()
     name_day = models.CharField(max_length=30, choices=day_choices)
     room = models.IntegerField()

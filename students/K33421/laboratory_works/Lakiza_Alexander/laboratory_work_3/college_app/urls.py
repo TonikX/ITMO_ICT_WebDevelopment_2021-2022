@@ -28,4 +28,11 @@ urlpatterns = [
     path('mark/<int:pk>/', MarkAllView.as_view()),
     path('mark/create/', MarkCreateView.as_view()),
 
+    path('group/list/', GroupListView.as_view()),
+    path('group/<int:pk>/', GroupAllView.as_view()),
+    path('group/create/', GroupCreateView.as_view()),
+
+    path('stugroup/list/', StudentToGroupListView.as_view()),
+    path('stugroup/<int:pk>/', StudentToGroupAllView.as_view()),
+    path('stugroup/create/', StudentToGroupCreateView.as_view()),
 ]

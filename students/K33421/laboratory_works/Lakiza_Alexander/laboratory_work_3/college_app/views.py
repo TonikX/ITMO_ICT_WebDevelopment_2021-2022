@@ -121,3 +121,39 @@ class SubjectToTeacherCreateView(CreateAPIView):
     queryset = SubjectToTeacher.objects.all()
     serializer_class = SubjectToTeacherSerializer
     permission_classes = [IsDeputy]
+
+
+class GroupListView(ListAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [AllowAny]
+
+
+class GroupCreateView(CreateAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [IsDeputy]
+
+
+class GroupAllView(RetrieveUpdateDestroyAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [IsDeputy]
+
+
+class StudentToGroupListView(ListAPIView):
+    queryset = StudentToGroup.objects.all()
+    serializer_class = StudentToGroupSerializer
+    permission_classes = [AllowAny]
+
+
+class StudentToGroupAllView(RetrieveUpdateDestroyAPIView):
+    queryset = StudentToGroup.objects.all()
+    serializer_class = StudentToGroupSerializer
+    permission_classes = [IsDeputy]
+
+
+class StudentToGroupCreateView(CreateAPIView):
+    queryset = StudentToGroup.objects.all()
+    serializer_class = StudentToGroupSerializer
+    permission_classes = [IsDeputy]
