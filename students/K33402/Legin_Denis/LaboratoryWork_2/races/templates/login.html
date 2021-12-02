@@ -1,0 +1,23 @@
+<form class="container" method="post" action="{% url 'login' %}">
+    {% if form.errors %}
+        <p>Неверный логи / пароль</p>
+    {% endif %}
+
+    {% if next %}
+        <p>Войдите, чтобы увидеть страницу</p>
+    {% endif %}
+
+    {% csrf_token %}
+    <h1>Вход</h1>
+    <label>
+        Логин
+        <input name="username"/>
+    </label>
+    <label>
+        Пароль
+        <input name="password" type="password"/>
+    </label>
+    <button type="submit">Вход</button>
+    <a href="{% url 'signup' %}">Регистрация</a>
+    <input type="hidden" name="next" value="{{ next }}"/>
+</form>
