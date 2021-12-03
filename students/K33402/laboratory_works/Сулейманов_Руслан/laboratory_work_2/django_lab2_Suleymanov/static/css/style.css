@@ -1,0 +1,18 @@
+.pagination {
+            font-size: 20px;
+}
+.pagination li {
+    margin-right: 10px;
+}
+.img_search {
+    height: 20px;
+}
+.navbar-form {
+    margin-bottom: 0;
+}
+.navbar {
+    display: flex;
+    align-items: center;
+    height: 80px;
+
+}

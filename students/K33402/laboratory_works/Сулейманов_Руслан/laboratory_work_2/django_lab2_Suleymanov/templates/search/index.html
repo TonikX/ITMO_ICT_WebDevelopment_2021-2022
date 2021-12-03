@@ -1,0 +1,20 @@
+{% extends "../base.html" %}
+{% load bootstrap3 %}
+{% block page %}
+    <h1>Поиск</h1>
+    {% if conference_lists %}
+        {% for conf in conference_lists %}
+                <article>
+                    <h2>{{ conf.name }}</h2>
+                    <p>{{ conf.min_text }}</p>
+                    <p>Пройдет в {{ conf.location }}</p>
+                    <p>Условия участия: {{ conf.terms_participation }}</p>
+                    <a href="{% url 'conference_detail' pk=conf.id %}">Узнать подробности -></a>
+                    <hr/>
+                </article>
+            {% endfor %}
+        {% bootstrap_pagination conference_lists url=last_question %}
+    {% else %}
+        <p>Не найдено публикаций по вашему запросу<br>Попробуйте повторить запрос с другой формулировкой</p>
+    {% endif %}
+{% endblock %}
