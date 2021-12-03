@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'hotel',
     'django_filters',
     'djoser',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'drf_yasg'
 ]
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
