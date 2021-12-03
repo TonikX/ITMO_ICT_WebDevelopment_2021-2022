@@ -23,9 +23,6 @@
                 <a class="nav-link" href="/reservation/">Резервирование</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/review/">Отзывы</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/guests/">Таблица постояльцев</a>
             </li>
         </ul>
@@ -42,13 +39,16 @@
     <p><strong>Владелец:</strong> {{ hotel.owner }}</p>
     <p><strong>Адрес:</strong> {{ hotel.address }} </p>
     <p><strong>Описание:</strong> {{ hotel.description }}</p>
-    {% for review in object_list %}
+    <h2><strong>Отзывы:</strong></h2>
+    {% for review in reviews %}
     <p><strong>Пользователь:</strong> {{ review.author }} </p>
     <p><strong>Оценка:</strong> {{ review.rating  }}</p>
-	  <p><strong>Отзыв:</strong> {{ review.comment }}</p>
+	<p><strong>Комментарий:</strong> {{ review.comment }}</p>
+    <br>
     {% empty %}
-      <br>
-	    <p>Чтобы посмотреть отзывы об этом отеле - перейдите во вкладку "Отзывы".</p>
-	  {% endfor %}
+	    <p>Отзывов об этом отеле еще нет.</p>
+	{% endfor %}
+    <a href="/hotel/review/{{ hotel.id }}" role="button">Добавить отзыв</a>
+    <a href="/reservation/create/{{ hotel.id }}" role="button">Зарезервировать номер в отеле</a>
 </body>
 </html>

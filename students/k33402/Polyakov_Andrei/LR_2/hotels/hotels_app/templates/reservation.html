@@ -22,9 +22,6 @@
                     <a class="nav-link" href="/reservation/">Резервирование</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/review/">Отзывы</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/guests/">Таблица постояльцев</a>
                 </li>
             </ul>
@@ -57,7 +54,6 @@
 {% else %}
 <div>Войдите в систему, чтобы открыть список своих резервирований.</div>
 {% endif %}
-<a href="/reservation/create/" role="button">Добавить резервирование</a>
 {% load bootstrap3 %}
 <div class="pagination justify-content-center">
 {% bootstrap_pagination page_obj %}

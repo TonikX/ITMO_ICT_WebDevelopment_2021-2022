@@ -22,9 +22,6 @@
                 <a class="nav-link" href="/reservation/">Резервирование</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/review/">Отзывы</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/guests/">Таблица постояльцев</a>
             </li>
         </ul>
@@ -56,7 +53,7 @@
                 <td>{{ reservation.hotel }}</td>
                 <td>{{ reservation.room_type }}</a></td>
                 <td>{{ reservation.num_of_guests }}</td>
-                <td>{{ reservation.check_out_date }}</td>
+                <td>{{ reservation.check_in_date }}</td>
                 <td>{{ reservation.check_out_date }}</td>
             </tr>
         {% endif %}

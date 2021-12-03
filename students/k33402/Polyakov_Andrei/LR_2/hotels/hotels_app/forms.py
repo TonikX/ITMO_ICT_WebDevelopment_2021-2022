@@ -7,7 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ['guest', 'hotel', 'room_type', 'num_of_guests', 'check_in_date', 'check_out_date']
+        fields = ['room_type', 'num_of_guests', 'check_in_date', 'check_out_date', 'hotel']
+        exclude = ['guest']
 
 
 # form - create user
@@ -22,4 +23,5 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         reservation = forms.ModelChoiceField(queryset=Reservation.objects)
-        fields = ['reservation', 'rating', 'comment']
+        fields = ['rating', 'comment']
+        exclude = ['hotel', 'author']

@@ -4,7 +4,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.core.paginator import Paginator
 
-from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 
 from .models import *
@@ -57,6 +58,12 @@ def logout_(request):
     logout(request)
     return redirect('login')
 
+#hotel detail
+def HotelRetriveView(request, pk):
+    c = Hotel.objects.get(id=pk)
+    reviews = Review.objects.filter(hotel=c)
+    return render(request, 'hotel_detail.html', {'hotel': c, 'reviews': reviews})
+
 
 #reservation list
 class ListReservation(ListView):
@@ -70,10 +77,24 @@ class ListReservation(ListView):
 
 
 # create reservation
-class ReservationCreateView(CreateView):
-    model = Reservation
-    form_class = ReservationForm
-    template_name = 'reservation_create.html'
+def reservation_create(request, pk):
+    obj = get_object_or_404(Hotel, id=pk)
+    guest = request.user
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if form['hotel'].value():
+            res = form.save(commit=False)
+            res.guest = guest
+            res.hotel = obj
+            res.save()
+            return redirect('/reservation')
+    else:
+        form = ReservationForm()
+    return render(request, 'reservation_create.html', {'form': form})
+#class ReservationCreateView(CreateView):
+#    model = Reservation
+#    form_class = ReservationForm
+#    template_name = 'reservation_create.html'
 
 
 # view reservation
@@ -103,25 +124,27 @@ class HotelList(ListView):
     paginate_by = 3
 
 
-# hotel view
-class HotelRetriveView(DetailView):
-    model = Hotel
-    template_name = 'hotel_detail.html'
-
-
 # write review
-class ReviewCreateView(CreateView):
-    model = Review
-    form_class = ReviewForm
-    template_name = 'review.html'
-
-
-#review list
-class ReviewList(ListView):
-    model = Review
-    template_name = 'review_list.html'
-    all_reviews = Review.objects
-    paginate_by = 3
+def add_comment(request, pk):
+    obj = get_object_or_404(Hotel, id=pk)
+    author = request.user
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form['comment'].value():
+            if form['rating'].value():
+                if form.is_valid():
+                    com = form.save(commit=False)
+                    com.author = author
+                    com.hotel = obj
+                    com.save()
+                    return redirect('/hotel')
+            else:
+                messages.info(request, 'Вы должны поставить оценку')
+        else:
+            messages.info(request, 'Вы должны оставить коментарий')
+    else:
+        form = ReviewForm()
+    return render(request, 'review.html', {'form': form})
 
 
 #guests list
