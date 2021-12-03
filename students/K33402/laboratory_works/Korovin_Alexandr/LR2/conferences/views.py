@@ -6,7 +6,7 @@ from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage
-
+from django.http import HttpResponseRedirect
 
 
 def homepage(request):
@@ -142,7 +142,7 @@ def add_comment(request, pk):
                     com.user = user
                     com.conference = obj
                     com.save()
-                    return redirect('/conference')
+                    return HttpResponseRedirect('/conferences')
             else:
                 messages.info(request, 'You must rate the room!')
         else:
