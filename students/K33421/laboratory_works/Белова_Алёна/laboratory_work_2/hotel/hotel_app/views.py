@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
-from .models import Guest, Room, Accommodation
+from .models import Guest, Room, Accommodation, Hotel, Comment
 from .forms import GuestForm, AccommodationForm, CommentForm
 from django.views.generic import UpdateView, DeleteView
 import datetime
@@ -25,6 +25,11 @@ def room_list(request):
     return render(request, "room_list.html", data)
 
 
+def hotel_list(request):
+    data = {"hotels": Hotel.objects.all()}
+    return render(request, "hotel_list.html", data)
+
+
 def book(request):
     data = {}
     form = AccommodationForm(request.POST or None)
@@ -34,6 +39,11 @@ def book(request):
     return render(request, "book.html", data)
 
 
+def book_list(request):
+    data = {"accoms": Accommodation.objects.all()}
+    return render(request, "accom_list.html", data)
+
+
 def comment(request):
     data = {}
     form = CommentForm(request.POST or None)
@@ -41,6 +51,11 @@ def comment(request):
         form.save()
     data["form"] = form
     return render(request, "comment.html", data)
+
+
+def comment_list(request):
+    data = {"comments": Comment.objects.all()}
+    return render(request, "comment_list.html", data)
 
 
 def last_month(request):
