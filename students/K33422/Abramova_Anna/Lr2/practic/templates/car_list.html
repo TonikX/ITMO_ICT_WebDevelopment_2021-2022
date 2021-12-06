@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Cars</title>
+	</head>
+	<body>
+		<ul>
+			{% for object in object_list %}
+			<li>
+				<h2 style="margin-bottom: 0;">{{ object }}</h2>
+				Number: {{ object.government_number }} <br>
+				Цвет: {{ object.color }}
+				<hr>
+			</li>
+			{% endfor %}
+			
+		</ul>
+
+	</body>
+</html>
