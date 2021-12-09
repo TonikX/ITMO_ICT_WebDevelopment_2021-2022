@@ -17,6 +17,7 @@
 {% else %}
 <p>Smoking not allowed</p>
 {% endif %}
+<a class="btn btn-outline-primary" href="{% url 'comment-create' %}?booking={{ object.id }}">Comment</a>
 <a class="btn btn-outline-danger" href="{% url 'booking-delete' object.id %}">Cancel</a>
 </body>
 </html>

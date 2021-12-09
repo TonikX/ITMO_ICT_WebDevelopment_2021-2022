@@ -28,6 +28,13 @@ class BookingCreateView(LoginRequiredMixin, CreateView):
         form.instance.by = self.request.user
         return super(BookingCreateView, self).form_valid(form)
 
+    def get_initial(self):
+        # Fill in value for room if it is passed in url
+        initial = super(BookingCreateView, self).get_initial()
+        if 'room' in self.request.GET:
+            initial['room'] = self.request.GET.get('room')
+        return initial
+
 
 class BookingDeleteView(LoginRequiredMixin, DeleteView):
     model = Booking

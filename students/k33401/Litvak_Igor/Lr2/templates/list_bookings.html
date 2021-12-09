@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>List bookings</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body class="p-3">
 <table class="table">
@@ -19,17 +20,15 @@
         <tr>
             <td><a class="link-secondary" href="{% url 'booking-view' booking.id %}">{{ booking.id }}</a></td>
             <td>{{ booking.room.hotel.name }}</td>
-            <td>{{ booking.room.number }}</td>
+            <td><a class="link-secondary" href="{% url 'room-view' booking.room.id %}">{{ booking.room.number }}</a></td>
             <td>{{ booking.start }}</td>
             <td>{{ booking.end }}</td>
             <td>{{ booking.price }}</td>
         </tr>
     {% empty %}
-        <tr>
-            <td>No bookings...</td>
-        </tr>
+        <p>No bookings...</p>
     {% endfor %}
 </table>
-<a class="link-primary" href="{% url 'booking-create' %}">Create booking</a>
+<a class="btn btn-outline-primary" href="{% url 'booking-create' %}">Create booking</a>
 </body>
 </html>
