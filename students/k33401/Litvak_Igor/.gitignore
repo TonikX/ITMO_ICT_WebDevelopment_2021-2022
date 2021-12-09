@@ -147,5 +147,5 @@ cython_debug/
 *.tmp
 
 # Django migrations
-migrations/*.py
+migrations/
 !migrations/__init__.py
