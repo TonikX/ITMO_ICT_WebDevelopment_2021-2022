@@ -145,7 +145,3 @@ cython_debug/
 *.docx
 *.doc
 *.tmp
-
-# Django migrations
-migrations/
-!migrations/__init__.py
