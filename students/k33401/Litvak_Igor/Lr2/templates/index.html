@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body class="p-3">
+<a class="btn btn-outline-primary" href="{% url 'login' %}">Login</a>
+<a class="btn btn-outline-primary" href="{% url 'booking-list' %}">My bookings</a>
+<a class="btn btn-outline-primary" href="{% url 'room-list' %}">View rooms</a>
+
+<h3>Bookings in last 10 days:</h3>
+<ul>
+{% for object in object_list %}
+    <li>{{ object.duration }}-night stay at {{ object.room.hotel.name }}</li>
+{% empty %}
+    No bookings recently :(
+{% endfor %}
+</ul>
+</body>
+</html>

@@ -12,6 +12,11 @@ class Booking(models.Model):
     start = models.DateField()
     end = models.DateField()
     price = models.PositiveIntegerField()
+    booking_date = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def duration(self):
+        return (self.end - self.start).days
 
     def clean(self):
         # Check that start < end
@@ -27,8 +32,7 @@ class Booking(models.Model):
 
     def save(self, *args, **kwargs):
         # Calculate the price based on number of nights at the hotel
-        nights = (self.end - self.start).days
-        self.price = self.room.price * nights
+        self.price = self.room.price * self.duration
         super(Booking, self).save(*args, **kwargs)
 
     def __str__(self):

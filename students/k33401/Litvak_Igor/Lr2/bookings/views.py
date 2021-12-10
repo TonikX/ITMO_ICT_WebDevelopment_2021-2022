@@ -1,8 +1,18 @@
+from datetime import datetime, timedelta
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, ListView, DetailView, DeleteView
 from bookings.models import Booking
+
+
+class IndexView(ListView):
+    model = Booking
+    template_name = 'index.html'
+
+    def get_queryset(self):
+        return Booking.objects.filter(
+            booking_date__gte=datetime.now() - timedelta(days=10)).order_by('-booking_date')[:10]
 
 
 class BookingListView(LoginRequiredMixin, ListView):
