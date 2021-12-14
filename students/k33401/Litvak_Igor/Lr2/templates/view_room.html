@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View room</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body class="p-3">
+<p>Hotel: {{ object.hotel.name }}</p>
+<p>Address: {{ object.hotel.address }}</p>
+<p>Room number: {{ object.number }}</p>
+<p>Number of beds: {{ object.beds }}</p>
+{% if object.smoking_allowed %}
+    <p>Smoking allowed</p>
+{% else %}
+    <p>Smoking not allowed</p>
+{% endif %}
+<p>Comments:</p>
+{% for comment in comments %}
+    <p><b>({{ comment.rating }}/10)</b> {{ comment.text }} <i>{{ comment.made_on }}</i></p>
+{% empty %}
+
+{% endfor %}
+<a class="btn btn-outline-primary" href="{% url 'booking-create' %}?room={{ object.id }}">Book</a>
+</body>
+</html>
