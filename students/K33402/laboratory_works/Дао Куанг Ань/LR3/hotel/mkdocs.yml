@@ -1,0 +1,37 @@
+site_name: Описание сервиса "Hotel"
+site_url: https://daoquanganh.github.io
+nav:
+  - Home: index.md
+  - Api:
+    - GET:
+        - "/client": api/clients.md
+        - "/bill": api/bills.md
+        - "/room": api/rooms.md
+        - "/schedule": api/schedule.md
+        - "/employee": api/employee.md
+    - POST:
+        - "/client/create": api/client_c.md
+        - "/bill/create": api/bill_c.md
+        - "/room/create": api/room_c.md
+        - "/schedule/create": api/schedule_c.md
+        - "/employee/create": api/employee_c.md
+    - PATCH:
+        - "/client/<id>/update": api/client_u.md
+        - "/bill/<id>/update": api/bill_u.md
+        - "/room/<id>/update": api/room_u.md
+        - "/schedule/<id>/update": api/schedule_u.md
+        - "/employee/<id>/update": api/employee_u.md
+    - DELETE:
+        - "/client/<id>/delete": api/client_d.md
+        - "/bill/create/<id>/delete": api/bill_d.md
+        - "/room/create/<id>/delete": api/room_d.md
+        - "/schedule/create/<id>/delete": api/schedule_d.md
+        - "/employee/create/<id>/delete": api/employee_d.md
+    - Queries:
+        - "Get clients by room number and reservation time": api/1.md
+        - "Get number of clients come from the same city": api/2.md
+        - "Get employee that worked in specific room in a specific time": api/3.md
+        - "Get list of all available rooms": api/4.md
+        - "Get number of rooms in specific floor": api/5.md
+theme:
+ name: material

@@ -1,0 +1,32 @@
+# CREATE
+
+Create new schedule
+
+**URL** : `/api/schedule/create/`
+
+**Method** : `POST`
+
+**Auth required** : YES
+
+**Permissions required** : None
+
+**Data constraints** : `{}`
+
+## Success Responses
+
+**Code** : `200 OK`
+
+**Content** : `{[]}`
+
+```json
+[
+       {
+           "id": 1,
+           "first_name": "Kitchen",
+           "last_name": "Peach",
+           "salary": 30000,
+           "passport": "C5849705"
+       }
+]
+```
+

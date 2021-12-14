@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="main">
+        <h1>Feedbacks</h1><a href="/feedback/create/">Write a feedback</a>
+        {% for fb in fbs %}
+            <li>Rating: {{ fb.rating }}</li>
+            <li>Comment: {{ fb.comment }}</li>
+            <li>Client: {{ fb.id_client.last_name }}</li>
+        <hr>
+        {% endfor %}
+    </div>
+</body>
+</html>
