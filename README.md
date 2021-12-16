@@ -205,7 +205,70 @@ https://drive.google.com/file/d/1QxQo5jln6soFUj6EmOVEo1yauCo375PP/view?usp=shari
 Работу необходимо защитить лично или прислать видео с описанием проделанной работы.
 
 
-# Лабораторная работа 4. Реализация клиентской части средствами ***.
+# Лабораторная работа 4. Реализация клиентской части средствами Vue.js.
+
+### Лекция 4.1 (Основы создания клиентских web-приложений)
+
+- Отличие многостраничного приложения от SPA [Презентация с лекции(.ppt)](https://drive.google.com/file/d/1aUwwy7xKJ32J9rXumK-xcI_ttWm1vcSx/view?usp=sharing) | [Лекция 20.11.2020 / Время 00:00 - 00:16](https://youtu.be/oihJcLNoewo) (Видео)<br>
+- Angular vs. Vue vs. React [Презентация с лекции(.ppt)](https://drive.google.com/file/d/1bNEVcfHRo0T9n1IDYwnn0YIPEGUIO51a/view?usp=sharing) | [Лекция 20.11.2020 / Время 00:16 - 00:58](https://youtu.be/oihJcLNoewo) (Видео)<br>
+- Компонентный подход + как работает роутинг на фронтенде [Лекция 20.11.2020 / Время 00:58 - 01:45](https://youtu.be/oihJcLNoewo) (Видео)<br>
+
+### Лекция 4.2 (Основы работы с JS)
+1. Типы данных (number, infinity, NaN, undefinded, bigint, string, bool, null, object) + Переменные (var, let, const) + Функции (анонимнные, lambda) + Циклы (foreach, for, while) + Работа с массивами (filter, sort, map, forEach) [Лекция 04.12.2020 / Время 00:00 - 00:44](https://youtu.be/Lc0gO-kf38M) (Видео)<br>
+2. Работа с событиями (load, DOMContentLoaded, click, change, submit, reset), работа с DOM-деревом (кнопки, формы),
+работа с DOM-хранилищами (localStorage, sessionStorage) [Лекция 04.12.2020 / Время 00:44 - 02:04](https://youtu.be/Lc0gO-kf38M) (Видео)<br>
+
+### Лекция 4.2 (Основы работы с Vue.js)
+https://youtu.be/ckzWDhn8ScQ
+
+## Практическая работа №4.1
+
+Цель работы: Ознакомится с базорвыми конструкциями JavaScript.
+[Текст "Практической работы №4.1](https://docs.google.com/document/d/1lurVq_ddbKQ-rORvxF3T9PlPPy-sOgHwFazCI0yEqYY/edit?usp=sharing).
+
+## Практическая работа №4.2
+
+Цель работы: получить представление о работе Vue.js.
+[Текст "Практической работы №4.2](https://docs.google.com/document/d/1ZURAlewVuJFSX4YjjB-BvVsVwfF5IbXFH8zj2g8CgPY/edit?usp=sharing).
+
+## Практическая работа №4.3
+
+Цель работы: получить практические навыки настройки CORS (Cross-origin resource sharing).
+[Текст "Практической работы №4.3](https://docs.google.com/document/d/1diaE5abmxSYEpLCwAp-or9c_h11-wR8ZSGQl3_b0nsc/edit?usp=sharing).
+
+## Лабораторная часть
+
+Срок сдачи **20.01.2021**
+
+Реализация клиентской части приложения средствами vue.js, в соответствии с [текстом работы](
+https://drive.google.com/file/d/1q9KcLhl2uKuK92aFbpKiOZ1WUwbASTqL/view?usp=sharing).<br>
+
+Порядок выполнения работы:<br>
+1.	Выполнить практическую работу 4.1 Базовые конструкции языка JavaScript). (https://docs.google.com/document/d/1lurVq_ddbKQ-rORvxF3T9PlPPy-sOgHwFazCI0yEqYY/edit?usp=sharing)
+2.	Выполнить практическую работу 4.2. Работа с Vue.JS. (https://docs.google.com/document/d/1ZURAlewVuJFSX4YjjB-BvVsVwfF5IbXFH8zj2g8CgPY/edit?usp=sharing)
+3.	Настроить для серверной части, реализованной в лабораторной работе №3 CORS (Cross-origin resource sharing) в соответствии с Практической работой 4.3 (будет выложена 19.12.2020)
+4.	Утвердить с одним из преподавателей список интерфейсов для взаимодействия с серверной частью.
+5.	Реализовать интерфейсы авторизации, регистрации и изменения учётных данных и настроить взаимодействие с серверной частью.
+Полезные материалы:<br>
+    - Настройка авторизации средствмаи Vue.js и Django REST framework (DjangoSchool) ([ссылка](https://youtu.be/0VuOGByhiKU?list=PLF-NY6ldwAWqP9PqPU3LA7mX2KJVyLhC_))<br>
+6.	Реализовать клиентские интерфейсы и настроить взаимодействие с серверной частью.
+Полезные материалы:<br>
+    - Пункты 4.2, 4.3, 4.5 в [Практической работе 4.2](https://github.com/TonikX/ITMO_ICT_WebDevelopment_2020-2021)<br>
+    - Уроки 6, 7  и 10-13 из данного плейтиста (DjangoSchool) ([ссылка](https://www.youtube.com/playlist?list=PLF-NY6ldwAWqP9PqPU3LA7mX2KJVyLhC_))
+7.	Подключить vuetify.
+Полезные материалы:<br>
+    - Пункт 3.1 в [Практической работе 4.2](https://github.com/TonikX/ITMO_ICT_WebDevelopment_2020-2021)<br>
+8.	Реализовать документацию, описывающую работу разработанных интерфейсов средствами MkDocs.
+
+## Сдача работы №4
+
+Работа выполняется индивидуально.<br>
+
+### Этап 1
+Полученную программу залить в папку этого репозитория **sutdents/группа/laboratory_works/фамилия_имя/laboratiry_work_4**. Инструкция о загрузке работы ниже. Не забывайте о файле gitignore.
+
+### Этап 2
+Работу необходимо защитить лично или прислать видео с описанием проделанной работы.
 
 ## Сдача работ
 
