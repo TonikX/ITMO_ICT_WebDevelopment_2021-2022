@@ -55,5 +55,9 @@ class Comment(models.Model):
     guest = models.ForeignKey(Guest, on_delete=models.CASCADE, null=True)
     accommodation = models.ForeignKey(Accommodation, on_delete=models.CASCADE, null=True)
 
+    @property
+    def hotel(self):
+        return self.accommodation.room.hotel
+
     def __str__(self):
         return f"{self.accommodation}"
