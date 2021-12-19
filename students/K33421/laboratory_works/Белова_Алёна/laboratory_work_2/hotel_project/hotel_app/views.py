@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from .models import Guest, Room, Accommodation, Hotel, Comment
 from .forms import GuestForm, AccommodationForm, CommentForm
 from django.views.generic import UpdateView, DeleteView
+from django.views.generic.list import ListView
 import datetime
 
 
@@ -25,11 +26,6 @@ def room_list(request):
     return render(request, "room_list.html", data)
 
 
-def hotel_list(request):
-    data = {"hotels": Hotel.objects.all()}
-    return render(request, "hotel_list.html", data)
-
-
 def book(request):
     data = {}
     form = AccommodationForm(request.POST or None)
@@ -42,20 +38,6 @@ def book(request):
 def book_list(request):
     data = {"accoms": Accommodation.objects.all()}
     return render(request, "accom_list.html", data)
-
-
-def comment(request):
-    data = {}
-    form = CommentForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    data["form"] = form
-    return render(request, "comment.html", data)
-
-
-def comment_list(request):
-    data = {"comments": Comment.objects.all()}
-    return render(request, "comment_list.html", data)
 
 
 def last_month(request):
@@ -92,3 +74,30 @@ class AccomDelete(DeleteView):
     success_url = "/accom/list/"
 
 
+class HotelList(ListView):
+    model = Hotel
+    template_name = 'hotel.html'
+    all_hotels = Hotel.objects
+
+
+def hotel_view(request, pk):
+    hotel = Hotel.objects.get(id=pk)
+    comments = Comment.objects.filter(hotel=hotel)
+    return render(request, 'hotel_detail.html', {'hotel': hotel, 'comments': comments})
+
+
+def comment(request, pk):
+    obj = get_object_or_404(Hotel, id=pk)
+    author = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form['comment'].value():
+            if form['rating'].value():
+                if form.is_valid():
+                    com = form.save(commit=False)
+                    com.author = author
+                    com.hotel = obj
+                    com.save()
+    else:
+        form = CommentForm()
+    return render(request, 'review.html', {'form': form})

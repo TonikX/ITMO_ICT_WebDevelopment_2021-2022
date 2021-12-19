@@ -45,15 +45,16 @@ class Accommodation(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f"{self.guest} | {self.check_in_date}"
+        return f"{self.guest} | {self.check_in_date} | {self.check_out_date}"
 
 
 class Comment(models.Model):
     Guest = get_user_model()
-    text = models.CharField(max_length=200)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, null=True)
+    comment = models.CharField(max_length=200)
     rating = models.IntegerField(null=True)
     guest = models.ForeignKey(Guest, on_delete=models.CASCADE, null=True)
     accommodation = models.ForeignKey(Accommodation, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f"{self.accommodation}"
+        return f"{self.guest} | {self.rating}"

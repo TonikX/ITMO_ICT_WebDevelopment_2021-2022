@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Room list</title>
+    <title>Guest create</title>
 </head>
 <body>
 <style>
@@ -28,20 +28,13 @@
         color: #E63946;
     }
 </style>
-<div class="main">
-    {% for hotel in hotels %}
-        <li>Name: {{ hotel.name }}</li>
-        <li>Owner: {{ hotel.owner }}</li>
-        <li>Address: {{ hotel.address }}</li>
-        <li>Description: {{ hotel.description }}</li>
-        <hr/>
-    {% empty %}
-        No hotels
-    {% endfor %}
-</div>
+<h1>New user</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create">
+</form>
 <br>
-<a href="/comment/">Leave a comment</a><br>
-<a href="/comment/list/">Comments</a><br>
 <a href="/home/">Home</a>
 </body>
 </html>

@@ -24,6 +24,6 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = [
-            "text", "rating",
-            "guest", "accommodation"
+            "comment", "rating",
+            "guest", "hotel"
         ]

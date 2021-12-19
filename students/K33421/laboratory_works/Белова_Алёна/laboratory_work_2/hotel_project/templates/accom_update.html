@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comment</title>
+    <title>Update accommodation</title>
 </head>
 
 <body>
@@ -31,17 +31,12 @@
         color: #E63946;
     }
 </style>
-<form method="POST" enctype="multipart/form-data">
-
-    {% csrf_token %}
-
+<h1>Update</h1>
+<form method="post">{% csrf_token %}
     {{ form.as_p }}
-
-    <input type="submit" value="Submit">
+    <input type="submit" value="Save">
 </form>
 <br>
 <a href="/home/">Home</a>
-
 </body>
-
 </html>
