@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'djoser',
     'accounts',
     'city_app',
-    'drf_yasg'
+    'drf_yasg',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://192.168.1.9:8080",
+    "http://localhost:8080"
 ]
 
 ROOT_URLCONF = 'djangoProject.urls'
