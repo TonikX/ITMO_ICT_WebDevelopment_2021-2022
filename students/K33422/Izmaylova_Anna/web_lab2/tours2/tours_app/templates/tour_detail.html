@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour detail</title>
+</head>
+
+<body>
+  {% include 'header.html' %}
+  <h1>{{ object }}</h1>
+  <p><strong>Name:</strong> {{ object.name }}</p>
+  <p><strong>Description:</strong> {{ object.description }}</p>
+  <p><strong>Start date:</strong> {{ object.date_start }}</p>
+  <p><strong>End date:</strong> {{ object.date_end }}</p>
+  <p><strong>Tour firm:</strong> {{ object.firm }}</p>
+  <p><strong>Payment:</strong> {{ object.payment }}</p>
+  <a href="/reviews_list/?tour={{ tour.id }}">Reviews</a>
+  <a href="/tours_list/">Get back</a>
+</body>
+</html>
