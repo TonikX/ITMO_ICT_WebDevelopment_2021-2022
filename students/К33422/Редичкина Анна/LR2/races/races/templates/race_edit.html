@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Comment</title>
+	<style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #ffffff  ;
+		}
+		#text {
+			font-family: 'Times New Roman', Times, serif;
+			color: white;
+			border: 0;
+			border-radius: 0.50rem 0.50rem 0 0rem ;
+		}
+		#messages{
+			color:  #000000;
+			padding: 10px;
+			margin-top: 10px;
+		}
+		.container {
+    	padding: 5px;
+    	width: 30%;
+    	margin:0 auto;
+		}
+		h1 {
+    	font-family: 'Times New Roman', Times, serif;
+    	font-size: 150%;
+    	color:#ffffff
+   		}
+   .smcontainer {
+    	padding: 10px;
+    	background-color: #b9bed0;
+    	width: 95%;
+    	height: 200%;
+    	box-shadow: 0 0 5px black;
+	}
+	.subtitle {
+			font-family: 'Righteous';
+	color: #314455;
+			border: 0;
+			border-radius: 0.50rem 0.50rem 0 0rem ;
+			}
+	.button {
+		font-family: 'Times New Roman', Times, serif;
+		font-size: 100%;
+    	background-color: #314455;
+    	color: white;
+    	padding: 10px 15px;
+    	margin: 8px 0;
+    	border: none;
+    	cursor: pointer;
+    	width: 100%;
+    	box-shadow: 0 0 5px black;
+}
+.one {
+  background: #00000;
+  padding: 5px 10px;
+  text-align: center;
+}
+.one h1 {
+  font-family: 'Righteous', cursive;
+  position: relative;
+  color:#b9bed0;
+  display: inline-block;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  font-size: 3em;
+  padding: 11px 50px;
+  margin: 0;
+  line-height: 1;
+}
+
+	</style>
+
+</head>
+<div class="container">
+	<div class="one">
+		<h1>Edit the race</h1>
+		</div>
+		<hr>
+		<div class="smcontainer">
+		<form method="POST" action="">
+						{% csrf_token %}
+			<div>
+              <div>
+								<span class="subtitle">Race name</span>
+							</div>
+							{{form.name}}
+			</div>
+			<br>
+			<div class="input-group mb-3">
+							<div>
+								<span class="subtitle">Date</span>
+							</div>
+							{{form.race_date}}
+						</div>
+			<br>
+			<div>
+							<div>
+								<span class="subtitle">Length</span>
+							</div>
+							{{form.length}}
+						</div>
+			<div>
+              <br>
+							<div>
+								<span class="subtitle">Type</span>
+							</div>
+							{{form.race_type}}
+			</div>
+			<br>
+
+				<input  class="button" type="submit" value="Submit">
+		<p></p>
+		</form>
+			</div>
+			<hr>
+	</div>
+</div>
+</div>
+</html>
