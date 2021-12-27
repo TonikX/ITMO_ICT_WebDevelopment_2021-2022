@@ -1,3 +1,4 @@
+# -*- coding: cp1251 -*-
 import json
 import socket
 import traceback
@@ -9,7 +10,7 @@ MAX_HEADERS = 100
 MAX_LINE = 64 * 1024
 
 
-# РџР°СЂР°РјРµС‚СЂС‹ СЃРµСЂРІРµСЂР°
+# Параметры сервера
 class MyHTTPServer:
     def __init__(self, host, port, server_name):
         self._host = host
@@ -17,14 +18,14 @@ class MyHTTPServer:
         self._server_name = server_name
 
         self._grades = {
-            "Р°РЅРіР»РёР№СЃРєРёР№": '100',
-            "РєРѕРјРїСЊСЋС‚РµСЂРЅР°СЏ Р»РёРЅРіРІРёСЃС‚РёРєР°": '100',
-            "РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёРµ": '100',
-            "С„РёР·РєСѓР»СЊС‚СѓСЂР°": '100',
-            "С„РёР·РёРєР°": '0',
+            "английский": '100',
+            "компьютерная лингвистика": '100',
+            "программирование": '100',
+            "физкультура": '100',
+            "физика": '0',
         }
 
-    # 1. Р—Р°РїСѓСЃРє СЃРµСЂРІРµСЂР° РЅР° СЃРѕРєРµС‚Рµ, РѕР±СЂР°Р±РѕС‚РєР° РІС…РѕРґСЏС‰РёС… СЃРѕРµРґРёРЅРµРЅРёР№
+    # 1. Запуск сервера на сокете, обработка входящих соединений
     def serve_forever(self):
         serv_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, proto=0)  # create socket
 
@@ -34,23 +35,29 @@ class MyHTTPServer:
 
             print(f'http://{self._host}:{self._port}/grades')  # print link
 
-            while True:
+            while True:  # Сервер в бесконечном цикле осуществляет прием входящих соединений
                 conn, _ = serv_sock.accept()  # accept connection
                 try:
+                    # Каждое соединение conn является клиентским сокетом.
+                    # Прием очередного соединения инициирует обработку HTTP-запроса
                     self.serve_client(conn)
                 except Exception as e:
                     print('Client serving failed', e)
         finally:
             serv_sock.close()
 
-    # 2. РћР±СЂР°Р±РѕС‚РєР° РєР»РёРµРЅС‚СЃРєРѕРіРѕ РїРѕРґРєР»СЋС‡РµРЅРёСЏ
+    # 2. Обработка клиентского подключения
     def serve_client(self, conn):
         try:
+            # Чтение и разбор HTTP-запроса
             req = self.parse_request(conn)
+            # Обработка
             resp = self.handle_request(req)
+            # Отправка ответа
             self.send_response(conn, resp)
         except ConnectionResetError:
             conn = None
+        # В случае ошибки на любом из этапов, обработка заканчивается отправкой сообщения об ошибке
         except Exception as e:
             self.send_error(conn, e)
 
@@ -58,14 +65,15 @@ class MyHTTPServer:
             conn.close()  # close connection
 
     def parse_request_line(self, rfile):
-        raw = rfile.readline(MAX_LINE + 1)
+        raw = rfile.readline(MAX_LINE + 1)  # эффективно читаем строку целиком
         if len(raw) > MAX_LINE:
             raise HTTPError(400, 'Bad request',
                             'Request line is too long')
 
+        # Читаем первую строку, разбираем ее на метод, цель и версию и сохраняем их в words
         req_line = str(raw, 'iso-8859-1')
-        words = req_line.split()
-        if len(words) != 3:
+        words = req_line.split()  # разделяем по пробелу
+        if len(words) != 3:  # и ожидаем ровно 3 части
             raise HTTPError(400, 'Bad request',
                             'Malformed request line')
 
@@ -74,12 +82,13 @@ class MyHTTPServer:
             raise HTTPError(505, 'HTTP Version Not Supported')
         return words
 
-    # 3. С„СѓРЅРєС†РёСЏ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё Р·Р°РіРѕР»РѕРІРєР° http+Р·Р°РїСЂРѕСЃР°. Python, СЃРѕРєРµС‚ РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЃРѕР·РґР°С‚СЊ РІРѕРєСЂСѓРі РЅРµРіРѕ РЅРµРєРѕС‚РѕСЂСѓСЋ РѕР±РµСЂС‚РєСѓ, РєРѕС‚РѕСЂР°СЏ РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ file object РёРЅС‚РµСЂС„РµР№СЃ. Р­С‚Рѕ РґР°Р№С‚Рµ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРѕСЃС‚СЂРѕС‡РЅРѕ РѕР±СЂР°Р±РѕС‚Р°С‚СЊ Р·Р°РїСЂРѕСЃ. Р—Р°РіРѕР»РѕРІРѕРє РІСЃРµРіРґР° - РїРµСЂРІР°СЏ СЃС‚СЂРѕРєР°. РџРµСЂРІСѓСЋ СЃС‚СЂРѕРєСѓ РЅСѓР¶РЅРѕ СЂР°Р·Р±РёС‚СЊ РЅР° 3 СЌР»РµРјРµРЅС‚Р°  (РјРµС‚РѕРґ + url + РІРµСЂСЃРёСЏ РїСЂРѕС‚РѕРєРѕР»Р°). URL РЅРµРѕР±С…РѕРґРёРјРѕ СЂР°Р·Р±РёС‚СЊ РЅР° Р°РґСЂРµСЃ Рё РїР°СЂР°РјРµС‚СЂС‹ (isu.ifmo.ru/pls/apex/f?p=2143 , РіРґРµ isu.ifmo.ru/pls/apex/f, Р° p=2143 - РїР°СЂР°РјРµС‚СЂ p СЃРѕ Р·РЅР°С‡РµРЅРёРµРј 2143)
+    # 3. функция для обработки заголовка http+запроса. Python, сокет предоставляет возможность создать вокруг него некоторую обертку, которая предоставляет file object интерфейс. Это дайте возможность построчно обработать запрос. Заголовок всегда - первая строка. Первую строку нужно разбить на 3 элемента  (метод + url + версия протокола). URL необходимо разбить на адрес и параметры (isu.ifmo.ru/pls/apex/f?p=2143 , где isu.ifmo.ru/pls/apex/f, а p=2143 - параметр p со значением 2143)
     def parse_request(self, conn):
         rfile = conn.makefile('rb')
         method, target, ver = self.parse_request_line(rfile)
         headers = self.parse_headers(rfile)
         host = headers.get('Host')
+        # проверим наличие и соответствие заголовка Host
         if not host:
             raise Exception('Bad request')
         if host not in (self._host,
@@ -87,15 +96,17 @@ class MyHTTPServer:
             raise Exception('Not found')
         return Request(method, target, ver, headers, rfile)
 
-    # 4. Р¤СѓРЅРєС†РёСЏ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё headers. РќРµРѕР±С…РѕРґРёРјРѕ РїСЂРѕС‡РёС‚Р°С‚СЊ РІСЃРµ Р·Р°РіРѕР»РѕРІРєРё РїРѕСЃР»Рµ РїРµСЂРІРѕР№ СЃС‚СЂРѕРєРё РґРѕ РїРѕСЏРІР»РµРЅРёСЏ РїСѓСЃС‚РѕР№ СЃС‚СЂРѕРєРё Рё СЃРѕС…СЂР°РЅРёС‚СЊ РёС… РІ РјР°СЃСЃРёРІ.
+    # 4. Функция для обработки headers. Необходимо прочитать все заголовки после первой строки до появления пустой строки и сохранить их в массив.
     def parse_headers(self, rfile):
         headers = []
         while True:
-            line = rfile.readline(MAX_LINE + 1)
+            # Читаем построчно заголовки, разбираем их на имя и значение, сохраняем в массив
+            line = rfile.readline(MAX_LINE + 1)  # эффективно читаем строку целиком
             if len(line) > MAX_LINE:
                 raise Exception('Header line is too long')
 
             if line in (b'\r\n', b'\n', b''):
+                # завершаем чтение заголовков
                 break
 
             headers.append(line)
@@ -103,9 +114,11 @@ class MyHTTPServer:
                 raise Exception('Too many headers')
 
         sheaders = b''.join(headers).decode('iso-8859-1')
+        # Возвращаем объект email.message.Message:
+        # Ключи в Message - это отсортированные в порядке появления ключи заголовков.
         return Parser().parsestr(sheaders)
 
-    # 5. Р¤СѓРЅРєС†РёСЏ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё url РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ РЅСѓР¶РЅС‹Рј РјРµС‚РѕРґРѕРј. Р’ СЃР»СѓС‡Р°Рµ РґР°РЅРЅРѕР№ СЂР°Р±РѕС‚С‹, РЅСѓР¶РЅРѕ Р±СѓРґРµС‚ СЃРѕР·РґР°С‚СЊ РЅР°Р±РѕСЂ СѓСЃР»РѕРІРёР№, РєРѕС‚РѕСЂС‹Р№ РѕР±СЂР°Р±Р°С‚С‹РІР°РµС‚ GET РёР»Рё POST Р·Р°РїСЂРѕСЃ. GET Р·Р°РїСЂРѕСЃ РґРѕР»Р¶РµРЅ РІРѕР·РІСЂР°С‰Р°С‚СЊ РґР°РЅРЅС‹Рµ. POST Р·Р°РїСЂРѕСЃ РґРѕР»Р¶РµРЅ Р·Р°РїРёСЃС‹РІР°С‚СЊ РґР°РЅРЅС‹Рµ РЅР° РѕСЃРЅРѕРІРµ РїРµСЂРµРґР°РЅРЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ.
+    # 5. Функция для обработки url в соответствии с нужным методом. В случае данной работы, нужно будет создать набор условий, который обрабатывает GET или POST запрос. GET запрос должен возвращать данные. POST запрос должен записывать данные на основе переданных параметров.
     def handle_request(self, req):
         if req.path == '/grades' and req.method == 'POST':
             return self.handle_post(req)
@@ -119,14 +132,10 @@ class MyHTTPServer:
         accept = req.headers.get('Accept')
         if 'text/html' in accept:
             content_type = 'text/html; charset=utf-8'
-            body = '<html><head><style>span {padding: 100px;}</style>С‹(</head><body>'
+            body = '<html><head><style>span {padding: 100px;}</style>ы(</head><body>'
             for subject in self._grades:
                 body += f'<div><span>{subject}: {self._grades[subject]}</span></div>'
             body += '</div></body></html>'
-
-        elif 'application/json' in accept:
-            content_type = 'application/json; charset=utf-8'
-            body = json.dumps(self._grades)
 
         else:
             return Response(406, 'Not Acceptable')
@@ -137,29 +146,33 @@ class MyHTTPServer:
         return Response(200, 'OK', headers, body)
 
     def handle_post(self, request):
-        discipline = request.query['discipline'][0]
+        subject = request.query['subject'][0]
         grade = request.query['grade'][0]
 
-        if discipline not in self._grades:
-            self._grades[discipline] = []
+        if subject not in self._grades:
+            self._grades[subject] = []
 
-        self._grades[discipline].append(grade)
+        self._grades[subject].append(grade)
 
         return Response(200, 'OK')
 
-    # 6. Р¤СѓРЅРєС†РёСЏ РґР»СЏ РѕС‚РїСЂР°РІРєРё РѕС‚РІРµС‚Р°. РќРµРѕР±С…РѕРґРёРјРѕ Р·Р°РїРёСЃР°С‚СЊ РІ СЃРѕРµРґРёРЅРµРЅРёРµ status line РІРёРґР° HTTP/1.1 <status_code> <reason>. Р—Р°С‚РµРј, РїРѕСЃС‚СЂРѕС‡РЅРѕ Р·Р°РїРёСЃР°С‚СЊ Р·Р°РіРѕР»РѕРІРєРё Рё РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ, РѕР±РѕР·РЅР°С‡Р°СЋС‰СѓСЋ РєРѕРЅРµС† СЃРµРєС†РёРё Р·Р°РіРѕР»РѕРІРєРѕРІ.
+    # 6. Функция для отправки ответа. Необходимо записать в соединение status line вида HTTP/1.1 <status_code> <reason>. Затем, построчно записать заголовки и пустую строку, обозначающую конец секции заголовков.
     def send_response(self, conn, resp):
         rfile = conn.makefile('wb')
+        # Записываем в соединение status line вида HTTP/1.1 <status_code> <reason>
         status_line = f'HTTP/1.1 {resp.status} {resp.reason}\r\n'
         rfile.write(status_line.encode('iso-8859-1'))
 
         if resp.headers:
+            # Построчно записываем заголовки
             for (key, value) in resp.headers:
                 header_line = f'{key}: {value}\r\n'
                 rfile.write(header_line.encode('iso-8859-1'))
 
+        # Добавляем пустую строку, обозначающую конец секции заголовков
         rfile.write(b'\r\n')
 
+        # При наличии тела ответа отправляем его в сокет
         if resp.body:
             rfile.write(resp.body)
 
@@ -167,6 +180,7 @@ class MyHTTPServer:
         rfile.close()
 
     def send_error(self, conn, err):
+        # В случае возникновения ошибки на сервере, нам также необходимо отправить ответ
         try:
             status = err.status
             reason = err.reason
@@ -197,6 +211,9 @@ class Request:
         self.version = version
         self.headers = headers
         self.rfile = rfile
+
+    #  Добавим методы path и query, которые будут разбивать цель вида
+    #  /grades?subject=физика&grade=0 на /grades и {'subject': ['физика'], 'grade': ['0']}, соответственно
 
     @property
     def path(self):
@@ -229,7 +246,7 @@ class Response:
 
 if __name__ == '__main__':
     host = "127.0.0.1"
-    port = 14900
+    port = 3000
     name = "localhost"
 
     serv = MyHTTPServer(host, port, name)
