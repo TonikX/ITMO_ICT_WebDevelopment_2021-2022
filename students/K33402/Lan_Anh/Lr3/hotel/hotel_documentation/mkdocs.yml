@@ -1,0 +1,43 @@
+site_name: Hotel App
+nav:
+  - Home: index.md
+  - Api:
+    - "/bookings/create": api/bookings/bookings_create.md
+    - "/bookings": api/bookings/bookings_list.md
+    - "/bookings/:id": api/bookings/bookings_retrieve.md
+    - "/bookings/:id/update": api/bookings/bookings_update.md
+    - "/bookings/:id/destroy": api/bookings/bookings_destroy.md
+
+    - "/bills/create": api/bills/bills_create.md
+    - "/bills": api/bills/bills_list.md
+    - "/bills/:id": api/bills/bills_retrieve.md
+    - "/bills/:id/update": api/bills/bills_update.md
+    - "/bills/:id/destroy": api/bills/bills_destroy.md
+
+    - "/hosts": api/hosts/hosts_list.md
+    - "/hosts/:id": api/hosts/hosts_retrieve.md
+    - "/hosts/:id/update": api/hosts/hosts_update.md
+    - "/hosts/:id/destroy": api/hosts/hosts_destroy.md
+
+    - "/hotels/create": api/hotels/hotels_create.md
+    - "/hotels": api/hotels/hotels_list.md
+    - "/hotels/:id": api/hotels/hotels_retrieve.md
+    - "/hotels/:id/update": api/hotels/hotels_update.md
+    - "/hotels/:id/destroy": api/hotels/hotels_destroy.md
+
+    - "/rooms/create": api/rooms/rooms_create.md
+    - "/rooms": api/rooms/rooms_list.md
+    - "/rooms/:id": api/rooms/rooms_retrieve.md
+    - "/rooms/:id/update": api/rooms/rooms_update.md
+    - "/rooms/:id/destroy": api/rooms/rooms_destroy.md
+
+    - "/visitors": api/visitors/visitors_list.md
+    - "/visitors/:id": api/visitors/visitors_retrieve.md
+    - "/visitors/:id/update": api/visitors/visitors_update.md
+    - "/visitors/:id/destroy": api/visitors/visitors_destroy.md
+
+
+
+
+theme:
+  name: material
