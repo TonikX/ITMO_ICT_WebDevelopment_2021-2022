@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car_owner_info</title>
+    <title>Car_update</title>
 </head>
 <body>
-    <ul>
-        <li>Name: {{car_owner.name}};</li>
-        <li>Surname: {{car_owner.surname}};</li>
-        <li>Date of birth: {{car_owner.birthday}}.</li>
-    </ul>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
 </body>
 </html>
