@@ -3,20 +3,20 @@ from django.shortcuts import render
 # Create your views here.
 
 from django.http import Http404
-from cars.models import Car_owner, Car
+from cars.models import CarOwnerUser, Car
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from cars.forms import CarOwnerCreateForm
 
 def car_owner_info(request, car_owner_id):
     try:
-        o = Car_owner.objects.get(pk=car_owner_id)
-    except Car_owner.DoesNotExist:
+        o = CarOwnerUser.objects.get(pk=car_owner_id)
+    except CarOwnerUser.DoesNotExist:
         raise Http404("Car owner does not exist")
     return render(request, 'cars/owner.html', {'car_owner': o})
 
 def all_owners(request):
     context = {}
-    context["owners"] = Car_owner.objects.all()
+    context["owners"] = CarOwnerUser.objects.all()
     return render(request, 'cars/all_owners.html', context)
 
 def car_owner_create(request):

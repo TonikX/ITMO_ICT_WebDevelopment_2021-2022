@@ -1,9 +1,9 @@
 from django import forms
-from cars.models import Car_owner
+from cars.models import CarOwnerUser
 
 
 class CarOwnerCreateForm(forms.ModelForm):
 
     class Meta:
-        model = Car_owner
-        fields = ["surname", "name", "birthday"]
+        model = CarOwnerUser
+        fields = ["username", "password", "surname", "name", "birthday", "passport", "home_address", "nationality"]

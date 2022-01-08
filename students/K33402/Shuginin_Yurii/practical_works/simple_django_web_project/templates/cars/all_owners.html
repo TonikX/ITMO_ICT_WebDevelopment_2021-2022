@@ -10,11 +10,15 @@
     <div class="main">
   
         {% for car_owner in owners %}
-      
+        
         <ul>
+            <li>Username: {{car_owner.username}};</li><br>
             <li>Name: {{car_owner.name}};</li>
             <li>Surname: {{car_owner.surname}};</li>
             <li>Date of birth: {{car_owner.birthday}}.</li>
+            <li>Passport ID: {{car_owner.passport}}.</li>
+            <li>Home address: {{car_owner.home_address}}.</li>
+            <li>Nationality: {{car_owner.nationality}}.</li>
         </ul>
         <hr/>
       
