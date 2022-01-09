@@ -1,0 +1,5 @@
+[FORMAT]
+max-line-length=88
+
+[MESSAGES CONTROL]
+disable=missing-docstring,no-else-return,too-few-public-methods,no-self-use,no-self-argument

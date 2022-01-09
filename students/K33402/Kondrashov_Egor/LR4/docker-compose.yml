@@ -1,0 +1,47 @@
+version: "3.3"
+
+volumes:
+  local_db_data: {}
+
+services:
+
+  backend:
+    image: bookings_fastapi
+    container_name: bookings_fastapi
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    build:
+      context: .
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_SERVER=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=rzttfSFdrBrJku1Q
+      - POSTGRES_DB=app
+    command: bash -c "
+      aerich upgrade &&
+      uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+
+  db:
+    image: postgres:14
+    volumes:
+      - local_db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_SERVER=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=rzttfSFdrBrJku1Q
+      - POSTGRES_DB=bookings
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - db
+    ports:
+      - "5050:5050"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@test.com
+      - PGADMIN_DEFAULT_PASSWORD=rzttfSFdrBrJku1Q
+
