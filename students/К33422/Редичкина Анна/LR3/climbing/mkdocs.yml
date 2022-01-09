@@ -1,0 +1,27 @@
+site_name: Cimbing
+nav:
+  - Info: index.md
+  - Server:
+      - Climbers:
+          - "climbers": climbers/list.md
+          - "climbers create": climbers/create.md
+          - "climbers update": climbers/update.md
+      - Peaks:
+          - "peaks list": peaks/list.md
+          - "peaks create": peaks/create.md
+          - "peaks update": peaks/update.md
+          - "peaks unique climbers": peaks/unique.md
+          - "peaks no trips": peaks/no_trips.md
+          - "peaks climbers": peaks/climbers.md
+      - Trip:
+          - "trip list": trip/list.md
+          - "trip create": trip/create.md
+          - "trip club": trip/result_club.md
+          - "trip person": trip/result_person.md
+      - Members:
+          - "members create": members/create.md
+      - Emergencies:
+          - "emergencies list": emergencies/list.md
+          - "emergencies create": emergencies/create.md
+theme:
+  name: material
