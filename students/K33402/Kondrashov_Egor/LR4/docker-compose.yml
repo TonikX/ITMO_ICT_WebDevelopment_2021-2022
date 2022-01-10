@@ -45,3 +45,6 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@test.com
       - PGADMIN_DEFAULT_PASSWORD=rzttfSFdrBrJku1Q
       - PGADMIN_LISTEN_ADDRESS=0.0.0.0
+
+  redis:
+    image: redis:6.2

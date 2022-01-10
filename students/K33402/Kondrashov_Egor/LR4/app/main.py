@@ -1,9 +1,14 @@
+import aioredis
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_admin.app import app as admin_app
+from fastapi_admin.providers.login import UsernamePasswordProvider
 from tortoise.contrib.fastapi import register_tortoise
 
 from app.api.api import api_router
 from app.core.config import settings
+from app.core.users import auth_backend, fastapi_users
+from app.models import AdminModel
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -21,6 +26,32 @@ app.add_middleware(
 )
 
 app.include_router(api_router, prefix=settings.API_STR)
+
+# FastAPI Admin
+
+
+@app.on_event("startup")
+async def startup() -> None:
+    redis = aioredis.from_url(
+        "redis://redis:6379",
+        decode_responses=True,
+        encoding="utf8",
+    )
+    await admin_app.configure(
+        providers=[UsernamePasswordProvider(admin_model=AdminModel)],
+        redis=redis,
+    )
+
+
+app.mount("/admin", admin_app)
+
+
+# FastAPI Users routes
+app.include_router(
+    fastapi_users.get_auth_router(auth_backend), prefix="/auth/jwt", tags=["auth"]
+)
+app.include_router(fastapi_users.get_register_router(), prefix="/auth", tags=["auth"])
+app.include_router(fastapi_users.get_users_router(), prefix="/users", tags=["users"])
 
 register_tortoise(
     app,
