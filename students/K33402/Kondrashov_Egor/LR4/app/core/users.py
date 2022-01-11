@@ -14,11 +14,11 @@ from fastapi_users.authentication import (
 from fastapi_users.db import TortoiseUserDatabase
 
 from app.core.config import settings
-from app.models import User, UserCreate, UserDB, UserModel, UserUpdate
+from app.models import User, UserCreate, UserDB, UserSchema, UserUpdate
 
 
 async def get_user_db() -> Any:
-    yield TortoiseUserDatabase(UserDB, UserModel)
+    yield TortoiseUserDatabase(UserDB, User)
 
 
 class UserManager(BaseUserManager[UserCreate, UserDB]):
@@ -39,7 +39,7 @@ bearer_transport = BearerTransport(tokenUrl="auth/jwt/login")
 
 
 def get_jwt_strategy() -> JWTStrategy:
-    return JWTStrategy(secret=settings.SECRET_KEY, lifetime_seconds=3600)
+    return JWTStrategy(secret=settings.SECRET_KEY, lifetime_seconds=60 * 60 * 24)
 
 
 auth_backend = AuthenticationBackend(
@@ -51,7 +51,7 @@ auth_backend = AuthenticationBackend(
 fastapi_users = FastAPIUsers(
     get_user_manager,
     [auth_backend],
-    User,
+    UserSchema,
     UserCreate,
     UserUpdate,
     UserDB,

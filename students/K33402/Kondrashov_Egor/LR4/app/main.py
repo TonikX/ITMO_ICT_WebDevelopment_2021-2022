@@ -8,7 +8,7 @@ from tortoise.contrib.fastapi import register_tortoise
 from app.api.api import api_router
 from app.core.config import settings
 from app.core.users import auth_backend, fastapi_users
-from app.models import AdminModel
+from app.models import Admin
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -38,7 +38,7 @@ async def startup() -> None:
         encoding="utf8",
     )
     await admin_app.configure(
-        providers=[UsernamePasswordProvider(admin_model=AdminModel)],
+        providers=[UsernamePasswordProvider(admin_model=Admin)],
         redis=redis,
     )
 
@@ -48,10 +48,14 @@ app.mount("/admin", admin_app)
 
 # FastAPI Users routes
 app.include_router(
-    fastapi_users.get_auth_router(auth_backend), prefix="/auth/jwt", tags=["auth"]
+    fastapi_users.get_auth_router(auth_backend), prefix="/api/auth/jwt", tags=["auth"]
 )
-app.include_router(fastapi_users.get_register_router(), prefix="/auth", tags=["auth"])
-app.include_router(fastapi_users.get_users_router(), prefix="/users", tags=["users"])
+app.include_router(
+    fastapi_users.get_register_router(), prefix="/api/auth", tags=["auth"]
+)
+app.include_router(
+    fastapi_users.get_users_router(), prefix="/api/users", tags=["users"]
+)
 
 register_tortoise(
     app,
