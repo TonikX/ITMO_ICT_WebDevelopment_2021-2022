@@ -8,8 +8,11 @@ router = APIRouter()
 
 
 @router.get("", response_model=list[HotelSchema])  # type: ignore
-async def get_hotels() -> Any:
+async def get_hotels(city: str = "") -> Any:
     """
     Список отелей
     """
-    return await HotelSchema.from_queryset(Hotel.all())
+    queryset = Hotel.all()
+    if city:
+        queryset = queryset.filter(address__icontains=city)
+    return await HotelSchema.from_queryset(queryset)
