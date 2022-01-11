@@ -35,16 +35,5 @@ services:
       - POSTGRES_PASSWORD=rzttfSFdrBrJku1Q
       - POSTGRES_DB=bookings
 
-  pgadmin:
-    image: dpage/pgadmin4
-    depends_on:
-      - db
-    ports:
-      - "5050:80"
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@test.com
-      - PGADMIN_DEFAULT_PASSWORD=rzttfSFdrBrJku1Q
-      - PGADMIN_LISTEN_ADDRESS=0.0.0.0
-
   redis:
     image: redis:6.2
