@@ -1,5 +1,8 @@
+from datetime import date
+from uuid import UUID
+
 from tortoise import fields, models
-from tortoise.contrib.pydantic import pydantic_model_creator
+from tortoise.contrib.pydantic import PydanticModel
 
 
 class Booking(models.Model):
@@ -14,4 +17,25 @@ class Booking(models.Model):
     number_of_guests = fields.SmallIntField()
 
 
-BookingSchema = pydantic_model_creator(Booking)
+class BookingInSchema(PydanticModel):
+    hotel_id: int
+    starts_at: date
+    ends_at: date
+    number_of_guests: int
+    user_id: UUID | None
+
+    class Config:
+        orm_mode = True
+        orig_model = Booking
+        schema_extra = {
+            "example": {
+                "hotel_id": 1,
+                "starts_at": "2022-01-12",
+                "ends_at": "2022-01-13",
+                "number_of_guests": 2,
+            }
+        }
+
+
+class BookingDBSchema(BookingInSchema):
+    id: int | None
