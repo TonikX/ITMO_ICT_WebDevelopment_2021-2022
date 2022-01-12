@@ -38,24 +38,6 @@ export default {
     },
 
     methods: {
-        async getLocationId (location) {
-            const url = `https://booking-com.p.rapidapi.com/v1/hotels/locations?locale=en-us&name=${location}`
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'x-rapidapi-host': this.$config.apiHost,
-                    'x-rapidapi-key': this.$config.apiKey
-                }
-            })
-
-            const data = await response.json()
-            if (data.length > 0) {
-                return data[0].dest_id
-            } else {
-                return null
-            }
-        },
-
         async getHotels (params = null) {
             this.isLoaded = false
             let location = null
@@ -70,45 +52,20 @@ export default {
                 checkout = params.checkout
             }
 
-            // if (!location) {
-            //     location = 20021296
-            // } else {
-            //     location = await this.getLocationId(location)
-            //     if (location == null) return
-            // }
-
-            // if (!guests) {
-            //     guests = 1
-            // }
-
-            // const today = new Date()
-            // const tomorrow = new Date(today)
-            // tomorrow.setDate(tomorrow.getDate() + 1)
-
-            // if (!checkin) {
-            //     checkin = today.toISOString().slice(0, 10)
-            // }
-
-            // if (!checkout) {
-            //     checkout = tomorrow.toISOString().slice(0, 10)
-            // }
-
-            // let url = `https://booking-com.p.rapidapi.com/v1/hotels/search?dest_type=city&order_by=popularity&
-            //             units=metric&filter_by_currency=USD&locale=en-us&room_number=1&
-            //             dest_id=${location}&adults_number=${guests}&
-            //             checkin_date=${checkin}&checkout_date=${checkout}`
             let url = 'http://127.0.0.1:8000/property/list?'
-            // if (location) url += `city=${location}&`
+            if (location) url += `city=${location}&`
+            if (guests) url += `guests=${guests}&`
+            if (checkin) url += `checkin=${checkin}&`
+            if (checkout) url += `checkout=${checkout}&`
+            console.log(url)
 
-            const response = await fetch(url, {
-                method: 'GET'
-            })
+            const response = await fetch(url, { method: 'GET' })
 
             const data = await response.json()
 
             this.propertyItems = data
             console.log(data)
-            this.isNotFound = this.propertyItems === undefined
+            this.isNotFound = this.propertyItems === undefined || this.propertyItems.length === 0
             this.isLoaded = true
         }
     }

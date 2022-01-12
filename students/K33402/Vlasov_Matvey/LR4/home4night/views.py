@@ -1,4 +1,5 @@
-from drf_yasg.utils import swagger_auto_schema
+from datetime import timedelta
+from django.utils.dateparse import parse_date
 from rest_framework import generics
 
 from .models import *
@@ -7,6 +8,7 @@ from .serializers import *
 
 class UserRetrieveView(generics.RetrieveAPIView):
     """ Get information about specific user """
+
     queryset = User.objects.all()
     serializer_class = UserDefaultSerializer
 
@@ -91,8 +93,38 @@ class PropertyRetrieveView(generics.RetrieveAPIView):
 
 class PropertyListView(generics.ListAPIView):
     """ Get property list """
-    queryset = Property.objects.all()
     serializer_class = PropertySerializer
+
+    def get_queryset(self):
+        params = self.request.GET
+        city = params.get('city')
+        guests = params.get('guests')
+        checkin = params.get('checkin')
+        checkout = params.get('checkout')
+
+        queryset = Property.objects.all()
+        if city:
+            queryset = queryset.filter(city=city)
+        if guests:
+            queryset = queryset.filter(guest_limit__gte=int(guests))
+        if checkin or checkout:
+            if not checkin:
+                checkout = parse_date(checkout)
+                checkin = checkout - timedelta(1)
+            elif not checkout:
+                checkin = parse_date(checkin)
+                checkout = checkin + timedelta(1)
+            else:
+                checkin = parse_date(checkin)
+                checkout = parse_date(checkout)
+
+            bookings = Booking.objects.filter(checkin__lte=checkin, checkout__gt=checkin) | \
+                       Booking.objects.filter(checkin__lt=checkout, checkin__gte=checkin)
+
+            for booking in bookings:
+                queryset = queryset.exclude(pk=booking.property.pk)
+
+        return queryset
 
 
 class PropertyCreateView(generics.CreateAPIView):
@@ -175,5 +207,3 @@ class ReviewDestroyView(generics.RetrieveDestroyAPIView):
     # @swagger_auto_schema(operation_summary="review destroy header")
     # def get(self, request, *args, **kwargs):
     #     return super(self).get(request, *args, **kwargs)
-
-
