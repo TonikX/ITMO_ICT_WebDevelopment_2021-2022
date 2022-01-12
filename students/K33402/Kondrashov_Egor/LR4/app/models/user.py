@@ -5,6 +5,8 @@ from fastapi_users.db import TortoiseBaseUserModel
 from tortoise import fields
 from tortoise.contrib.pydantic import PydanticModel
 
+from app.models.booking import BookingSchema
+
 
 class UserSchema(models.BaseUser):
     """
@@ -76,12 +78,19 @@ class User(TortoiseBaseUserModel):
     last_name = fields.CharField(max_length=255, null=True)
     birthdate = fields.DateField(null=True)
 
+    bookings: fields.ReverseRelation[BookingSchema]  # type: ignore
+
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
+
 
 class UserDB(UserSchema, models.BaseUserDB, PydanticModel):
     """
     Pydantic model that maps DB User fields
     (for example, it has hashed_password)
     """
+
+    bookings: list[BookingSchema]  # type: ignore
 
     class Config:
         orm_mode = True

@@ -14,5 +14,8 @@ class Hotel(models.Model):
     rating = fields.FloatField(null=True)
     cost_from = fields.FloatField(null=True)
 
+    def __str__(self) -> str:
+        return f"{self.name}"
+
 
 HotelSchema = pydantic_model_creator(Hotel)

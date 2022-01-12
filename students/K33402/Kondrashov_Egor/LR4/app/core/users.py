@@ -56,3 +56,5 @@ fastapi_users = FastAPIUsers(
     UserUpdate,
     UserDB,
 )
+
+current_user = fastapi_users.current_user()
