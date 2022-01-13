@@ -1,6 +1,6 @@
 <template>
     <div class="input-field"> <span class="fa"><b-icon :icon="icon"></b-icon></span>
-        <input size="25rem" :type="type" :placeholder="placeholder" required />
+        <input v-on:input="updateValue($event.target.value)" size="25rem" :type="type" :placeholder="placeholder" required />
     </div>
 </template>
 
@@ -11,7 +11,13 @@ export default {
     props: {
         type: String,
         placeholder: String,
-        icon: String
+        icon: String,
+        value: String
+    },
+    methods: {
+        updateValue: function (value) {
+            this.$emit('input', value)
+        }
     }
 }
 </script>

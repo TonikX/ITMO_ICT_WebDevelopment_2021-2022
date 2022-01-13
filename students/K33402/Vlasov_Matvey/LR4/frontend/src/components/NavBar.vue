@@ -15,8 +15,14 @@
                 </b-navbar-nav>
 
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-item to="login">Log in</b-nav-item>
-                    <b-nav-item to="signup">Sign up</b-nav-item>
+                    <template v-if="this.$store.state.isLogged">
+                        <button v-on:click="logout">Log out</button>
+                        <b-nav-item to="profile">Profile</b-nav-item>
+                    </template>
+                    <template v-else>
+                        <b-nav-item to="login">Log in</b-nav-item>
+                        <b-nav-item to="signup">Sign up</b-nav-item>
+                    </template>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
@@ -30,12 +36,19 @@ export default {
     name: 'NavBar',
     components: {
         ThemeToggler
+    },
+    methods: {
+        logout () {
+            sessionStorage.removeItem('auth_token')
+            this.$store.commit('isLoggedUpdate')
+            this.$router.push('/')
+        }
     }
 }
 </script>
 
 <style scoped>
- .navbar-brand, a {
+ .navbar-brand, a, button {
     color: var(--color-navbar) !important;
 }
 
