@@ -13,7 +13,7 @@ async def get_users_bookings(user: UserDB = Depends(current_user)) -> Any:
     """
     Список броней текущего пользователя
     """
-    return user.bookings
+    return await BookingDBSchema.from_queryset(Booking.filter(user_id=user.id))
 
 
 @router.post("", response_model=BookingDBSchema)

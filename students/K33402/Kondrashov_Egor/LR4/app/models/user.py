@@ -90,8 +90,6 @@ class UserDB(UserSchema, models.BaseUserDB, PydanticModel):
     (for example, it has hashed_password)
     """
 
-    bookings: list[BookingDBSchema]
-
     class Config:
         orm_mode = True
         orig_model = User
