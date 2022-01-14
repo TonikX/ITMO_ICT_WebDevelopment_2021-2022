@@ -5,7 +5,7 @@ from fastapi_users.db import TortoiseBaseUserModel
 from tortoise import fields
 from tortoise.contrib.pydantic import PydanticModel
 
-from app.models.booking import Booking, BookingDBSchema
+from app.models.booking import Booking
 
 
 class UserSchema(models.BaseUser):
