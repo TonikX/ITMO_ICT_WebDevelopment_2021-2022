@@ -39,7 +39,7 @@ export default {
     },
     methods: {
         logout () {
-            sessionStorage.removeItem('auth_token')
+            sessionStorage.clear()
             this.$store.commit('isLoggedUpdate')
             this.$router.push('/')
         }

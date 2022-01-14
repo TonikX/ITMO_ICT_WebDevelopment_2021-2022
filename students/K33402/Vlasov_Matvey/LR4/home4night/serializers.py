@@ -13,6 +13,8 @@ class UserCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "first_name", "last_name", "password"]
+        extra_kwargs = {'first_name': {'required': True, 'allow_blank': False},
+                        'last_name': {'required': True, 'allow_blank': False}}
 
     def create(self, validated_data):
         if 'pbkdf2_sha256' not in validated_data['password']:

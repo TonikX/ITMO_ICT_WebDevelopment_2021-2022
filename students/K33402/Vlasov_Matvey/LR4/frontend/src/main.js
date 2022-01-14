@@ -12,14 +12,9 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.config.productionTip = false
 
-fetch(process.env.BASE_URL + 'config.json')
-    .then((response) => response.json())
-    .then((config) => {
-        Vue.prototype.$config = config
-        new Vue({
-            router,
-            vuetify,
-            store,
-            render: h => h(App)
-        }).$mount('#app')
-    })
+new Vue({
+    router,
+    vuetify,
+    store,
+    render: h => h(App)
+}).$mount('#app')

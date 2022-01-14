@@ -4,7 +4,7 @@
             <p>Username: {{ this.$store.state.username }}</p>
             <p>First name: {{ this.$store.state.firstName }}</p>
             <p>Last name: {{ this.$store.state.lastName }}</p>
-            <p>Status: #TODO</p>
+            <p>Role: {{ this.$store.state.role }}</p>
             <router-link to="username/change">
                 <input class="mt-3 btn btn-secondary" type="button" value="Change username" /><br/>
             </router-link>

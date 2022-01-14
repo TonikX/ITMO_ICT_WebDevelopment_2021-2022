@@ -1,6 +1,9 @@
 <template>
     <div class="d-flex justify-content-center">
         <form @submit.prevent="login">
+            <b-alert show variant="danger" v-if="error">
+                {{ this.error }}
+            </b-alert>
             <input-field v-model="username" type="text" placeholder="Username" icon="person-fill" />
             <input-field v-model="password" type="password" placeholder="Password" icon="lock-fill" />
             <b-row class="mt-3 d-flex justify-content-center">
@@ -12,54 +15,18 @@
 
 <script>
 import InputField from '@/components/InputField.vue'
+import login from '@/mixins/login.js'
 
 export default {
     name: 'LoginForm',
     components: {
         InputField
     },
+    mixins: [login],
     data: () => ({
         username: '',
         password: ''
-    }),
-    methods: {
-        async login () {
-            let url = 'http://127.0.0.1:8000/auth/token/login/'
-
-            let response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username: this.username, password: this.password })
-            })
-
-            let data = await response.json()
-            const authToken = data.auth_token
-
-            if (authToken !== undefined) {
-                url = 'http://127.0.0.1:8000/auth/users/me/'
-                response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Token ${authToken}`
-                    }
-                })
-
-                data = await response.json()
-
-                sessionStorage.setItem('authToken', authToken)
-                sessionStorage.setItem('username', data.username)
-                sessionStorage.setItem('firstName', data.first_name)
-                sessionStorage.setItem('lastName', data.last_name)
-
-                this.$store.commit('isLoggedUpdate')
-                this.$router.push('profile')
-            }
-        }
-    }
-
+    })
 }
 </script>
 

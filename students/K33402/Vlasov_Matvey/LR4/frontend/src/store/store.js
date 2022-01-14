@@ -8,7 +8,8 @@ const store = new Vuex.Store({
         isLogged: sessionStorage.getItem('authToken') !== null,
         username: sessionStorage.getItem('username'),
         firstName: sessionStorage.getItem('firstName'),
-        lastName: sessionStorage.getItem('lastName')
+        lastName: sessionStorage.getItem('lastName'),
+        role: sessionStorage.getItem('role')
     },
     mutations: {
         isLoggedUpdate () {
@@ -16,6 +17,7 @@ const store = new Vuex.Store({
             this.state.username = sessionStorage.getItem('username')
             this.state.firstName = sessionStorage.getItem('firstName')
             this.state.lastName = sessionStorage.getItem('lastName')
+            this.state.role = sessionStorage.getItem('role')
         }
     }
 })

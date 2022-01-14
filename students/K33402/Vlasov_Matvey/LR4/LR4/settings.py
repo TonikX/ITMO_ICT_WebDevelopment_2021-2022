@@ -139,4 +139,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'home4night.serializers.UserCreateUpdateSerializer',
+        'user_create_password_retype': 'home4night.serializers.UserCreateUpdateSerializer',
+        'user_delete': 'home4night.serializers.UserDefaultSerializer',
+        'user': 'home4night.serializers.UserDefaultSerializer',
+        'current_user': 'home4night.serializers.UserDefaultSerializer',
+    },
+}
+
 
