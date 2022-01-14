@@ -57,9 +57,10 @@ export default {
             if (guests) url += `guests=${guests}&`
             if (checkin) url += `checkin=${checkin}&`
             if (checkout) url += `checkout=${checkout}&`
-            console.log(url)
 
-            const response = await fetch(url, { method: 'GET' })
+            const response = await fetch(url, {
+                method: 'GET'
+            })
 
             const data = await response.json()
 

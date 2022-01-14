@@ -5,6 +5,7 @@ import Main from '@/views/Main.vue'
 import Signup from '@/views/Signup.vue'
 import Login from '@/views/Login.vue'
 import Search from '@/views/Search.vue'
+import Profile from '@/views/Profile.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,14 @@ const routes = [
         component: Search,
         meta: {
             title: 'Home4Night: Housing for Vacation'
+        }
+    },
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: Profile,
+        meta: {
+            title: 'Home4Night: My Profile'
         }
     }
 ]

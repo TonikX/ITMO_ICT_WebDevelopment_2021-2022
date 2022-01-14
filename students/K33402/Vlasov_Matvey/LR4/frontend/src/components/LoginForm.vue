@@ -24,9 +24,9 @@ export default {
     }),
     methods: {
         async login () {
-            const url = 'http://127.0.0.1:8000/auth/token/login/'
+            let url = 'http://127.0.0.1:8000/auth/token/login/'
 
-            const response = await fetch(url, {
+            let response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -35,13 +35,27 @@ export default {
                 body: JSON.stringify({ username: this.username, password: this.password })
             })
 
-            const data = await response.json()
-            console.log(data)
+            let data = await response.json()
+            const authToken = data.auth_token
 
-            if (data.auth_token !== undefined) {
-                sessionStorage.setItem('auth_token', data.auth_token)
+            if (authToken !== undefined) {
+                url = 'http://127.0.0.1:8000/auth/users/me/'
+                response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Token ${authToken}`
+                    }
+                })
+
+                data = await response.json()
+
+                sessionStorage.setItem('authToken', authToken)
+                sessionStorage.setItem('username', data.username)
+                sessionStorage.setItem('firstName', data.first_name)
+                sessionStorage.setItem('lastName', data.last_name)
+
                 this.$store.commit('isLoggedUpdate')
-                this.$router.push('/')
+                this.$router.push('profile')
             }
         }
     }
