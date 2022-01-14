@@ -24,7 +24,7 @@ export default {
             if (authToken !== undefined) {
                 this.getData(authToken)
             } else {
-                this.error = Object.values(data)[0].toString()
+                this.error = Object.values(data)[0][0].toString()
             }
         },
         async getData (authToken) {
@@ -56,7 +56,6 @@ export default {
             })
 
             const data = await response.json()
-
             if (data.user) role = 'landlord'
             sessionStorage.setItem('role', role)
             this.$store.commit('isLoggedUpdate')

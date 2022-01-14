@@ -8,7 +8,7 @@
                 <b-navbar-nav>
                     <theme-toggler />
                     <b-nav-item to="/">Home</b-nav-item>
-                    <b-nav-item to="search">
+                    <b-nav-item to="/search">
                         <b-icon icon='search' font-scale='0.99'></b-icon>
                         Search
                     </b-nav-item>
@@ -17,11 +17,11 @@
                 <b-navbar-nav class="ml-auto">
                     <template v-if="this.$store.state.isLogged">
                         <button v-on:click="logout">Log out</button>
-                        <b-nav-item to="profile">Profile</b-nav-item>
+                        <b-nav-item to="/profile">Profile</b-nav-item>
                     </template>
                     <template v-else>
-                        <b-nav-item to="login">Log in</b-nav-item>
-                        <b-nav-item to="signup">Sign up</b-nav-item>
+                        <b-nav-item to="/login">Log in</b-nav-item>
+                        <b-nav-item to="/signup">Sign up</b-nav-item>
                     </template>
                 </b-navbar-nav>
             </b-collapse>

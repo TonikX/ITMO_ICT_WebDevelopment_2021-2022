@@ -73,7 +73,7 @@ export default {
                 this.setRole(data.id)
                 this.login()
             } else {
-                this.error = Object.values(data)[0].toString()
+                this.error = Object.values(data)[0][0].toString()
             }
         },
         async setRole (id) {

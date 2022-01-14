@@ -3,7 +3,7 @@
         <b-container class="pt-4">
             <template v-if="!this.$store.state.isLogged">
                 <b-alert show>
-                <router-link to="login">Log in</router-link> to see the information about your profile
+                <router-link to="/login">Log in</router-link> to see the information about your profile
             </b-alert>
             </template>
             <template v-else>

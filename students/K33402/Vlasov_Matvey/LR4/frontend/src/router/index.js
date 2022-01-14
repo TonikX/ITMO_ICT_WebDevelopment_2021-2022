@@ -6,6 +6,8 @@ import Signup from '@/views/Signup.vue'
 import Login from '@/views/Login.vue'
 import Search from '@/views/Search.vue'
 import Profile from '@/views/Profile.vue'
+import PasswordChange from '@/views/PasswordChange.vue'
+import UsernameChange from '@/views/UsernameChange.vue'
 
 Vue.use(VueRouter)
 
@@ -48,6 +50,22 @@ const routes = [
         component: Profile,
         meta: {
             title: 'Home4Night: My Profile'
+        }
+    },
+    {
+        path: '/password/change',
+        name: 'PasswordChange',
+        component: PasswordChange,
+        meta: {
+            title: 'Home4Night: Password Change'
+        }
+    },
+    {
+        path: '/username/change',
+        name: 'UsernameChange',
+        component: UsernameChange,
+        meta: {
+            title: 'Home4Night: Username Change'
         }
     }
 ]

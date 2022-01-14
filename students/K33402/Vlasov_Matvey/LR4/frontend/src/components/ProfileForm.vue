@@ -5,15 +5,15 @@
             <p>First name: {{ this.$store.state.firstName }}</p>
             <p>Last name: {{ this.$store.state.lastName }}</p>
             <p>Role: {{ this.$store.state.role }}</p>
-            <router-link to="username/change">
+            <router-link to="/username/change">
                 <input class="mt-3 btn btn-secondary" type="button" value="Change username" /><br/>
             </router-link>
-            <router-link to="password/change">
+            <router-link to="/password/change">
                 <input class="mt-1 btn btn-secondary" type="button" value="Change password" />
             </router-link>
         </div>
         <div class="pt-3 pt-lg-3 mt-3 mt-md-0 mx-md-3 col-12 col-md-4">
-            <p><router-link to="bookings">My bookings</router-link></p>
+            <p><router-link to="/bookings">My bookings</router-link></p>
         </div>
     </b-row>
 </template>
