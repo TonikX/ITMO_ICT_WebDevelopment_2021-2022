@@ -1,0 +1,20 @@
+site_name: Bookings docs
+theme:
+  name: readthedocs
+nav:
+  - Главная: index.md
+  - Авторизация:
+      - "Об авторизации": auth/index.md
+      - "Регистрация": auth/registration.md
+      - "Вход": auth/login.md
+      - "Выход": auth/logout.md
+  - Профиль пользователя:
+      - "Профиль пользователя": profile/my_profile.md
+      - "Изменить профиль": profile/edit_profile.md
+      - "Изменить пароль": profile/change_password.md
+  - Бронирования:
+      - "Главная страница с поиском": bookings/index.md
+      - "Результаты поиска": bookings/search_results.md
+      - "Страница отеля": bookings/hotel_detail.md
+      - "Мои бронирования": bookings/my_bookings.md
+dev_addr: 127.0.0.1:8001
