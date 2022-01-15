@@ -1,0 +1,16 @@
+site_name: Airport
+nav:
+  - Home: index.md
+  - Users:
+      - "Home": users/home.md
+      - "Airplanes": users/airplanes.md
+      - "Schedule": users/schedule.md
+      - "Transits": users/transits.md
+      - "Administration": users/administration.md
+      - "Log Out": users/logout.md
+  - Guests:
+      - "Log In": guests/login.md
+      - "Sign Up": guests/signup.md
+
+theme:
+  name: windmill
