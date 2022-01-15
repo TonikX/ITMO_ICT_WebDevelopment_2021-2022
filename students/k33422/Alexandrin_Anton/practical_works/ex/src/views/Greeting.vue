@@ -1,29 +1,32 @@
 <template>
   <section>
-    <greeting-card :username="savedUsername"/>
+    <greeting-card :username="savedUsername" />
 
     <h2>Это простой проект на Vue.</h2>
-    <form @submit.prevent="submitUsername"
-          ref="form">
-      <label for="username">
-        Введите своё имя:
-      </label>
 
-      <input
-        v-model="username"
-        id="username"
-        name="username"
-        type="text"
-        placeholder="Иван Иванов"
-      />
-    </form>
+    <v-form
+      @submit.prevent="submitUsername"
+      ref="form"
+      class="my-2"
+    >
+      <v-row>
+        <v-col cols="3" class="mx-auto">
+          <v-text-field
+            label="Введите своё имя"
+            v-model="username"
+            name="username"
+            placeholder="Иван Иванов"
+          />
+        </v-col>
+      </v-row>
+
+    </v-form>
 
     <h3>Варианты приветствий:</h3>
 
-    <div class="greeting-list-wrapper">
+    <div class="my-2 greeting-list-wrapper">
       <greeting-list :greetings="greetings" />
     </div>
-
   </section>
 </template>
 
@@ -38,15 +41,17 @@ export default {
     GreetingCard,
     GreetingList
   },
+
   data: () => ({
     username: '',
+
     savedUsername: '',
+
     greetings: [
       { id: 1, text: 'Привет' },
       { id: 2, text: 'Hello' },
       { id: 3, text: 'Hola' }
     ]
-
   }),
 
   methods: {
@@ -63,16 +68,28 @@ export default {
       this.$refs.form.reset()
     }
   },
+
   created () {
     // если localStorage содержит значение по ключу
     // username, то запишем его в наши переменные
     if (localStorage.getItem('username')) {
       this.savedUsername = localStorage.getItem('username')
+
       this.username = this.savedUsername
     }
   }
 }
 </script>
+
+<style>
+.greeting-list-wrapper {
+  display: flex;
+}
+
+.greeting-list-wrapper .greeting-list {
+  margin: auto
+}
+</style>
 
 <style>
 .greeting-list-wrapper {
