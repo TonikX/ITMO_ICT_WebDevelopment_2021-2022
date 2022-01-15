@@ -1,0 +1,10 @@
+import socket
+soc = socket.socket()
+soc.bind(('',9090))
+soc.listen(10)
+conn, adrr = soc.accept()
+print(adrr)
+data = conn.recv(1024)
+print(data.decode('utf8'))
+conn.send(b'hello client')
+soc.close()
