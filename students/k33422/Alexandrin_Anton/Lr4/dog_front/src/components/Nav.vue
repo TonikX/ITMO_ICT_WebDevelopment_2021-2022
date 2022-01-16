@@ -46,6 +46,10 @@ export default {
             link: '/report'
           },
           {
+            label: 'Misc',
+            link: '/misc'
+          },
+          {
             label: 'Log out',
             link: '/logout'
           }

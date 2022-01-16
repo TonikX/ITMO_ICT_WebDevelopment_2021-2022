@@ -7,6 +7,7 @@ import Profile from "../views/Profile.vue"
 import Experts from "../views/Experts.vue"
 import Participants from "../views/Participants.vue"
 import Report from "../views/Report.vue"
+import Misc from "../views/Misc.vue"
 
 Vue.use(VueRouter)
 
@@ -50,6 +51,11 @@ const routes = [
     path: '/report',
     name: 'Report',
     component: Report
+  },
+  {
+    path: '/misc',
+    name: 'Misc',
+    component: Misc
   },
 ]
 
