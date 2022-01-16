@@ -77,7 +77,7 @@ class BookingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Booking
-        fields = ["tenant", "property", "checkin", "checkout", "total_price", "status"]
+        fields = "__all__"
 
 
 class BookingCreateSerializer(serializers.ModelSerializer):

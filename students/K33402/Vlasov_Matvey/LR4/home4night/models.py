@@ -33,9 +33,9 @@ class Property(models.Model):
 
 class Booking(models.Model):
     STATUS = (
-        ('UNPAID', 'Unpaid'),
-        ('PAID', 'Paid'),
-        ('CANCELLED', 'Cancelled'),
+        ('UNPAID', 'UNPAID'),
+        ('PAID', 'PAID'),
+        ('CANCELLED', 'CANCELLED'),
     )
 
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE)
