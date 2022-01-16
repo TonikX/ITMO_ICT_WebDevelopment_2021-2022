@@ -1,28 +1,56 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import SignIn from '../views/SignIn.vue'
-import SignUp from "../views/SignUp"
+import Login from '../views/Login.vue'
+import Logout from '../views/Logout.vue'
+import Registration from "../views/Registration.vue"
+import Profile from "../views/Profile.vue"
+import Experts from "../views/Experts.vue"
+import Participants from "../views/Participants.vue"
+import Report from "../views/Report.vue"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/signin',
-    name: 'SignIn',
-    component: SignIn
-  },
-  {
-    path: '/signup',
-    name: 'SignUp',
-    component: SignUp
-  },
-  {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Report',
+    component: Report
   },
-
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: Logout
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Registration
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
+  },
+  {
+    path: '/experts/',
+    name: 'Experts',
+    component: Experts
+  },
+  {
+    path: '/participants',
+    name: 'Participants',
+    component: Participants
+  },
+  {
+    path: '/report',
+    name: 'Report',
+    component: Report
+  },
 ]
 
 const router = new VueRouter({
