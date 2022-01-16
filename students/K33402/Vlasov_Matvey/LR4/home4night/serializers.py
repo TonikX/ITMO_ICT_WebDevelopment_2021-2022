@@ -84,7 +84,20 @@ class BookingCreateSerializer(serializers.ModelSerializer):
         fields = ["tenant", "property", "checkin", "checkout", "status"]
 
     def create(self, validated_data):
-        nights = (validated_data["checkout"] - validated_data["checkin"]).days
+        print("here's what we see")
+        print(validated_data)
+        property = validated_data["property"]
+        checkin = validated_data["checkin"]
+        checkout = validated_data["checkout"]
+        nights = (checkout - checkin).days
+        if nights < 1:
+            raise serializers.ValidationError('The number of days must be greater than or equal to 1')
+
+        bookings = Booking.objects.filter(property=property, checkin__lte=checkin, checkout__gt=checkin) | \
+                   Booking.objects.filter(property=property, checkin__lt=checkout, checkin__gte=checkin)
+        if len(bookings) > 0:
+            raise serializers.ValidationError('This property is already booked during these days')
+
         price = Property.objects.get(id=validated_data["property"].id).price
         validated_data["total_price"] = nights * price
         return super(BookingCreateSerializer, self).create(validated_data)

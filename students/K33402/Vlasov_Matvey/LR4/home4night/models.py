@@ -42,7 +42,7 @@ class Booking(models.Model):
     checkin = models.DateField()
     checkout = models.DateField()
     total_price = models.IntegerField()
-    status = models.IntegerField(choices=Status.choices)
+    status = models.IntegerField(choices=Status.choices, default=Status.UNPAID)
 
     def __str__(self):
         return f'{self.property.city} | {self.property.title} | {self.checkin} - {self.checkout}'

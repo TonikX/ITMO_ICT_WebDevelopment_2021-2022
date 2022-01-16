@@ -8,6 +8,7 @@ import Search from '@/views/Search.vue'
 import Profile from '@/views/Profile.vue'
 import PasswordChange from '@/views/PasswordChange.vue'
 import UsernameChange from '@/views/UsernameChange.vue'
+import PropertyDetail from '@/views/PropertyDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -66,6 +67,14 @@ const routes = [
         component: UsernameChange,
         meta: {
             title: 'Home4Night: Username Change'
+        }
+    },
+    {
+        path: '/card/:id/:item',
+        name: 'PropertyDetail',
+        component: PropertyDetail,
+        meta: {
+            title: 'Home4Night: Housing for Vacation'
         }
     }
 ]

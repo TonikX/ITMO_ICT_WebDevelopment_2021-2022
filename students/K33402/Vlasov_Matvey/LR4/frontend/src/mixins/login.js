@@ -40,6 +40,7 @@ export default {
             this.getRole(myData.id)
 
             sessionStorage.setItem('authToken', authToken)
+            sessionStorage.setItem('id', myData.id)
             sessionStorage.setItem('username', myData.username)
             sessionStorage.setItem('firstName', myData.first_name)
             sessionStorage.setItem('lastName', myData.last_name)

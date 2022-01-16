@@ -1,13 +1,17 @@
 <template>
     <div class="card col-md-4">
-        <img class="card-img-top" src="@/assets/img/property_image.jpg" >
+        <router-link :to="{ name: 'PropertyDetail', params: { id: propertyItem.id, item: propertyItem }}">
+            <img class="card-img-top" src="@/assets/img/property_image.jpg" >
+        </router-link>
         <div class="card-body">
             <p class="card-location"><b-icon icon="flag" font-scale="0.99" class="fa"></b-icon>{{ propertyItem.city }}</p>
             <!-- <p class="card-rating"><span class="red-star">★</span> {{ propertyItem.review_score}}
                 <span class="reviews">({{ propertyItem.review_nr}} reviews)</span>
             </p> -->
-            <p class="card-text">{{ propertyItem.title }}</p>
-            <p class="card-price"><span class="price">${{ Math.round(propertyItem.price) }} </span> / night</p>
+            <router-link :to="{ name: 'PropertyDetail', params: { id: propertyItem.id, item: propertyItem }}">
+                <p class="card-text">{{ propertyItem.title }}</p>
+                <p class="card-text"><span class="price">${{ Math.round(propertyItem.price) }} </span> / night</p>
+            </router-link>
         </div>
     </div>
 </template>
@@ -44,6 +48,7 @@ export default {
 }
 
 p.card-text {
+    color: var(--color-main);
     line-height: 1.0rem;
 }
 
@@ -59,5 +64,9 @@ p.card-text {
     padding-right: 1.5rem;
     font-size: 1.5rem;
     width: 1rem;
+}
+
+a:hover {
+    text-decoration-color: var(--color-main);
 }
 </style>

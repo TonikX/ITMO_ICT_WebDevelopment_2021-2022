@@ -1,14 +1,14 @@
 <template>
     <main role="main">
-        <div class="container">
-            <form @submit.prevent="search" ref="form">
+        <b-container>
+            <form @submit.prevent="search">
                 <input class="col-md-3" id="location" type="text" placeholder="Location" v-model="location">
                 <input class="col-md-2" id="guests" type="number" min="1" placeholder="Guests" v-model="guests">
                 <input class="col-md-2" id="checkin" type="text" placeholder="Check in" onfocus="(this.type='date')" v-model="checkin">
                 <input class="col-md-2" id="checkout" type="text" placeholder="Check out" onfocus="(this.type='date')" v-model="checkout">
                 <button class="btn btn-primary col-md-2" type="submit">Search</button>
             </form>
-        </div>
+        </b-container>
     </main>
 </template>
 
