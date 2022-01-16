@@ -22,10 +22,33 @@
 
 <script>
 export default {
-  name: "Login"
+  name: 'Login',
+  data() {
+    return {
+      form: {
+        username: "",
+        password: "",
+      }
+    };
+  },
+  methods: {
+    onSubmit(form) {
+      this.$store.dispatch('onSubmitSignIn', form)
+    }
+  },
 }
 </script>
 
 <style scoped>
-
+.form {
+  width: 320px;
+  background: #E2E2E2;
+  border-radius: 20px;
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-top: 150px;
+}
+.body {
+  min-height: calc(100vh - 80px);
+}
 </style>
