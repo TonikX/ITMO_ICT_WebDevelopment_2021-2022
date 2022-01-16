@@ -13,25 +13,37 @@
                 <p class="card-text">Price: ${{ bookingItem.total_price }}</p>
                 <p class="card-text">Status: {{ bookingItem.status }}</p>
 
-                <button v-if="bookingItem.status !== 'CANCELLED'" class="btn btn-danger col-md-4" v-on:click="cancelBooking">Cancel booking</button>
+                <button v-if="!isCancelled && !isPassed" class="btn btn-danger col-md-4" v-on:click="cancelBooking">Cancel booking</button>
             </div>
         </b-row>
+        <div v-if="!isCancelled && isPassed" class="mt-3 col-md-12">
+            <booking-review-form :booking-item="bookingItem" />
+        </div>
     </div>
 </template>
 
 <script>
+import BookingReviewForm from '@/components/BookingReviewForm.vue'
+
 export default {
     name: 'BookingCardDetail',
 
+    components: {
+        BookingReviewForm
+    },
     props: {
         bookingItem: Object
     },
+    data: () => ({
+        isCancelled: false,
+        isPassed: false
+    }),
     created () {
-        console.log(this.bookingItem.status)
+        this.isCancelled = this.bookingItem.status === 'CANCELLED'
+        this.isPassed = Date.now() > Date.parse(this.bookingItem.checkin)
     },
     methods: {
         async cancelBooking () {
-            console.log('cancelling booking...')
             const url = `http://127.0.0.1:8000/booking/update/${this.bookingItem.id}`
 
             const response = await fetch(url, {

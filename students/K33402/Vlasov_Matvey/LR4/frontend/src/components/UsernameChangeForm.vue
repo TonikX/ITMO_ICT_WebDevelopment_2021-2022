@@ -34,7 +34,6 @@ export default {
         async changeUsername () {
             const url = 'http://127.0.0.1:8000/auth/users/set_username/'
             const authToken = sessionStorage.getItem('authToken')
-            console.log('here i am')
 
             const response = await fetch(url, {
                 method: 'POST',

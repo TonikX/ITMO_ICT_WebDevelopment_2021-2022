@@ -65,7 +65,6 @@ export default {
             const data = await response.json()
 
             this.propertyItems = data
-            console.log(data)
             this.isNotFound = this.propertyItems === undefined || this.propertyItems.length === 0
             this.isLoaded = true
         }

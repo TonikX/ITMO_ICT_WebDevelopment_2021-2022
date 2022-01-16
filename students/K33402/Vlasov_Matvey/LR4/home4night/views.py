@@ -164,7 +164,6 @@ class BookingListView(generics.ListAPIView):
         if tenant:
             queryset = queryset.filter(tenant__pk=tenant)
 
-        queryset = queryset.order_by('-checkin')
         return queryset
 
 
@@ -196,6 +195,16 @@ class ReviewListView(generics.ListAPIView):
     """ Get review list """
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+    def get_queryset(self):
+        params = self.request.GET
+        booking = params.get('booking')
+
+        queryset = Review.objects.all()
+        if booking:
+            queryset = queryset.filter(booking__pk=booking)
+
+        return queryset
 
 
 class ReviewCreateView(generics.CreateAPIView):

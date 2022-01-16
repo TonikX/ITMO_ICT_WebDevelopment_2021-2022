@@ -39,16 +39,12 @@ export default {
             this.isLoaded = false
 
             const url = `http://127.0.0.1:8000/booking/list/?tenant=${sessionStorage.getItem('id')}`
-            console.log(url)
 
             const response = await fetch(url, {
                 method: 'GET'
             })
 
-            console.log(response)
-
             const data = await response.json()
-            console.log(data)
 
             this.bookingItems = data
             this.isNotFound = this.bookingItems === undefined || this.bookingItems.length === 0

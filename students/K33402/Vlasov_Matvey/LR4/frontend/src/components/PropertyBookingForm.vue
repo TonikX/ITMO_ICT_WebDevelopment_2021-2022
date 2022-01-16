@@ -1,20 +1,16 @@
 <template>
-    <main role="main">
-        <b-container class="px-0">
-            <form @submit.prevent="book">
-                <b-alert show variant="danger" v-if="error" class="mb-0">
-                    {{ this.error }}
-                </b-alert>
-                <b-alert show variant="success" v-if="success" class="mb-0">
-                    You successfully booked this property. Now you can see it in <router-link to="/bookings"> your bookings</router-link>
-                </b-alert>
-                <input class="col-md-2" id="guests" type="number" min="1" placeholder="Guests" required v-model="guests">
-                <input class="col-md-3" id="checkin" type="text" placeholder="Check in" onfocus="(this.type='date')" required v-model="checkin">
-                <input class="col-md-3" id="checkout" type="text" placeholder="Check out" onfocus="(this.type='date')" required v-model="checkout">
-                <button class="btn btn-primary col-md-2" type="submit">Book</button>
-            </form>
-        </b-container>
-    </main>
+    <form @submit.prevent="book">
+        <b-alert show variant="danger" v-if="error" class="mb-0">
+            {{ this.error }}
+        </b-alert>
+        <b-alert show variant="success" v-if="success" class="mb-0">
+            You successfully booked this property. Now you can see it in <router-link to="/bookings"> your bookings</router-link>
+        </b-alert>
+        <input class="col-md-2" id="guests" type="number" min="1" placeholder="Guests" required v-model="guests">
+        <input class="col-md-3" id="checkin" type="text" placeholder="Check in" onfocus="(this.type='date')" required v-model="checkin">
+        <input class="col-md-3" id="checkout" type="text" placeholder="Check out" onfocus="(this.type='date')" required v-model="checkout">
+        <button class="btn btn-primary col-md-2" type="submit">Book</button>
+    </form>
 </template>
 
 <script>
@@ -78,9 +74,5 @@ export default {
 ::placeholder, input, textarea {
     color: #0091ff;
     background-color: var(--background-color-input);
-}
-
-.container {
-    background-color: var(--background-color-card)
 }
 </style>
