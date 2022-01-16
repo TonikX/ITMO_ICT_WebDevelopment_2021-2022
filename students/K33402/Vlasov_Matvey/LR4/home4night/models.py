@@ -32,17 +32,18 @@ class Property(models.Model):
 
 
 class Booking(models.Model):
-    class Status(models.IntegerChoices):
-        CANCELLED = -1
-        UNPAID = 0
-        PAID = 1
+    STATUS = (
+        ('UNPAID', 'Unpaid'),
+        ('PAID', 'Paid'),
+        ('CANCELLED', 'Cancelled'),
+    )
 
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     checkin = models.DateField()
     checkout = models.DateField()
     total_price = models.IntegerField()
-    status = models.IntegerField(choices=Status.choices, default=Status.UNPAID)
+    status = models.CharField(choices=STATUS, max_length=10, default='Unpaid')
 
     def __str__(self):
         return f'{self.property.city} | {self.property.title} | {self.checkin} - {self.checkout}'

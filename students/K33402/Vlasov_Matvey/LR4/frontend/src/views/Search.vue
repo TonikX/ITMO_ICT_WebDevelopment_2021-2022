@@ -52,7 +52,7 @@ export default {
                 checkout = params.checkout
             }
 
-            let url = 'http://127.0.0.1:8000/property/list?'
+            let url = 'http://127.0.0.1:8000/property/list/?'
             if (location) url += `city=${location}&`
             if (guests) url += `guests=${guests}&`
             if (checkin) url += `checkin=${checkin}&`

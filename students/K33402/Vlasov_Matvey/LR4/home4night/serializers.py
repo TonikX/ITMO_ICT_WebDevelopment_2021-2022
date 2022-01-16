@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 from .models import *
@@ -84,11 +86,13 @@ class BookingCreateSerializer(serializers.ModelSerializer):
         fields = ["tenant", "property", "checkin", "checkout", "status"]
 
     def create(self, validated_data):
-        print("here's what we see")
-        print(validated_data)
         property = validated_data["property"]
         checkin = validated_data["checkin"]
         checkout = validated_data["checkout"]
+
+        if checkin < date.today():
+            raise serializers.ValidationError('You cannot select dates that have already passed')
+
         nights = (checkout - checkin).days
         if nights < 1:
             raise serializers.ValidationError('The number of days must be greater than or equal to 1')

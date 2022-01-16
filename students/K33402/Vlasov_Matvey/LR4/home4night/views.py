@@ -156,6 +156,17 @@ class BookingListView(generics.ListAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
 
+    def get_queryset(self):
+        params = self.request.GET
+        tenant = params.get('tenant')
+
+        queryset = Booking.objects.all()
+        if tenant:
+            queryset = queryset.filter(tenant__pk=tenant)
+
+        queryset = queryset.order_by('-checkin')
+        return queryset
+
 
 class BookingCreateView(generics.CreateAPIView):
     """ Create booking """

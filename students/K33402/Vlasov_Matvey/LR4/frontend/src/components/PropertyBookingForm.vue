@@ -6,7 +6,7 @@
                     {{ this.error }}
                 </b-alert>
                 <b-alert show variant="success" v-if="success" class="mb-0">
-                    You successfully booked this property
+                    You successfully booked this property. Now you can see it in <router-link to="/bookings"> your bookings</router-link>
                 </b-alert>
                 <input class="col-md-2" id="guests" type="number" min="1" placeholder="Guests" required v-model="guests">
                 <input class="col-md-3" id="checkin" type="text" placeholder="Check in" onfocus="(this.type='date')" required v-model="checkin">
