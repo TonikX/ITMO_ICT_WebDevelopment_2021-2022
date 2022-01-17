@@ -1,7 +1,7 @@
 <template>
     <div class="card p-3" v-if="bookingItem.id">
         <b-row>
-            <img class="col-md-4 mt-0 card-img-top" src="@/assets/img/property_image.jpg" >
+            <img class="col-md-4 mt-0" src="@/assets/img/property_image.jpg" >
             <div class="col-md-8 card-body">
                 <p class="card-location"><b-icon icon="flag" font-scale="0.99" class="fa"></b-icon>{{ bookingItem.property.city }}</p>
                 <p class="card-text">{{ bookingItem.property.title }}
@@ -84,16 +84,8 @@ export default {
     background-color: var(--background-color-card);
 }
 
-.card-img-top {
-    margin-top: 1rem;
-}
-
 .card-location {
     color: #0091ff;
-}
-
-.price {
-    font-weight: bold;
 }
 
 .card-body p {
@@ -106,10 +98,6 @@ p.card-text {
 
 .red-star {
     color: red;
-}
-
-.reviews {
-    color: var(--color-main);
 }
 
 .fa {

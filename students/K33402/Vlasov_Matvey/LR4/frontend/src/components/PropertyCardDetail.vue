@@ -5,7 +5,7 @@
             <div class="col-md-8 card-body">
                 <p class="card-location"><b-icon icon="flag" font-scale="0.99" class="fa"></b-icon>{{ propertyItem.city }}</p>
                 <p class="card-text"><span class="red-star">★</span> {{ grade }}
-                    <span class="reviews">({{ reviewsNum }} reviews)</span>
+                    <span class="reviews">({{ reviewItems.length }} reviews)</span>
                 </p>
                 <p class="card-text">{{ propertyItem.title }}</p>
                 <p class="card-text">{{ propertyItem.description }}</p>
@@ -19,28 +19,37 @@
                 </template>
             </div>
         </b-row>
+        <div class="pt-3">
+            <review-card
+                v-for="reviewItem in reviewItems"
+                :key="reviewItem.id"
+                :review-item="reviewItem"
+                class=""
+            />
+        </div>
     </div>
 </template>
 
 <script>
 import PropertyBookingForm from '@/components/PropertyBookingForm.vue'
+import ReviewCard from '@/components/ReviewCard.vue'
 
 export default {
     name: 'PropertyCardDetail',
 
     components: {
-        PropertyBookingForm
+        PropertyBookingForm,
+        ReviewCard
     },
     props: {
         propertyItemId: String
     },
     data: () => ({
         propertyItem: Object,
-        grade: '-',
-        reviewsNum: 0
+        reviewItems: [],
+        grade: '-'
     }),
     created () {
-        // this.propertyItem = {}
         this.getPropertyItem()
     },
     methods: {
@@ -64,12 +73,12 @@ export default {
             const data = await response.json()
             if (data === undefined || data.length === 0) return
 
-            this.reviewsNum = data.length
+            this.reviewItems = data
             let sum = 0
-            for (const i of Array(this.reviewsNum).keys()) {
+            for (const i of Array(this.reviewItems.length).keys()) {
                 sum += data[i].grade
             }
-            this.grade = sum / this.reviewsNum
+            this.grade = sum / this.reviewItems.length
             this.grade = +this.grade.toFixed(2)
         }
     }

@@ -60,6 +60,7 @@ class Review(models.Model):
     booking = models.OneToOneField(Booking, on_delete=models.CASCADE, primary_key=True)
     grade = models.IntegerField(choices=Grade.choices)
     comment = models.CharField(max_length=500, blank=True)
+    last_changed = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.booking.property.city} | {self.booking.property.title} | Grade: {self.grade}'
