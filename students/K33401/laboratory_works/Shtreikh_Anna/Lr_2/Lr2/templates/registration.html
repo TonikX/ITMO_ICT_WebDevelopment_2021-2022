@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+    <title>Registration</title>
+</head>
+<body>
+    <h1>#Create an account</h1>
+    <p>Please, sign up using the following form:</p>
+    <form action="" method="POST" autocomplete="off">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Create my account" class="btn btn-outline-info btn-lg"></p>
+    </form>
+<a href="/">>>>Back to main page</a>
+</body>
+</html>

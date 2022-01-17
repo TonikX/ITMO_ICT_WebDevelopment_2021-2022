@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+    <title>Profile</title>
+</head>
+<body>
+<h1>#{{ user.username }}({{ user.first_name }} {{ user.last_name }}), your reservations:</h1>
+{% for reservation in reservations %}
+    <ul>
+        <li>Hotel: {{ reservation.room.hotel.name }}</li>
+        <li>Room number: {{ reservation.room.number }}</li>
+        <li>Arrival: {{ reservation.arrival }}</li>
+        <li>Departure: {{ reservation.departure }}</li>
+        <a href="/upd_res/{{ reservation.id }}" class="btn btn-outline-info btn-lg">Edit</a>
+        <a href="/del_res/{{ reservation.id }}" class="btn btn-outline-info btn-lg">Delete</a>
+        <a href="/hotel/{{ reservation.room.hotel.id }}/room_list/room/{{ reservation.room.id }}"
+           class="btn btn-outline-info btn-lg"> More about room </a>
+    </ul>
+
+    <hr/>
+{% empty %}
+    <a>No reservations yet.</a>
+    <a href="/hotel_list/" class="text-info">Fix it!</a>
+    <br>
+{% endfor %}
+<a href="/">>>>Back to main page</a>
+<hr>
+<p align="center"><a href="/logout/" role="button">Exit</a></p>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car_delete</title>
+</head>
+<body>
+    <form method="POST">{% csrf_token %}
+    <p>Delete "{{ object }}"?</p>
+    <input type="submit" value="Confirm">
+  </form>
+  <br>
+  <a href="/cars_list/">Get back</a>
+</body>
+</html>
