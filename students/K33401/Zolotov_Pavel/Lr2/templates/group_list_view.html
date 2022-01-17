@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <p>Please select a group to view grades</p>
+    <dl>
+        <!-- Iterate over object_list -->
+        {% for object in object_list %}
+        <!-- Display Objects -->
+        <dt><a href="{% url 'grades' object.id%}">{{ object.title }}</a></dt>
+
+        <hr/>
+        <!-- If objet_list is empty  -->
+        {% empty %}
+        <li>No groups yet.</li>
+        {% endfor %}
+    </dl>
+{% endblock %}
