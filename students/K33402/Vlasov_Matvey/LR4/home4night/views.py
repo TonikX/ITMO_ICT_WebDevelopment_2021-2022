@@ -98,6 +98,7 @@ class PropertyListView(generics.ListAPIView):
     def get_queryset(self):
         params = self.request.GET
         id = params.get('id')
+        owner = params.get('owner')
         city = params.get('city')
         guests = params.get('guests')
         checkin = params.get('checkin')
@@ -106,6 +107,8 @@ class PropertyListView(generics.ListAPIView):
         queryset = Property.objects.all()
         if id:
             queryset = queryset.filter(pk=id)
+        if owner:
+            queryset = queryset.filter(owner__pk=owner)
         if city:
             queryset = queryset.filter(city=city)
         if guests:

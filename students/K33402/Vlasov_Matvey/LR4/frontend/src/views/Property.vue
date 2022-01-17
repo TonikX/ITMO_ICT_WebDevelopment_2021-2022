@@ -1,9 +1,8 @@
 <template>
     <main role="main">
-        <search-form @search="this.getProperty"/>
         <b-container class="pb-4">
             <div class="pb-3" v-if="isLoaded == false">Loading...</div>
-            <div class="pb-3" v-if="isNotFound == true">Results not found</div>
+            <div class="pb-3" v-if="isNotFound == true">You don't have any property. You can add it here</div>
             <v-row v-for="index in 5" :key="index" v-else>
                 <property-card
                     v-for="propertyItem in propertyItems.slice((index - 1) * 3, Math.min((index - 1) * 3 + 3, propertyItems.length))"
@@ -17,13 +16,11 @@
 </template>
 
 <script>
-import SearchForm from '@/components/SearchForm.vue'
 import PropertyCard from '@/components/PropertyCard.vue'
 
 export default {
-    name: 'Search',
+    name: 'Property',
     components: {
-        SearchForm,
         PropertyCard
     },
 
@@ -38,25 +35,10 @@ export default {
     },
 
     methods: {
-        async getProperty (params = null) {
+        async getProperty () {
             this.isLoaded = false
-            let location = null
-            let guests = null
-            let checkin = null
-            let checkout = null
 
-            if (params) {
-                location = params.location
-                guests = params.guests
-                checkin = params.checkin
-                checkout = params.checkout
-            }
-
-            let url = 'http://127.0.0.1:8000/property/list/?'
-            if (location) url += `city=${location}&`
-            if (guests) url += `guests=${guests}&`
-            if (checkin) url += `checkin=${checkin}&`
-            if (checkout) url += `checkout=${checkout}&`
+            const url = `http://127.0.0.1:8000/property/list/?owner=${this.$store.state.id}`
 
             const response = await fetch(url, {
                 method: 'GET'

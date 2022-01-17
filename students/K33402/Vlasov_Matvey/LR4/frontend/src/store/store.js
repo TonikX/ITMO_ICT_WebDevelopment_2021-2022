@@ -5,19 +5,22 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        isLogged: localStorage.getItem('authToken') !== null,
-        username: localStorage.getItem('username'),
-        firstName: localStorage.getItem('firstName'),
-        lastName: localStorage.getItem('lastName'),
-        role: localStorage.getItem('role')
+        authToken: '',
+        isLogged: false,
+        username: '',
+        firstName: '',
+        lastName: '',
+        role: ''
     },
     mutations: {
-        isLoggedUpdate () {
-            this.state.isLogged = localStorage.getItem('authToken') !== null
-            this.state.username = localStorage.getItem('username')
-            this.state.firstName = localStorage.getItem('firstName')
-            this.state.lastName = localStorage.getItem('lastName')
-            this.state.role = localStorage.getItem('role')
+        isLoggedUpdate (_, params) {
+            if (params === undefined) return
+            for (const [key, value] of Object.entries(params)) {
+                this.state[key] = value
+                if (key === 'authToken') {
+                    this.state.isLogged = this.state.authToken !== ''
+                }
+            }
         }
     }
 })

@@ -92,8 +92,9 @@ export default {
             })
 
             if (response.ok) {
-                localStorage.setItem('role', this.role)
-                this.$store.commit('isLoggedUpdate')
+                this.$store.commit('isLoggedUpdate', {
+                    role: this.role
+                })
             }
         }
     }

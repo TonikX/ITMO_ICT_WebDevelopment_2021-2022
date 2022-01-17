@@ -39,13 +39,14 @@ export default {
             const myData = await response.json()
             this.getRole(myData.id)
 
-            localStorage.setItem('authToken', authToken)
-            localStorage.setItem('id', myData.id)
-            localStorage.setItem('username', myData.username)
-            localStorage.setItem('firstName', myData.first_name)
-            localStorage.setItem('lastName', myData.last_name)
-
-            this.$store.commit('isLoggedUpdate')
+            this.$store.commit('isLoggedUpdate', {
+                authToken: authToken,
+                id: myData.id,
+                username: myData.username,
+                firstName: myData.first_name,
+                lastName: myData.last_name
+            })
+            console.log('you should have seen')
             this.$router.push('profile')
         },
         async getRole (id) {
@@ -58,8 +59,10 @@ export default {
 
             const data = await response.json()
             if (data.user) role = 'landlord'
-            localStorage.setItem('role', role)
-            this.$store.commit('isLoggedUpdate')
+            this.$store.commit('isLoggedUpdate', {
+                role: role
+            }
+            )
         }
     }
 }

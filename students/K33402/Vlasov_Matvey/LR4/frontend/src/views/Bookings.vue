@@ -38,7 +38,7 @@ export default {
         async getBookings () {
             this.isLoaded = false
 
-            const url = `http://127.0.0.1:8000/booking/list/?tenant=${localStorage.getItem('id')}`
+            const url = `http://127.0.0.1:8000/booking/list/?tenant=${this.$store.state.id}`
 
             const response = await fetch(url, {
                 method: 'GET'

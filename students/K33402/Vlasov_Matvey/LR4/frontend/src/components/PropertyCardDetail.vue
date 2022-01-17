@@ -4,6 +4,7 @@
             <img class="col-md-4 mt-0 card-img-top" src="@/assets/img/property_image.jpg" >
             <div class="col-md-8 card-body">
                 <p class="card-location"><b-icon icon="flag" font-scale="0.99" class="fa"></b-icon>{{ propertyItem.city }}</p>
+                <p class="card-location"><b-icon icon="flag" font-scale="0.99" class="fa"></b-icon>{{ propertyItem.address }}</p>
                 <p class="card-text"><span class="red-star">★</span> {{ grade }}
                     <span class="reviews">({{ reviewItems.length }} reviews)</span>
                 </p>
@@ -11,14 +12,17 @@
                 <p class="card-text">{{ propertyItem.description }}</p>
                 <p class="card-price"><span class="price">${{ Math.round(propertyItem.price) }} </span> / night</p>
 
-                <property-booking-form :property-item="propertyItem" v-if="this.$store.state.isLogged" />
-                <template v-else>
+                <template v-if="!this.$store.state.isLogged">
                     <b-alert show>
                         <router-link to="/login">Log in</router-link> to book this property
                     </b-alert>
                 </template>
+                <property-booking-form :property-item="propertyItem" v-else-if="this.$store.state.role === 'tenant'" />
             </div>
         </b-row>
+        <div class="pt-3" v-if="isOwner">
+            <property-edit-form :property-item="propertyItem" @propertyUpdated="updateProperty" />
+        </div>
         <div class="pt-3">
             <review-card
                 v-for="reviewItem in reviewItems"
@@ -32,6 +36,7 @@
 
 <script>
 import PropertyBookingForm from '@/components/PropertyBookingForm.vue'
+import PropertyEditForm from '@/components/PropertyEditForm.vue'
 import ReviewCard from '@/components/ReviewCard.vue'
 
 export default {
@@ -39,6 +44,7 @@ export default {
 
     components: {
         PropertyBookingForm,
+        PropertyEditForm,
         ReviewCard
     },
     props: {
@@ -47,7 +53,8 @@ export default {
     data: () => ({
         propertyItem: Object,
         reviewItems: [],
-        grade: '-'
+        grade: '-',
+        isOwner: false
     }),
     created () {
         this.getPropertyItem()
@@ -63,6 +70,7 @@ export default {
             if (data === undefined || data.length === 0) return
             this.propertyItem = data[0]
             this.getReviewInfo()
+            this.isOwner = this.propertyItem.owner.user.id === this.$store.state.id
         },
         async getReviewInfo () {
             const url = `http://127.0.0.1:8000/review/list/?property=${this.propertyItem.id}`
@@ -80,6 +88,9 @@ export default {
             }
             this.grade = sum / this.reviewItems.length
             this.grade = +this.grade.toFixed(2)
+        },
+        updateProperty (params) {
+            this.propertyItem = params.propertyItem
         }
     }
 }

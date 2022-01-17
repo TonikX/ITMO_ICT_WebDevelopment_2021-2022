@@ -39,8 +39,14 @@ export default {
     },
     methods: {
         logout () {
-            localStorage.clear()
-            this.$store.commit('isLoggedUpdate')
+            this.$store.commit('isLoggedUpdate', {
+                authToken: '',
+                id: '',
+                username: '',
+                firstName: '',
+                lastName: '',
+                role: ''
+            })
             this.$router.push('/')
         }
     }

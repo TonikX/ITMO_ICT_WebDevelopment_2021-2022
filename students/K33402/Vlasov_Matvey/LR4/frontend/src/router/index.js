@@ -11,6 +11,7 @@ import UsernameChange from '@/views/UsernameChange.vue'
 import PropertyDetail from '@/views/PropertyDetail.vue'
 import Bookings from '@/views/Bookings.vue'
 import BookingDetail from '@/views/BookingDetail.vue'
+import Property from '@/views/Property.vue'
 
 Vue.use(VueRouter)
 
@@ -93,6 +94,14 @@ const routes = [
         component: BookingDetail,
         meta: {
             title: 'Home4Night: Housing for Vacation'
+        }
+    },
+    {
+        path: '/property',
+        name: 'Property',
+        component: Property,
+        meta: {
+            title: 'Home4Night: My Property'
         }
     }
 ]

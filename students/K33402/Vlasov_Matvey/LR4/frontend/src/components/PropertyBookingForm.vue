@@ -18,7 +18,7 @@ export default {
     name: 'PropertyBookingForm',
 
     props: {
-        PropertyItem: Object
+        propertyItem: Object
     },
     data: () => ({
         guests: '',
@@ -29,9 +29,9 @@ export default {
     }),
     methods: {
         async book () {
-            if (this.guests > this.PropertyItem.guest_limit) {
+            if (this.guests > this.propertyItem.guest_limit) {
                 this.success = false
-                this.error = `Maximum number of guests is ${this.PropertyItem.guest_limit}`
+                this.error = `Maximum number of guests is ${this.propertyItem.guest_limit}`
                 return
             }
 
@@ -44,8 +44,8 @@ export default {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    tenant: localStorage.getItem('id'),
-                    property: this.PropertyItem.id,
+                    tenant: this.$store.state.id,
+                    property: this.propertyItem.id,
                     checkin: this.checkin,
                     checkout: this.checkout
                 })

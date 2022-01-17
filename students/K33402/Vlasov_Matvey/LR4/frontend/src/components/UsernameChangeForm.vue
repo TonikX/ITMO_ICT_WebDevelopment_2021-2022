@@ -8,7 +8,7 @@
                 Username successfully changed
             </b-alert>
             <input-field v-model="currentPassword" type="password" placeholder="Current password" icon="lock-fill" />
-            <input-field v-model="newUsername" type="text" placeholder="New Username" icon="person-fill" />
+            <input-field v-model="newUsername" type="text" placeholder="New username" icon="person-fill" />
             <b-row class="mt-3 d-flex justify-content-center">
                 <input class="btn btn-primary mb-3" type="submit" value="Change"/>
             </b-row>
@@ -33,7 +33,7 @@ export default {
     methods: {
         async changeUsername () {
             const url = 'http://127.0.0.1:8000/auth/users/set_username/'
-            const authToken = localStorage.getItem('authToken')
+            const authToken = this.$store.state.authToken
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -54,8 +54,9 @@ export default {
                 this.error = Object.values(data)[0][0].toString()
             } else {
                 this.error = ''
-                localStorage.setItem('username', this.newUsername)
-                this.$store.commit('isLoggedUpdate')
+                this.$store.commit('isLoggedUpdate', {
+                    username: this.newUsername
+                })
             }
         }
     }
