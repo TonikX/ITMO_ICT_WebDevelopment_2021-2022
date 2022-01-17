@@ -199,10 +199,13 @@ class ReviewListView(generics.ListAPIView):
     def get_queryset(self):
         params = self.request.GET
         booking = params.get('booking')
+        property = params.get('property')
 
         queryset = Review.objects.all()
         if booking:
             queryset = queryset.filter(booking__pk=booking)
+        elif property:
+            queryset = queryset.filter(booking__property__pk=property)
 
         return queryset
 

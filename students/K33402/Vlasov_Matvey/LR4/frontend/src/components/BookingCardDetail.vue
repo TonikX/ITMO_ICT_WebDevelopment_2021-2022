@@ -7,7 +7,11 @@
                 <!-- <p class="card-rating"><span class="red-star">★</span> {{ propertyItem.review_score}}
                     <span class="reviews">({{ propertyItem.review_nr}} reviews)</span>
                 </p> -->
-                <p class="card-text">{{ bookingItem.property.title }}</p>
+                <p class="card-text">{{ bookingItem.property.title }}
+                    <router-link :to="{ name: 'PropertyDetail', params: { id: bookingItem.property.id, item: bookingItem.property }}">
+                        <b-icon class="mx-1" icon="info-circle-fill" scale="1.1" variant="info"></b-icon>
+                    </router-link>
+                </p>
                 <p class="card-text">Check in: {{ bookingItem.checkin }}</p>
                 <p class="card-text">Check out: {{ bookingItem.checkout }}</p>
                 <p class="card-text">Price: ${{ bookingItem.total_price }}</p>
