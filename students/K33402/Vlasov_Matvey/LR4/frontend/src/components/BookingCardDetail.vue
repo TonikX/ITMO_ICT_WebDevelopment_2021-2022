@@ -19,6 +19,7 @@
                         <b-icon class="mx-1" icon="info-circle-fill" scale="1.1" variant="info"></b-icon>
                     </router-link>
                 </p>
+                <p class="card-text" v-if="this.$store.state.id === bookingItem.property.owner.user.id">Tenant: {{ bookingItem.tenant.user.username }}</p>
                 <p class="card-text">Check in: {{ bookingItem.checkin }}</p>
                 <p class="card-text">Check out: {{ bookingItem.checkout }}</p>
                 <p class="card-text">Price: ${{ bookingItem.total_price }}</p>

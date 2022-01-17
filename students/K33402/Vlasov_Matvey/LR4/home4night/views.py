@@ -129,6 +129,7 @@ class PropertyListView(generics.ListAPIView):
 
             bookings = Booking.objects.filter(checkin__lte=checkin, checkout__gt=checkin) | \
                        Booking.objects.filter(checkin__lt=checkout, checkin__gte=checkin)
+            bookings = bookings.filter(~Q(status='CANCELLED'))
 
             for booking in bookings:
                 queryset = queryset.exclude(pk=booking.property.pk)

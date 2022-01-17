@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.contrib.auth.hashers import make_password
+from django.db.models import Q
 from rest_framework import serializers
 from .models import *
 
@@ -99,6 +100,7 @@ class BookingCreateSerializer(serializers.ModelSerializer):
 
         bookings = Booking.objects.filter(property=property, checkin__lte=checkin, checkout__gt=checkin) | \
                    Booking.objects.filter(property=property, checkin__lt=checkout, checkin__gte=checkin)
+        bookings = bookings.filter(~Q(status='CANCELLED'))
         if len(bookings) > 0:
             raise serializers.ValidationError('This property is already booked during these days')
 

@@ -52,7 +52,6 @@ export default {
             })
 
             const data = await response.json()
-            const authToken = data.auth_token
 
             this.success = response.ok
 
