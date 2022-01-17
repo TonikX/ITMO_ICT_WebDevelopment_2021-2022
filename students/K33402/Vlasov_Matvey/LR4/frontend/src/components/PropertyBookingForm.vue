@@ -44,7 +44,7 @@ export default {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    tenant: sessionStorage.getItem('id'),
+                    tenant: localStorage.getItem('id'),
                     property: this.PropertyItem.id,
                     checkin: this.checkin,
                     checkout: this.checkout

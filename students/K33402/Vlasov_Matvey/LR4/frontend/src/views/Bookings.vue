@@ -38,7 +38,7 @@ export default {
         async getBookings () {
             this.isLoaded = false
 
-            const url = `http://127.0.0.1:8000/booking/list/?tenant=${sessionStorage.getItem('id')}`
+            const url = `http://127.0.0.1:8000/booking/list/?tenant=${localStorage.getItem('id')}`
 
             const response = await fetch(url, {
                 method: 'GET'
@@ -46,7 +46,7 @@ export default {
 
             const data = await response.json()
 
-            this.bookingItems = data
+            this.bookingItems = data.reverse()
             this.isNotFound = this.bookingItems === undefined || this.bookingItems.length === 0
             this.isLoaded = true
         }

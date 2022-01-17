@@ -33,7 +33,7 @@ export default {
     methods: {
         async changePassword () {
             const url = 'http://127.0.0.1:8000/auth/users/set_password/'
-            const authToken = sessionStorage.getItem('authToken')
+            const authToken = localStorage.getItem('authToken')
 
             const response = await fetch(url, {
                 method: 'POST',

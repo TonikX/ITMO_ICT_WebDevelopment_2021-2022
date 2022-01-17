@@ -92,7 +92,7 @@ export default {
             })
 
             if (response.ok) {
-                sessionStorage.setItem('role', this.role)
+                localStorage.setItem('role', this.role)
                 this.$store.commit('isLoggedUpdate')
             }
         }

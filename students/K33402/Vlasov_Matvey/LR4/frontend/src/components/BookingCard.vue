@@ -1,14 +1,11 @@
 <template>
     <div class="card col-md-4">
-        <router-link :to="{ name: 'BookingDetail', params: { id: bookingItem.id, item: bookingItem }}">
+        <router-link :to="{ name: 'BookingDetail', params: { id: bookingItem.id.toString() }}">
             <img class="card-img-top" src="@/assets/img/property_image.jpg" >
         </router-link>
         <div class="card-body">
             <p class="card-location"><b-icon icon="flag" font-scale="0.99" class="fa"></b-icon>{{ bookingItem.property.city }}</p>
-            <!-- <p class="card-rating"><span class="red-star">★</span> {{ propertyItem.review_score}}
-                <span class="reviews">({{ propertyItem.review_nr}} reviews)</span>
-            </p> -->
-            <router-link :to="{ name: 'BookingDetail', params: { id: bookingItem.id, item: bookingItem }}">
+            <router-link :to="{ name: 'BookingDetail', params: { id: bookingItem.id.toString() }}">
                 <p class="card-text">{{ bookingItem.property.title }}</p>
                 <p class="card-text">Check in: {{ bookingItem.checkin }}</p>
                 <p class="card-text">Check out: {{ bookingItem.checkout }}</p>

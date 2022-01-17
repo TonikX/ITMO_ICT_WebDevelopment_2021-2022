@@ -72,7 +72,7 @@ const routes = [
         }
     },
     {
-        path: '/card/:id/:item',
+        path: '/card/:id/',
         name: 'PropertyDetail',
         component: PropertyDetail,
         meta: {
@@ -88,7 +88,7 @@ const routes = [
         }
     },
     {
-        path: '/booking/:id/:item',
+        path: '/booking/:id/',
         name: 'BookingDetail',
         component: BookingDetail,
         meta: {

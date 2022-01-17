@@ -1,7 +1,7 @@
 <template>
     <main role="main">
         <b-container class="py-4">
-            <booking-card-detail :booking-item="this.$route.params.item" />
+            <booking-card-detail :booking-item-id="this.$route.params.id" />
         </b-container>
     </main>
 </template>

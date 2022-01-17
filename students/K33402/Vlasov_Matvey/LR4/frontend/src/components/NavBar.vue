@@ -39,7 +39,7 @@ export default {
     },
     methods: {
         logout () {
-            sessionStorage.clear()
+            localStorage.clear()
             this.$store.commit('isLoggedUpdate')
             this.$router.push('/')
         }

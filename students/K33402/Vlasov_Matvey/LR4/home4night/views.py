@@ -97,12 +97,15 @@ class PropertyListView(generics.ListAPIView):
 
     def get_queryset(self):
         params = self.request.GET
+        id = params.get('id')
         city = params.get('city')
         guests = params.get('guests')
         checkin = params.get('checkin')
         checkout = params.get('checkout')
 
         queryset = Property.objects.all()
+        if id:
+            queryset = queryset.filter(pk=id)
         if city:
             queryset = queryset.filter(city=city)
         if guests:
@@ -158,9 +161,12 @@ class BookingListView(generics.ListAPIView):
 
     def get_queryset(self):
         params = self.request.GET
+        id = params.get('id')
         tenant = params.get('tenant')
 
         queryset = Booking.objects.all()
+        if id:
+            queryset = queryset.filter(pk=id)
         if tenant:
             queryset = queryset.filter(tenant__pk=tenant)
 

@@ -33,7 +33,7 @@ export default {
     methods: {
         async changeUsername () {
             const url = 'http://127.0.0.1:8000/auth/users/set_username/'
-            const authToken = sessionStorage.getItem('authToken')
+            const authToken = localStorage.getItem('authToken')
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -54,7 +54,7 @@ export default {
                 this.error = Object.values(data)[0][0].toString()
             } else {
                 this.error = ''
-                sessionStorage.setItem('username', this.newUsername)
+                localStorage.setItem('username', this.newUsername)
                 this.$store.commit('isLoggedUpdate')
             }
         }

@@ -1,6 +1,6 @@
 <template>
     <div class="card col-md-4">
-        <router-link :to="{ name: 'PropertyDetail', params: { id: propertyItem.id, item: propertyItem }}">
+        <router-link :to="{ name: 'PropertyDetail', params: { id: propertyItem.id.toString() }}">
             <img class="card-img-top" src="@/assets/img/property_image.jpg" >
         </router-link>
         <div class="card-body">
@@ -8,7 +8,7 @@
             <p class="card-text"><span class="red-star">★</span> {{ grade }}
                 <span class="reviews">({{ reviewsNum }} reviews)</span>
             </p>
-            <router-link :to="{ name: 'PropertyDetail', params: { id: propertyItem.id, item: propertyItem }}">
+            <router-link :to="{ name: 'PropertyDetail', params: { id: propertyItem.id.toString() }}">
                 <p class="card-text">{{ propertyItem.title }}</p>
                 <p class="card-text"><b>${{ Math.round(propertyItem.price) }} </b> / night</p>
             </router-link>

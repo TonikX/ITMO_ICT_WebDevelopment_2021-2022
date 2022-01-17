@@ -1,14 +1,11 @@
 <template>
-    <div class="card p-3">
+    <div class="card p-3" v-if="bookingItem.id">
         <b-row>
             <img class="col-md-4 mt-0 card-img-top" src="@/assets/img/property_image.jpg" >
             <div class="col-md-8 card-body">
                 <p class="card-location"><b-icon icon="flag" font-scale="0.99" class="fa"></b-icon>{{ bookingItem.property.city }}</p>
-                <!-- <p class="card-rating"><span class="red-star">★</span> {{ propertyItem.review_score}}
-                    <span class="reviews">({{ propertyItem.review_nr}} reviews)</span>
-                </p> -->
                 <p class="card-text">{{ bookingItem.property.title }}
-                    <router-link :to="{ name: 'PropertyDetail', params: { id: bookingItem.property.id, item: bookingItem.property }}">
+                    <router-link :to="{ name: 'PropertyDetail', params: { id: bookingItem.property.id.toString() }}">
                         <b-icon class="mx-1" icon="info-circle-fill" scale="1.1" variant="info"></b-icon>
                     </router-link>
                 </p>
@@ -36,17 +33,30 @@ export default {
         BookingReviewForm
     },
     props: {
-        bookingItem: Object
+        bookingItemId: String
     },
     data: () => ({
+        bookingItem: Object,
         isCancelled: false,
         isPassed: false
     }),
     created () {
-        this.isCancelled = this.bookingItem.status === 'CANCELLED'
-        this.isPassed = Date.now() > Date.parse(this.bookingItem.checkin)
+        this.getBookingItem()
     },
     methods: {
+        async getBookingItem () {
+            const url = `http://127.0.0.1:8000/booking/list/?id=${this.bookingItemId}`
+            const response = await fetch(url, {
+                method: 'GET'
+            })
+
+            const data = await response.json()
+            if (data === undefined || data.length === 0) return
+            this.bookingItem = data[0]
+
+            this.isCancelled = this.bookingItem.status === 'CANCELLED'
+            this.isPassed = Date.now() > Date.parse(this.bookingItem.checkin)
+        },
         async cancelBooking () {
             const url = `http://127.0.0.1:8000/booking/update/${this.bookingItem.id}`
 
@@ -60,6 +70,10 @@ export default {
                     status: 'CANCELLED'
                 })
             })
+            if (response.ok) {
+                this.bookingItem.status = 'CANCELLED'
+                this.isCancelled = true
+            }
         }
     }
 }

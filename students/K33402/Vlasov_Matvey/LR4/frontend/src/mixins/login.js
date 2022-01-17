@@ -39,11 +39,11 @@ export default {
             const myData = await response.json()
             this.getRole(myData.id)
 
-            sessionStorage.setItem('authToken', authToken)
-            sessionStorage.setItem('id', myData.id)
-            sessionStorage.setItem('username', myData.username)
-            sessionStorage.setItem('firstName', myData.first_name)
-            sessionStorage.setItem('lastName', myData.last_name)
+            localStorage.setItem('authToken', authToken)
+            localStorage.setItem('id', myData.id)
+            localStorage.setItem('username', myData.username)
+            localStorage.setItem('firstName', myData.first_name)
+            localStorage.setItem('lastName', myData.last_name)
 
             this.$store.commit('isLoggedUpdate')
             this.$router.push('profile')
@@ -58,7 +58,7 @@ export default {
 
             const data = await response.json()
             if (data.user) role = 'landlord'
-            sessionStorage.setItem('role', role)
+            localStorage.setItem('role', role)
             this.$store.commit('isLoggedUpdate')
         }
     }

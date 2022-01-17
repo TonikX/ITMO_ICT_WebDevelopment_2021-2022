@@ -1,5 +1,5 @@
 <template>
-    <div class="card p-3">
+    <div class="card p-3" v-if="propertyItem.id">
         <b-row>
             <img class="col-md-4 mt-0 card-img-top" src="@/assets/img/property_image.jpg" >
             <div class="col-md-8 card-body">
@@ -32,16 +32,29 @@ export default {
         PropertyBookingForm
     },
     props: {
-        propertyItem: Object
+        propertyItemId: String
     },
     data: () => ({
+        propertyItem: Object,
         grade: '-',
         reviewsNum: 0
     }),
     created () {
-        this.getReviewInfo()
+        // this.propertyItem = {}
+        this.getPropertyItem()
     },
     methods: {
+        async getPropertyItem () {
+            const url = `http://127.0.0.1:8000/property/list/?id=${this.propertyItemId}`
+            const response = await fetch(url, {
+                method: 'GET'
+            })
+
+            const data = await response.json()
+            if (data === undefined || data.length === 0) return
+            this.propertyItem = data[0]
+            this.getReviewInfo()
+        },
         async getReviewInfo () {
             const url = `http://127.0.0.1:8000/review/list/?property=${this.propertyItem.id}`
             const response = await fetch(url, {
