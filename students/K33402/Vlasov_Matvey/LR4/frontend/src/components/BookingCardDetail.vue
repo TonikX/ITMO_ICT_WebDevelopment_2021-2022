@@ -1,6 +1,16 @@
 <template>
     <div class="card p-3" v-if="bookingItem.id">
-        <b-row>
+        <template v-if="!this.$store.state.isLogged">
+            <b-alert show>
+                <router-link to="/login">Log in</router-link> to see the information about your booking
+            </b-alert>
+        </template>
+        <template v-else-if="this.$store.state.id !== bookingItem.tenant.user.id && this.$store.state.id !== bookingItem.property.owner.user.id">
+            <b-alert show variant="danger">
+                You cannot see the information about this booking
+            </b-alert>
+        </template>
+        <b-row v-else>
             <img class="col-md-4 mt-0" src="@/assets/img/property_image.jpg" >
             <div class="col-md-8 card-body">
                 <p class="card-location"><b-icon icon="flag" font-scale="0.99" class="fa"></b-icon>{{ bookingItem.property.city }}</p>
@@ -14,10 +24,10 @@
                 <p class="card-text">Price: ${{ bookingItem.total_price }}</p>
                 <p class="card-text">Status: {{ bookingItem.status }}</p>
 
-                <button v-if="!isCancelled && !isPassed" class="btn btn-danger col-md-4" v-on:click="cancelBooking">Cancel booking</button>
+                <button v-if="!isCancelled && !isPassed && this.$store.state.id === bookingItem.tenant.user.id" class="btn btn-danger col-md-4" v-on:click="cancelBooking">Cancel booking</button>
             </div>
         </b-row>
-        <div v-if="!isCancelled && isPassed" class="mt-3 col-md-12">
+        <div v-if="!isCancelled && isPassed && this.$store.state.id === bookingItem.tenant.user.id" class="mt-3 col-md-12">
             <booking-review-form :booking-item="bookingItem" />
         </div>
     </div>

@@ -7,6 +7,7 @@ const store = new Vuex.Store({
     state: {
         authToken: '',
         isLogged: false,
+        id: '',
         username: '',
         firstName: '',
         lastName: '',

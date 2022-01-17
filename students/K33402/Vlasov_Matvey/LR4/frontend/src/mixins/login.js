@@ -39,6 +39,7 @@ export default {
             const myData = await response.json()
             this.getRole(myData.id)
 
+            localStorage.setItem('authToken', authToken)
             this.$store.commit('isLoggedUpdate', {
                 authToken: authToken,
                 id: myData.id,
@@ -46,7 +47,6 @@ export default {
                 firstName: myData.first_name,
                 lastName: myData.last_name
             })
-            console.log('you should have seen')
             this.$router.push('profile')
         },
         async getRole (id) {

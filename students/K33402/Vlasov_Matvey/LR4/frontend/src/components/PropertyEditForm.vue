@@ -9,7 +9,7 @@
         City: <input class="mt-1 mb-2 col-md-6" id="city" type="text" maxlength="50" v-model="city">
         Address: <input class="mt-1 mb-2 col-md-6" id="address" type="text" maxlength="50" v-model="address">
         Title: <input class="mt-1 mb-2 col-md-6" id="title" type="text" maxlength="50" v-model="title">
-        Description: <input class="mt-1 mb-2 col-md-6" id="description" type="text" maxlength="50" v-model="description">
+        Description: <input class="mt-1 mb-2 col-md-6" id="description" type="text" maxlength="500" v-model="description">
         Guest limit: <input class="mt-1 mb-2 col-md-2" id="guestLimit" type="number" min="1" max="100" v-model="guestLimit">
         Price per night: <input class="mt-1 col-md-2" id="price" type="number" min="1" max="100000" v-model="price">
         <button class="btn btn-primary col-md-2" type="submit">Submit</button>

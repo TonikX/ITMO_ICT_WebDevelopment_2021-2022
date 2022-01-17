@@ -39,6 +39,7 @@ export default {
     },
     methods: {
         logout () {
+            localStorage.removeItem('authToken')
             this.$store.commit('isLoggedUpdate', {
                 authToken: '',
                 id: '',

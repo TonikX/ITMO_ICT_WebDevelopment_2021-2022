@@ -12,12 +12,20 @@ import '@/assets/styles/dark.css'
 
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
+import getData from '@/mixins/login.js'
 
 export default {
     name: 'App',
     components: {
         NavBar,
         Footer
+    },
+    mixins: [getData],
+
+    created () {
+        if (localStorage.getItem('authToken') != null) {
+            this.getData(localStorage.getItem('authToken'))
+        }
     }
 }
 </script>

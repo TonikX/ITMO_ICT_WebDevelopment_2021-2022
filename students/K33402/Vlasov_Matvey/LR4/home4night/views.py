@@ -165,11 +165,14 @@ class BookingListView(generics.ListAPIView):
     def get_queryset(self):
         params = self.request.GET
         id = params.get('id')
+        owner = params.get('owner')
         tenant = params.get('tenant')
 
         queryset = Booking.objects.all()
         if id:
             queryset = queryset.filter(pk=id)
+        if owner:
+            queryset = queryset.filter(property__owner__pk=owner)
         if tenant:
             queryset = queryset.filter(tenant__pk=tenant)
 
