@@ -1,7 +1,7 @@
 <template>
     <div>
         <NavBar />
-        <router-view />
+        <router-view v-if="isLoaded" />
         <Footer />
     </div>
 </template>
@@ -16,15 +16,25 @@ import getData from '@/mixins/login.js'
 
 export default {
     name: 'App',
+
     components: {
         NavBar,
         Footer
     },
     mixins: [getData],
+    data: () => ({
+        isLoaded: false
+    }),
 
-    created () {
-        if (localStorage.getItem('authToken') != null) {
-            this.getData(localStorage.getItem('authToken'))
+    mounted () {
+        this.loadInfo()
+    },
+
+    methods: {
+        async loadInfo () {
+            if (localStorage.getItem('authToken') != null) {
+                this.isLoaded = await this.getData(localStorage.getItem('authToken'))
+            } else this.isLoaded = true
         }
     }
 }

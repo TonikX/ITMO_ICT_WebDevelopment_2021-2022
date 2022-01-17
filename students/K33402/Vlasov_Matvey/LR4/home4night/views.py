@@ -97,6 +97,7 @@ class PropertyListView(generics.ListAPIView):
 
     def get_queryset(self):
         params = self.request.GET
+        hidden = params.get('hidden')
         id = params.get('id')
         owner = params.get('owner')
         city = params.get('city')
@@ -105,6 +106,8 @@ class PropertyListView(generics.ListAPIView):
         checkout = params.get('checkout')
 
         queryset = Property.objects.all()
+        if hidden:
+            queryset = queryset.filter(is_hidden=False)
         if id:
             queryset = queryset.filter(pk=id)
         if owner:

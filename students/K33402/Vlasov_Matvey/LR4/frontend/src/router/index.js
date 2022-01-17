@@ -12,6 +12,7 @@ import PropertyDetail from '@/views/PropertyDetail.vue'
 import Bookings from '@/views/Bookings.vue'
 import BookingDetail from '@/views/BookingDetail.vue'
 import Property from '@/views/Property.vue'
+import PropertyCreation from '@/views/PropertyCreation.vue'
 
 Vue.use(VueRouter)
 
@@ -102,6 +103,14 @@ const routes = [
         component: Property,
         meta: {
             title: 'Home4Night: My Property'
+        }
+    },
+    {
+        path: '/property/create',
+        name: 'PropertyCreation',
+        component: PropertyCreation,
+        meta: {
+            title: 'Home4Night: Property Creation'
         }
     }
 ]

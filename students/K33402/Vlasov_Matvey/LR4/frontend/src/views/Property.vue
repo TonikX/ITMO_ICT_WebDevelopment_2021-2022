@@ -2,7 +2,7 @@
     <main role="main">
         <b-container class="pb-4">
             <div class="pb-3" v-if="isLoaded == false">Loading...</div>
-            <div class="pb-3" v-if="isNotFound == true">You don't have any property. You can add it here</div>
+            <div class="pb-3" v-if="isNotFound == true">You don't have any property. You can add it <router-link to="/property/create">here</router-link></div>
             <v-row v-for="index in 5" :key="index" v-else>
                 <property-card
                     v-for="propertyItem in propertyItems.slice((index - 1) * 3, Math.min((index - 1) * 3 + 3, propertyItems.length))"

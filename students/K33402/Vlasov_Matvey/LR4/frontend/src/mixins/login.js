@@ -37,7 +37,6 @@ export default {
             })
 
             const myData = await response.json()
-            this.getRole(myData.id)
 
             localStorage.setItem('authToken', authToken)
             this.$store.commit('isLoggedUpdate', {
@@ -47,7 +46,8 @@ export default {
                 firstName: myData.first_name,
                 lastName: myData.last_name
             })
-            this.$router.push('profile')
+            if (this.$route.name === 'Login' || this.$route.name === 'Signup') this.$router.push('/profile')
+            return this.getRole(myData.id)
         },
         async getRole (id) {
             let role = 'tenant'
@@ -61,8 +61,8 @@ export default {
             if (data.user) role = 'landlord'
             this.$store.commit('isLoggedUpdate', {
                 role: role
-            }
-            )
+            })
+            return true
         }
     }
 }

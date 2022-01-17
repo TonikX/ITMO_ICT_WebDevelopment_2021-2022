@@ -13,8 +13,9 @@
             </router-link>
         </div>
         <div class="pt-3 pt-lg-3 mt-3 mt-md-0 mx-md-3 col-12 col-md-4">
-            <p v-if="this.$store.state.role === 'landlord'"><router-link to="/property">My property</router-link></p>
             <p><router-link to="/bookings">My bookings</router-link></p>
+            <p v-if="this.$store.state.role === 'landlord'"><router-link to="/property">My property</router-link></p>
+            <p v-if="this.$store.state.role === 'landlord'"><router-link to="/property/create">Create property</router-link></p>
         </div>
     </b-row>
 </template>

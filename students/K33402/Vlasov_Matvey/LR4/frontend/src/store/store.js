@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
+        isLoaded: false,
         authToken: '',
         isLogged: false,
         id: '',
@@ -22,6 +23,7 @@ const store = new Vuex.Store({
                     this.state.isLogged = this.state.authToken !== ''
                 }
             }
+            this.state.isLoaded = true
         }
     }
 })

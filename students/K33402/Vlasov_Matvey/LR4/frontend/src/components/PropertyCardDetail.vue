@@ -11,6 +11,11 @@
                 <p class="card-text">{{ propertyItem.title }}</p>
                 <p class="card-text">{{ propertyItem.description }}</p>
                 <p class="card-price"><span class="price">${{ Math.round(propertyItem.price) }} </span> / night</p>
+                <template v-if="propertyItem.is_hidden">
+                    <b-alert show variant="danger">
+                        This property is now unavailable for the rent
+                    </b-alert>
+                </template>
 
                 <template v-if="!this.$store.state.isLogged">
                     <b-alert show>
@@ -81,7 +86,7 @@ export default {
             const data = await response.json()
             if (data === undefined || data.length === 0) return
 
-            this.reviewItems = data
+            this.reviewItems = data.reverse()
             let sum = 0
             for (const i of Array(this.reviewItems.length).keys()) {
                 sum += data[i].grade
