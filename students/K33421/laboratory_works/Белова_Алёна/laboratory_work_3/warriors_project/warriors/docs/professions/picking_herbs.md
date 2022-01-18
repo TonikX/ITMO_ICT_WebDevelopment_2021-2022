@@ -1,1 +1,0 @@
-Herbalism is a gathering profession that allows players to find and harvest herbs from plant resource nodes scattered around the world. While some herbs can be used in other trade skills, the vast majority are used for Alchemy and Inscription.

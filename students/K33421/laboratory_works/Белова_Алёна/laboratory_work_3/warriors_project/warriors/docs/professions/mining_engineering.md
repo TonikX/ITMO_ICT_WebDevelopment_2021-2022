@@ -1,1 +1,0 @@
-Mining Engineering is an engineering discipline that involves the science, technology and application of extracting and processing minerals from a natural environment. It includes geology, civil and mechanical engineering, metallurgy, commerce, economics, management, law and information technology.

@@ -1,2 +1,0 @@
-The **BookInHall** model is an associative entity that connects books with the halls they are stored in. 
-However, it contains some additional information, namely the number of instances of this book stored in this hall.

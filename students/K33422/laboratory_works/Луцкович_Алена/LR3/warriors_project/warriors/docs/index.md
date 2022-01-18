@@ -1,3 +1,0 @@
-## Warriors App
-
-Testing mkdocs 
