@@ -27,11 +27,14 @@
           <li><a href="{% url 'home'%}">Assignments</a></li>
           <li><a href="{% url 'submit'%}">Submit</a></li>
           {% if user.is_authenticated and user.group.id%}
-            <li><a href="{% url 'grades' group=user.group.id%}">Grades</a></li>
+              <li><a href="{% url 'grades' group=user.group.id%}">Grades</a></li>
+          {% else %}
+              <li><a href="{% url 'groups'%}">Grades</a></li>
+          {% endif %}
+          {% if user.is_authenticated%}
               <li>User: {{ user.get_username }}</li>
               <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
           {% else %}
-              <li><a href="{% url 'groups'%}">Grades</a></li>
               <li><a href="{% url 'login'%}">Login</a></li>
               <li><a href="{% url 'register'%}">Sign up</a></li>
           {% endif %}
