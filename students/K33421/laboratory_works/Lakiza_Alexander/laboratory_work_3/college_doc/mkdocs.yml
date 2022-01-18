@@ -1,0 +1,68 @@
+site_name: College
+nav:
+  - Info: index.md
+  - Server:
+      - Frontend:
+            - auth:
+                  - "sign in": frontend/auth/signin.md
+                  - "sign up": frontend/auth/signup.md
+            - mark:
+                  - "mark list": frontend/mark/list.md
+                  - "mark create": frontend/mark/create.md
+                  - "mark delete/update/retrieve": frontend/mark/edit.md
+            - pair:
+                  - "pair list": frontend/pair/list.md
+                  - "pair create": frontend/pair/create.md
+                  - "pair delete/update/retrieve": frontend/pair/edit.md
+            - student:
+                  - "student list": frontend/student/list.md
+                  - "student create": frontend/student/create.md
+                  - "student delete/update/retrieve": frontend/student/edit.md
+            - subject:
+                  - "subject list": frontend/subject/list.md
+                  - "subject create": frontend/subject/create.md
+                  - "subject delete/update/retrieve": frontend/subject/edit.md
+            - teacher:
+                  - "teacher list": frontend/teacher/list.md
+                  - "teacher create": frontend/teacher/create.md
+                  - "teacher delete/update/retrieve": frontend/teacher/edit.md
+            - group:
+                  - "group list": frontend/group/list.md
+                  - "group create": frontend/group/create.md
+                  - "group delete/update/retrieve": frontend/group/edit.md
+                  - "group week schedule": frontend/group/schedule.md
+                  - "group list of students": frontend/group/grouplist.md
+      - Teacher:
+          - "teacher list": teacher/list.md
+          - "teacher create": teacher/create.md
+          - "teacher delete/update/retrieve": teacher/edit.md
+      - Subject:
+          - "subject list": subject/list.md
+          - "subject create": subject/create.md
+          - "subject delete/update/retrieve": subject/edit.md
+      - Teacher's subjects:
+          - "subjects to teacher list": subteach/list.md
+          - "subjects to teacher create": subteach/create.md
+          - "subjects to teacher delete/update/retrieve": subteach/edit.md
+      - Group:
+          - "group list": group/list.md
+          - "group create": group/create.md
+          - "group delete/update/retrieve": group/edit.md
+      - Student:
+          - "student list": student/list.md
+          - "student create": student/create.md
+          - "student delete/update/retrieve": student/edit.md
+      - Student's groups:
+          - "student to groups list": stugroup/list.md
+          - "student to groups create": stugroup/create.md
+          - "student to groups delete/update/retrieve": stugroup/edit.md
+      - Mark:
+          - "mark list": mark/list.md
+          - "mark create": mark/create.md
+          - "mark delete/update/retrieve": mark/edit.md
+      - Pair:
+          - "pair list": pair/list.md
+          - "pair create": pair/create.md
+          - "pair delete/update/retrieve": pair/edit.md
+theme:
+  name: material
