@@ -1,0 +1,18 @@
+site_name: Описание интерфейса сервера "Library"
+nav:
+  - Home: index.md
+  - List of rooms: 
+    - "list[GET]": rooms/list.md
+    - "details[GET]": rooms/details.md
+  - List of books:
+    - "list[GET, POST]": books/list.md
+    - "details[GET, POST]": books/details.md
+  - My books:
+    - "list[GET, DELETE]": my_books/list.md
+  - Registration:
+    - "login[POST]": registration/login.md
+    - "edit[PATCH]": registration/edit.md
+    - "signin[POST]" : registration/signin.md
+
+theme:
+  name: windmill-dark
