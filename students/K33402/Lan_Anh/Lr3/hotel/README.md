@@ -1,0 +1,1 @@
+default password for all users (visitor + hosts) = itmo2021

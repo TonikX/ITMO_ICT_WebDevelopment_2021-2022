@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="main">
+        {% for data in dataset %}.
+            <li>Date: {{ data.Date }}</li>
+            <li>Check_in: {{ data.Check_in }}</li>
+            <li>Check_out: {{ data.Check_out }} </li>
+            <li>id_client: {{ data.id_client }}</li>
+            <li>id_room: {{ data.id_room }}</li>
+        <hr/>
+        {% endfor %}
+    </div>
+</body>
+</html>
