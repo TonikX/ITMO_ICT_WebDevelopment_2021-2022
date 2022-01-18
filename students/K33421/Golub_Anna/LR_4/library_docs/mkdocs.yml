@@ -1,0 +1,43 @@
+site_name: Library API
+nav:
+  - Home: index.md
+  - Models:
+      - Book: models/book.md
+      - Reader: models/reader.md
+      - ReaderBook: models/reader_book.md
+      - Hall: models/hall.md
+      - BookInHall: models/book_in_hall.md
+
+  - Api:
+      - Books endpoints:
+          - Create a book: api/books/create_book.md
+          - View book info: api/books/view_book_info.md
+          - Edit a book: api/books/edit_book.md
+          - List all books: api/books/list_books.md
+      - Readers endpoints:
+          - Create a reader: api/readers/create_reader.md
+          - View reader info: api/readers/view_reader_info.md
+          - Edit a reader: api/readers/edit_reader.md
+          - List all readers: api/readers/list_readers.md
+      - ReaderBook endpoints:
+          - Create a ReaderBook instance: api/reader_books/take_out.md
+          - View ReaderBook instance info: api/reader_books/view_reader_book_info.md
+          - Edit a ReaderBook instance: api/reader_books/return.md
+          - List all ReaderBook instances: api/reader_books/list_reader_books.md
+      - Authorization: api/authorization.md
+
+  - User Interface:
+      - Home page: user_interface/home/home.md
+      - Reader Profile:
+          - Sign up: user_interface/reader/sign_up.md
+          - Sign in: user_interface/reader/sign_in.md
+          - View profile: user_interface/reader/profile.md
+          - Edit profile: user_interface/reader/profile_edit.md
+      - Book Catalogue:
+          - Book catalogue: user_interface/books/catalogue.md
+          - Specific book info: user_interface/books/book_info.md
+          - Take out a book: user_interface/books/take_out.md
+          - Return a book to the library: user_interface/books/return.md
+
+theme:
+  name: material
