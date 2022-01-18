@@ -1,0 +1,88 @@
+{% extends "../base.html" %}
+{% block content %}
+    <h2>{{ conference.name }}</h2>
+    <p>{{ conference.min_text }}</p>
+    <p>
+        Место проведения: {{ conference.location }}
+        <br/>
+        {{ conference.description_location }}
+    </p>
+    <h5>Категории</h5>
+    <ul>
+    {% for el in topics %}
+        <li>{{ el }}</li>
+    {% endfor %}
+    </ul>
+    <div>
+        <b>Даты проведения:</b> {{ conference.date_start }} - {{ conference.date_end }}
+    </div>
+    <h3>
+        Условия участия:
+    </h3>
+    <p>{{ conference.terms_participation }}</p>
+<hr/>
+<hr/>
+    <h2>Выступления</h2>
+<hr/>
+<hr/>
+    {% for el in perf %}
+        <div>
+            <h3>Выступление на тему: {{ el.name }}</h3>
+            <h5>Категория: {{ el.topics }}</h5>
+            <p>Автор: {{ el.author }}</p>
+        </div>
+        {% if user.id == el.author.id %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete_comment" value="{{ el.id }}"/>
+                    <button name="btnform4" class="btn btn-outline-primary" type="submit">Удалить</button>
+                </form>
+            {% endif %}
+        <hr/>
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <h5 class="mb-3">Подайте заявку на выступление</h5>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                {{ performance_form.as_p }}
+            </div>
+            <button class="btn btn-primary" name="btnform3" type="submit">Отправить на модерацию</button>
+        </form>
+    {% else %}
+        <p>Для подачи заявки авторизируйтесь</p>
+    {% endif %}
+<hr/>
+<hr/>
+    <h2>Комментарии</h2>
+<hr/>
+<hr/>
+    {% for comment in comments %}
+        <div>
+            <div class="d-flex">
+                Пользователь: <h5 class="ml-2">{{ comment.user }}</h5>
+            </div>
+            <p>{{ comment.text }}</p>
+            <p>Добавлен: {{ comment.created }}</p>
+            {% if user.id == comment.user.id %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete_comment" value="{{ comment.id }}"/>
+                    <button name="btnform1" class="btn btn-outline-primary" type="submit">Удалить</button>
+                </form>
+            {% endif %}
+        </div>
+        <hr/>
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                {{ comments_form.as_p }}
+            </div>
+            <button class="btn btn-primary" name="btnform2" type="submit">Отправить на модерацию</button>
+        </form>
+    {% else %}
+        <p>Для оставления коментария авторизируйтесь</p>
+    {% endif %}
+{% endblock %}

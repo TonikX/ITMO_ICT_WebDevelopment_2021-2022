@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View booking</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body class="p-3">
+<h1>Booking number {{ object.id }}</h1>
+<p>Hotel: {{ object.room.hotel.name }}</p>
+<p>Address: {{ object.room.hotel.address }}</p>
+<p>Room number: {{ object.room.number }}</p>
+<p>Number of beds: {{ object.room.beds }}</p>
+{% if object.room.smoking_allowed %}
+<p>Smoking allowed</p>
+{% else %}
+<p>Smoking not allowed</p>
+{% endif %}
+<a class="btn btn-outline-primary" href="{% url 'comment-create' %}?booking={{ object.id }}">Comment</a>
+<a class="btn btn-outline-danger" href="{% url 'booking-delete' object.id %}">Cancel</a>
+</body>
+</html>

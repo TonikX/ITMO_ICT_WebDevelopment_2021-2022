@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment</title>
+</head>
+<body>
+<style>
+    body {
+        background-color: #F1FAEE;
+        font-family: sans-serif;
+        font-size: large;
+    }
+
+    h2 {
+        font-family: sans-serif;
+        background-color: #A8DADC;
+    }
+
+    a:link {
+        color: #1D3557;
+    }
+
+    a:visited {
+        color: #457B9D;
+    }
+
+    a:hover {
+        color: #E63946;
+    }
+
+    a:active {
+        color: #E63946;
+    }
+</style>
+<h1>Comment</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create">
+</form>
+<br>
+<a href="/home/">Home</a>
+</body>
+</html>

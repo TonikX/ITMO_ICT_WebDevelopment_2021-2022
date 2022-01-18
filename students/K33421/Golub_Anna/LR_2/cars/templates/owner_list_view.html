@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список владельцев</title>
+</head>
+<body>
+<div class="main">
+    {% for d in dataset %}
+        Имя: <b>{{ d.last_name }} {{ d.first_name }}</b><br/>
+    <hr/>
+    {% endfor %}
+</div>
+</body>
+</html>
