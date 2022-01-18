@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <dl>
+        <!-- Iterate over object_list -->
+        {% for object in object_list %}
+        <!-- Display Objects -->
+        <dt>{{ object.description }}</dt>
+        <dd>{{ object.subject }}</dd>
+        <dd>{{ object.deadline }}</dd>
+
+        <hr/>
+        <!-- If objet_list is empty  -->
+        {% empty %}
+        <li>No assignments yet.</li>
+        {% endfor %}
+    </dl>
+{% endblock %}
