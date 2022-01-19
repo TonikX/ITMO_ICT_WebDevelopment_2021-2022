@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All tasks</title>
+</head>
+<header>
+    <nav>
+        <br>
+        <a href="/profile/">Home</a>
+        <a href="/profile/class_marks/">Class marks</a>
+        <a href="/accounts/logout/">Log out</a><br>
+        <br>
+    </nav>
+</header>
+<body>
+    <div class="main">
+        <ul>
+            {% for task in task_list %}
+
+            <li>Deadline: {{task.deadline}}</li>
+            <li>Subject: {{task.subject}}</li>
+            <li>Task: {{task.task_text}}</li>
+            
+            {% if task.id in hw_ids %}
+                {% for answer in answers %}
+                    {% if answer.homework_id == task.id %}
+                        <li>Mark: {{ answer.mark }}</li>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <a href="/profile/all_tasks/answer?task_id={{task.id}}">Solve the task</a><br>
+            {% endif %}
+
+            <hr/>
+
+            {% empty %}
+            <li>No tasks yet.</li>
+
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
