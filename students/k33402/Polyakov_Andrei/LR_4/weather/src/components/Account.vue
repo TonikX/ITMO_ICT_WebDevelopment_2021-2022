@@ -1,15 +1,19 @@
 <template>
   <div class="container">
     <div class="pt-3 d-flex justify-content-center">
-        <h2 class="head-text">Сохраненные города</h2>
+      <h2 class="head-text">Сохраненные города</h2>
     </div>
-    <div class="v-city_list">
+    <div class="v-city_list" v-if="this.$store.state.infos.length > 0">
       <City
         v-for="info in this.$store.state.infos"
         :key="info.id"
         :info="info"
         :id="info.id"
       />
+    </div>
+    <div class="mt-3 no_cities" v-else-if="this.$store.state.infos.length === 0">
+      <p class="head-text">Что-то тут пусто :(</p>
+      <p class="head-text">Чтобы добавить новые города - перейдите во вкладку "Поиск"</p>
     </div>
   </div>
 </template>

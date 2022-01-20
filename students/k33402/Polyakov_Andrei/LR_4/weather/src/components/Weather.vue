@@ -100,6 +100,10 @@ export default {
           }, this.info.id)
         if (response.status !== 201) {
           throw new Error(response.status)
+        } else {
+          this.$toast('Город добавен', {
+            timeout: 2000
+          })
         }
       } catch (e) {
         console.error('AN API ERROR', e)

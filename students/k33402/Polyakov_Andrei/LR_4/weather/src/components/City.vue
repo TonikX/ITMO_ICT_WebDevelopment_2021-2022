@@ -7,12 +7,12 @@
           elevation="2"
         >
         <v-list-item-content>
-        <div class="text-overline mb-3" v-if="info.name">Город {{ info.name }}</div>
-        <v-list-item-subtitle v-if="info.main.temp">Текущая температура: {{ info.main.temp }}°c</v-list-item-subtitle>
-        <v-list-item-subtitle v-if="info.main.feels_like">Ощущается как: {{ info.main.feels_like }}°c</v-list-item-subtitle>
-        <v-list-item-subtitle v-if="info.wind.speed">Скорость ветра: {{ info.wind.speed }} м/с</v-list-item-subtitle>
-      </v-list-item-content>
-      <button class="btn btn-success ml-1" id="delete" type="submit" v-if="info.name" v-on:click="removeCity(id)">Удалить город</button>
+          <div class="text-overline" v-if="info.name">Город {{ info.name }}</div>
+          <v-list-item-subtitle v-if="info.name">Текущая температура: {{ info.main.temp }}°c</v-list-item-subtitle>
+          <v-list-item-subtitle v-if="info.name">Ощущается как: {{ info.main.feels_like }}°c</v-list-item-subtitle>
+          <v-list-item-subtitle v-if="info.name">Скорость ветра: {{ info.wind.speed }} м/с</v-list-item-subtitle>
+        </v-list-item-content>
+      <button class="btn btn-success mb-3" id="delete" type="submit" v-if="info.name" v-on:click="removeCity(id)">Удалить город</button>
       </v-card>
   </div>
 </div>
@@ -52,7 +52,7 @@ export default {
     }
   },
   mounted () {
-    setTimeout(this.getWeather, 100)
+    this.getWeather()
   }
 }
 </script>

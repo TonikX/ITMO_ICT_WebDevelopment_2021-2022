@@ -55,6 +55,10 @@ export default {
           .post('http://127.0.0.1:8000/api/auth/users/', this.signUpForm)
         if (response.status !== 201) {
           throw new Error(response.status)
+        } else {
+          this.$toast('Вы успешно зарегистрировались', {
+            timeout: 2000
+          })
         }
         this.$refs.signUpForm.reset()
       } catch (e) {
