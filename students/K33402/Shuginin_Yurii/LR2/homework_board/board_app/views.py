@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from board_app.models import User, Homework, TaskCompletion
-from django.views.generic import TemplateView, ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.views.generic import TemplateView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from board_app.forms import SolutionForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
 
-class StudentUpdate(UpdateView):
+class StudentUpdate(LoginRequiredMixin, UpdateView):
+    login_url = '/accounts/login/'
+
     model = User
     template_name = 'board_app/user_update.html'
     fields = ["surname", "name", "patronymic", "birthday", "group"]
@@ -65,6 +67,7 @@ def solution_create(request):
     task_id = request.GET.get('task_id')
     task = Homework.objects.get(pk=task_id)
     context = {}
+    context["user"] = request.user
 
     if request.method == 'POST':
         form = SolutionForm(task, request.user, task.subject, task.task_text, request.POST)
@@ -76,7 +79,7 @@ def solution_create(request):
     else:
         form = SolutionForm(task, request.user, task.subject, task.task_text)
         context["form"] = form
-        context['task'] = Homework.objects.get(pk=task_id)
+        context["task"] = Homework.objects.get(pk=task_id)
 
     return render(request, 'board_app/solution.html' , context)
 
@@ -88,6 +91,7 @@ def subject_select(request):
         return redirect(f"/accounts/{request.user.id}/update/")
     
     context = {}
+    context['user'] = user
     hw_list = Homework.objects.filter(group=user.group)
 
     context['subjects'] = []
@@ -102,6 +106,7 @@ def subject_select(request):
 def class_marks(request):
     context = {}
     user = request.user
+    context['user'] = user
 
     class_students = User.objects.filter(group=user.group)
     class_students = class_students.order_by('surname', 'name', 'patronymic')

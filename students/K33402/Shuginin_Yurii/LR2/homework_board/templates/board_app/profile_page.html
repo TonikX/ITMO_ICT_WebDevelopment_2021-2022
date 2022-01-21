@@ -5,22 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <style>
+        body {
+            padding-left: 50px;
+        }
+    </style>
 </head>
 <header>
-    <nav>
+    <nav class="menu">
         <br>
-        <a href="/profile/all_tasks/">All tasks</a>
-        <a href="/profile/class_marks/subject_select">Class marks</a>
-        <a href={{edit_link}}>Edit profile</a>
+        <a href="/profile/">Home</a> | 
+        <a href="/profile/all_tasks/">Tasks</a> | 
+        <a href="/profile/class_marks/subject_select">Class marks</a> | 
+        <a href={{edit_link}}>Edit profile</a> | 
         <a href="/accounts/logout/">Log out</a><br>
         <br>
     </nav>
 </header>
 <body>
     {% if user.name == '' %}
-        <li>Hello, {{ user.username }}!</li>
+        <p>Hello, {{ user.username }}!</p>
     {% else %}
-        <li>Hello, {{ user.name }}!</li>
+        <p>Hello, {{ user.name }}!</p>
     {% endif %}
 </body>
 </html>

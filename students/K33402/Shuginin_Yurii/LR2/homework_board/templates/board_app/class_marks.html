@@ -9,13 +9,6 @@
         body {
             padding-left: 50px;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: content-box;
-            padding-left: 5;
-        }
         
         table {
             border-top: 4px solid #000;
@@ -24,6 +17,7 @@
         }
 
         caption {
+            text-align: left;
             padding: 10px;
         }
 
@@ -49,10 +43,12 @@
     </style>
 </head>
 <header>
-    <nav>
+    <nav class="menu">
         <br>
-        <a href="/profile/">Home</a>
-        <a href="/profile/all_tasks/">All tasks</a>
+        <a href="/profile/">Home</a> | 
+        <a href="/profile/all_tasks/">Tasks</a> | 
+        <a href="/profile/class_marks/subject_select">Class marks</a> | 
+        <a href="/accounts/{{user.id}}/update/">Edit profile</a> | 
         <a href="/accounts/logout/">Log out</a><br>
         <br>
     </nav>
@@ -86,7 +82,7 @@
         </tbody>
     </table>
 
-    </br>
+    <br>
     <a href="/profile/class_marks/subject_select">Select another subject</a>
 </body>
 </html>

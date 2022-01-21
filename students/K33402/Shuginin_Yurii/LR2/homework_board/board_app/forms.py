@@ -1,4 +1,3 @@
-from tokenize import group
 from django import forms
 from board_app.models import TaskCompletion
 

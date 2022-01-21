@@ -4,19 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All tasks</title>
+    <title>Tasks</title>
+    <style>
+        body {
+            padding-left: 50px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <header>
-    <nav>
+    <nav class="menu">
         <br>
-        <a href="/profile/">Home</a>
-        <a href="/profile/class_marks/subject_select">Class marks</a>
+        <a href="/profile/">Home</a> | 
+        <a href="/profile/all_tasks/">Tasks</a> | 
+        <a href="/profile/class_marks/subject_select">Class marks</a> | 
+        <a href="/accounts/{{user.id}}/update/">Edit profile</a> | 
         <a href="/accounts/logout/">Log out</a><br>
         <br>
     </nav>
 </header>
 <body>
     <div class="main">
+        <br>
         <ul>
             {% for task in task_list %}
 
@@ -27,17 +41,17 @@
             {% if task.id in hw_ids %}
                 {% for answer in answers %}
                     {% if answer.homework_id == task.id %}
-                        <li>Mark: {{ answer.mark }}</li>
+                        <p>Mark: {{ answer.mark }}</p>
                     {% endif %}
                 {% endfor %}
             {% else %}
-                <a href="/profile/all_tasks/answer?task_id={{task.id}}">Solve the task</a><br>
+                <p><a href="/profile/all_tasks/answer?task_id={{task.id}}">Solve the task</a><br></p>
             {% endif %}
 
             <hr/>
 
             {% empty %}
-            <li>No tasks yet.</li>
+            <p>No tasks yet.</p>
 
             {% endfor %}
         </ul>
