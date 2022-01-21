@@ -38,5 +38,7 @@ class TaskCompletion(models.Model):
     )
     student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     homework = models.ForeignKey(Homework, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=20, blank=True)
+    task_text = models.CharField(max_length=100, blank=True)
     answer = models.CharField(max_length=100)
     mark = models.CharField(max_length=1, choices=MARKS_LIST, blank=False, default='-')

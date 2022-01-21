@@ -19,8 +19,10 @@ class AllTasks(LoginRequiredMixin, ListView):
     
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        context = {}
+        if user.surname == '':
+            return redirect(f"/accounts/{self.request.user.id}/update/")
 
+        context = {}
         context['user'] = user
         context['task_list'] = Homework.objects.filter(group=user.group)
         
@@ -61,18 +63,71 @@ class ProfilePageView(LoginRequiredMixin, TemplateView):
 @login_required
 def solution_create(request):
     task_id = request.GET.get('task_id')
+    task = Homework.objects.get(pk=task_id)
     context = {}
 
     if request.method == 'POST':
-        form = SolutionForm(Homework.objects.get(pk=task_id), request.user, request.POST)
+        form = SolutionForm(task, request.user, task.subject, task.task_text, request.POST)
 
         if form.is_valid():
             form.save()
             return redirect('/profile/all_tasks/')
     
     else:
-        form = SolutionForm(Homework.objects.get(pk=task_id), request.user)
+        form = SolutionForm(task, request.user, task.subject, task.task_text)
         context["form"] = form
         context['task'] = Homework.objects.get(pk=task_id)
 
     return render(request, 'board_app/solution.html' , context)
+
+
+@login_required
+def subject_select(request):
+    user = request.user
+    if user.surname == '':
+        return redirect(f"/accounts/{request.user.id}/update/")
+    
+    context = {}
+    hw_list = Homework.objects.filter(group=user.group)
+
+    context['subjects'] = []
+    for hw in hw_list:
+        if hw.subject not in context['subjects']:
+            context['subjects'].append(hw.subject)
+    
+    return render(request, 'board_app/subject_select.html' , context)
+
+
+@login_required
+def class_marks(request):
+    context = {}
+    user = request.user
+
+    class_students = User.objects.filter(group=user.group)
+    class_students = class_students.order_by('surname', 'name', 'patronymic')
+    context['class_students'] = class_students
+
+    subject = request.GET.get('subject')
+    context['subject'] = subject
+
+    context['marks'] = []
+    context['average'] = []
+    for student in class_students:
+        tasks_done = TaskCompletion.objects.filter(student_id=student.id, subject=subject)
+        marks = ''
+        marks_sum = 0
+        n = 0
+        for index, task in enumerate(tasks_done):
+            marks += task.mark
+            if index != len(tasks_done) - 1:
+                marks += ', '
+            if task.mark in '2345':
+                marks_sum += int(task.mark)
+                n += 1
+        context['marks'].append(marks)
+        if n != 0:
+            context['average'].append(round((marks_sum / n), 2))
+        else:
+            context['average'].append('')
+
+    return render(request, 'board_app/class_marks.html' , context)

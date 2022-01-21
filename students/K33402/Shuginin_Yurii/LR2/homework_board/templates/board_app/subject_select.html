@@ -4,23 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Subject select</title>
 </head>
 <header>
     <nav>
         <br>
+        <a href="/profile/">Home</a>
         <a href="/profile/all_tasks/">All tasks</a>
-        <a href="/profile/class_marks/subject_select">Class marks</a>
-        <a href={{edit_link}}>Edit profile</a>
         <a href="/accounts/logout/">Log out</a><br>
         <br>
     </nav>
 </header>
 <body>
-    {% if user.name == '' %}
-        <li>Hello, {{ user.username }}!</li>
-    {% else %}
-        <li>Hello, {{ user.name }}!</li>
-    {% endif %}
+    <li>Click on the subject below to view class marks for it:</li>
+    </br>
+
+    {% for subject in subjects %}
+        <a href="/profile/class_marks?subject={{subject}}">{{ subject }}</a></br>
+        </br>
+    {% endfor %}
 </body>
 </html>
