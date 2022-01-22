@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Табло прилетов и вылетов</title>
+		<meta charset="utf-8" />
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'main.css' %}" />
+
+	</head>
+	<body>
+    <div class="page-header">
+    <h1><a href="/all_flights/">Табло перелетов</a></h1>
+    {% if user.is_active %}
+        <a href="{% url 'logout'%}">Выйти</a>
+    {% else %}
+        <p><a href="{% url 'login'%}">Войти</a> | <a href="{% url 'register'%}">Зарегистрироваться</a></p>
+    {% endif %}
+        <div>
+
+        </div>
+            {% if request.user.is_authenticated %}
+            <h2>Добро пожаловать, {{request.user.first_name}} {{request.user.last_name}}</h2>
+            {% endif%}
+            {% block register %}{% endblock %}
+            <div class="main">
+
+                {% for data in dataset %}
+                    <a href="{% url 'flight_info' fly_id=data.id%}">
+                        <b><p> Номер рейса: {{data.number}}</p></b></a>
+                    <p> Авиакомпания: {{data.flight_company}}</p>
+                    <p> Время отправления: {{data.departure}}</p>
+                    <p> Время прибытия: {{data.arrival}}</p>
+                    <p> Тип: {{data.type}}</p>
+                    <p> Номер выхода: {{data.gate_num}}</p>
+                {% endfor %}
+            </div>
+        </div>
+	</body>
+</html>
