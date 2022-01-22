@@ -20,6 +20,7 @@ class City(models.Model):
 
 class FavouriteCity(models.Model):
     """Favourite city of user"""
+
     class Meta:
         verbose_name = "Favourite city"
         verbose_name_plural = "Favourite cities"
