@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_yasg',
     'cities',
-    'forecasts',
     'users'
 ]
 
@@ -142,4 +141,3 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication'  # TODO: remove
     ]
 }
-
