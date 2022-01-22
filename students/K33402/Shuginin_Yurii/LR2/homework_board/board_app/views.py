@@ -7,6 +7,20 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
 
+class StartPageView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'board_app/start_page.html')
+    
+
+class NotificationView(LoginRequiredMixin, TemplateView):
+    login_url = '/accounts/login/'
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        context["edit_link"] = f"/accounts/{self.request.user.id}/update/"
+        return render(request, 'board_app/account_created.html', context)
+
+
 class StudentUpdate(LoginRequiredMixin, UpdateView):
     login_url = '/accounts/login/'
 
@@ -14,6 +28,16 @@ class StudentUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'board_app/user_update.html'
     fields = ["surname", "name", "patronymic", "birthday", "group"]
     success_url = '/profile/'
+
+
+class ProfilePageView(LoginRequiredMixin, TemplateView):
+    login_url = '/accounts/login/'
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        context["edit_link"] = f"/accounts/{self.request.user.id}/update/"
+        context["user"] = self.request.user
+        return render(request, 'board_app/profile_page.html', context)
 
 
 class AllTasks(LoginRequiredMixin, ListView):
@@ -36,30 +60,6 @@ class AllTasks(LoginRequiredMixin, ListView):
             context['hw_ids'].append(answer.homework_id)
         
         return render(request, 'board_app/all_tasks.html', context)
-
-
-class NotificationView(LoginRequiredMixin, TemplateView):
-    login_url = '/accounts/login/'
-
-    def get(self, request, *args, **kwargs):
-        context = {}
-        context["edit_link"] = f"/accounts/{self.request.user.id}/update/"
-        return render(request, 'board_app/account_created.html', context)
-
-
-class StartPageView(TemplateView):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'board_app/start_page.html')
-
-
-class ProfilePageView(LoginRequiredMixin, TemplateView):
-    login_url = '/accounts/login/'
-
-    def get(self, request, *args, **kwargs):
-        context = {}
-        context["edit_link"] = f"/accounts/{self.request.user.id}/update/"
-        context["user"] = self.request.user
-        return render(request, 'board_app/profile_page.html', context)
 
 
 @login_required

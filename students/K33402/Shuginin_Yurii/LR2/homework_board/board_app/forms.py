@@ -8,7 +8,7 @@ class SolutionForm(forms.ModelForm):
         model = TaskCompletion
         fields = ['answer']
         widgets = {
-            'answer': forms.Textarea(attrs={'maxlength': 500, 'cols': 38, 'required': 'true'}),
+            'answer': forms.Textarea(attrs={'maxlength': 500, 'cols': 44, 'required': 'true'}),
         }
 
     def __init__(self, task, user, subject, task_text, *args, **kwargs):
