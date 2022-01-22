@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from board_app.models import User, Homework, TaskCompletion
+from board_app.models import User, Homework, TaskCompletion, CLASSES_LIST
 from django.views.generic import TemplateView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from board_app.forms import SolutionForm
@@ -45,8 +45,8 @@ class AllTasks(LoginRequiredMixin, ListView):
     
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        if user.surname == '':
-            return redirect(f"/accounts/{self.request.user.id}/update/")
+        if (user.group, user.group) not in CLASSES_LIST:
+            return redirect(f"/accounts/{request.user.id}/update/")
 
         context = {}
         context['user'] = user
@@ -87,7 +87,7 @@ def solution_create(request):
 @login_required
 def subject_select(request):
     user = request.user
-    if user.surname == '':
+    if (user.group, user.group) not in CLASSES_LIST:
         return redirect(f"/accounts/{request.user.id}/update/")
     
     context = {}
