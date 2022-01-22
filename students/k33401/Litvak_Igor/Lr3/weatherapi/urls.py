@@ -14,8 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.permissions import AllowAny
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Weather API documentation",
+        default_version='v1',
+    ),
+    public=True,
+    permission_classes=(AllowAny,),
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/cities/', include('cities.urls')),
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.jwt')),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0))
 ]
