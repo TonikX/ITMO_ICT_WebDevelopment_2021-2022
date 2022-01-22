@@ -134,6 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Hide API key to environment variable
 EXTERNAL_API_KEY = os.environ.get("DJANGO_EXTERNAL_API_KEY")
+EXTERNAL_API_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
