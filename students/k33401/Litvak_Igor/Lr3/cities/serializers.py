@@ -18,7 +18,7 @@ class FavouriteCitySerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'city', 'city_id']
 
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    city = CitySerializer(many=True, read_only=True)
+    city = CitySerializer(read_only=True)
     city_id = serializers.PrimaryKeyRelatedField(queryset=City.objects.all(), write_only=True, source='city')
 
 

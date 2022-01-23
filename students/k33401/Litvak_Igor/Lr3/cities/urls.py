@@ -3,8 +3,8 @@ from rest_framework.routers import DefaultRouter
 from cities.views import CityViewSet, FavouriteCityViewSet
 
 router = DefaultRouter()
-router.register('', CityViewSet)
 router.register('favourite', FavouriteCityViewSet)
+router.register('', CityViewSet)
 
 urlpatterns = [
     path('', include(router.urls))
