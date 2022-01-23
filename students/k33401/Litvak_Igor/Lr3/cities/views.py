@@ -41,4 +41,4 @@ class FavouriteCityViewSet(ModelViewSet):
     serializer_class = FavouriteCitySerializer
 
     def get_queryset(self):
-        return City.objects.filter(user=self.request.user.id)
+        return FavouriteCity.objects.filter(user=self.request.user.id)
