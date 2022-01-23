@@ -141,3 +141,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication'  # TODO: remove
     ]
 }
+
+DJOSER = {
+    "SERIALIZERS": {
+        "user_create": "users.serializers.CustomUserCreateSerializer"
+    }
+}
