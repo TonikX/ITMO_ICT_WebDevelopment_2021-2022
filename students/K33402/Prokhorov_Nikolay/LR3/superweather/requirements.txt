@@ -5,3 +5,6 @@ django-filter
 djangorestframework
 djangorestframework-camel-case
 Werkzeug
+drf-yasg
+djoser
+djangorestframework_simplejwt
