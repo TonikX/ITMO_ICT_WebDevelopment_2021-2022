@@ -1,0 +1,24 @@
+site_name: vue_climbing
+nav:
+  - Info: index.md
+  - User InterFace:
+      - Home page: home/home.md
+      - Peaks:
+          - "peaks list": peaks/list.md
+          - "peaks create": peaks/create.md
+          - "peaks update": peaks/update.md
+          - "peaks no trips": peaks/no_trips.md
+      - Trip:
+          - "trip list": trip/list.md
+          - "trip create": trip/create.md
+      - Members:
+          - "members create": members/create.md
+      - Emergencies:
+          - "emergencies create": emergencies/create.md
+      - Account:
+            - "register": account/register.md
+            - "login": account/login.md
+            - "update": account/update.md
+
+theme:
+  name: material
