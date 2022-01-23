@@ -22,7 +22,7 @@ class FavouriteCitySerializer(serializers.ModelSerializer):
     city_id = serializers.PrimaryKeyRelatedField(queryset=City.objects.all(), write_only=True, source='city')
 
 
-class LatLonSerializer(serializers.Serializer):
+class LatLonSerializer(serializers.Serializer):  # noqa
     """Serializer for latitude and longtitude"""
     lat = serializers.FloatField()
     lon = serializers.FloatField()

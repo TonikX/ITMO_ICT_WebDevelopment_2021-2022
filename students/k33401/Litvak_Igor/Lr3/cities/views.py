@@ -24,17 +24,17 @@ class CityViewSet(ReadOnlyModelViewSet):
         resp = get_external_api_response(lat=city.lat, lon=city.lon)
         return Response(resp.json(), status=resp.status_code)
 
-    @swagger_auto_schema(method='GET', query_serializer=LatLonSerializer)
+    @swagger_auto_schema(method='GET', query_serializer=LatLonSerializer)  # noqa
     @action(methods=['GET'], detail=False, url_path='closest')
     def closest(self, request, *args, **kwargs):
         """Returns city closest to certain coordinates"""
-        query_serializer = LatLonSerializer(request.query_params)
+        query_serializer = LatLonSerializer(data=request.query_params)
         if not query_serializer.is_valid():
             return Response(query_serializer.errors, status=400)
         lat = query_serializer.validated_data['lat']
         lon = query_serializer.validated_data['lon']
         best = min(self.queryset, key=lambda city: haversine_distance(lat, lon, city.lat, city.lon))
-        return self.get_serializer_class()(best).data
+        return Response(self.get_serializer_class()(best).data)
 
 
 class FavouriteCityViewSet(ModelViewSet):
