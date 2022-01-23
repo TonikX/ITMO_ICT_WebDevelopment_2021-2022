@@ -4,8 +4,9 @@ from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
 from cities.models import City, FavouriteCity
-from cities.serializers import CitySerializer, FavouriteCitySerializer
+from cities.serializers import CitySerializer, FavouriteCitySerializer, LatLonSerializer
 from cities.utils import get_external_api_response, haversine_distance
 
 
@@ -23,13 +24,15 @@ class CityViewSet(ReadOnlyModelViewSet):
         resp = get_external_api_response(lat=city.lat, lon=city.lon)
         return Response(resp.json(), status=resp.status_code)
 
+    @swagger_auto_schema(method='GET', query_serializer=LatLonSerializer)
     @action(methods=['GET'], detail=False, url_path='closest')
     def closest(self, request, *args, **kwargs):
         """Returns city closest to certain coordinates"""
-        lat = request.query_params.get('lat')
-        lon = request.query_params.get('lon')
-        if lat is None or lon is None:
-            return Response({'error': "Request must include lat and lon params"}, status=400)
+        query_serializer = LatLonSerializer(request.query_params)
+        if not query_serializer.is_valid():
+            return Response(query_serializer.errors, status=400)
+        lat = query_serializer.validated_data['lat']
+        lon = query_serializer.validated_data['lon']
         best = min(self.queryset, key=lambda city: haversine_distance(lat, lon, city.lat, city.lon))
         return self.get_serializer_class()(best).data
 

@@ -20,3 +20,9 @@ class FavouriteCitySerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     city = CitySerializer(many=True, read_only=True)
     city_id = serializers.PrimaryKeyRelatedField(queryset=City.objects.all(), write_only=True, source='city')
+
+
+class LatLonSerializer(serializers.Serializer):
+    """Serializer for latitude and longtitude"""
+    lat = serializers.FloatField()
+    lon = serializers.FloatField()
