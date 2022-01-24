@@ -24,6 +24,7 @@ class FavouriteCity(models.Model):
     class Meta:
         verbose_name = "Favourite city"
         verbose_name_plural = "Favourite cities"
+        unique_together = ["city", "user"]
 
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="favourites")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="favourites")
