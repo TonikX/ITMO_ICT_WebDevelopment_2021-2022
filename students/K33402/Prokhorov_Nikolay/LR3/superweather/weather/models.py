@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class City(models.Model):
@@ -92,3 +93,8 @@ class WeatherDaily(models.Model):
     pop = models.FloatField()
     snow = models.FloatField(blank=True, null=True)
     uvi = models.FloatField()
+
+
+class FavoriteCity(models.Model):
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

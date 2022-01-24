@@ -20,7 +20,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework.routers import DefaultRouter
 
-from weather.views import CityViewSet, ForecastViewSet, CityDailyViewSet, CityForecastViewSet
+from weather.views import CityViewSet, ForecastViewSet, CityDailyViewSet, CityForecastViewSet, FavoriteCityViewSet
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -34,6 +34,7 @@ schema_view = get_schema_view(
 router = DefaultRouter(trailing_slash=False)
 router.register('city', CityViewSet)
 router.register('forecast', ForecastViewSet)
+router.register('favorites', FavoriteCityViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -8,6 +8,14 @@ class CitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class FavoriteCitySerializer(serializers.ModelSerializer):
+    city_info = CitySerializer(read_only=True, source='city')
+
+    class Meta:
+        model = FavoriteCity
+        fields = ('city', 'city_info')
+
+
 class WeatherCurrentSerializer(serializers.ModelSerializer):
     class Meta:
         model = WeatherCurrent

@@ -1,11 +1,12 @@
 import requests
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
 from rest_framework import mixins
+from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import ListAPIView
 
 from .filters import DailyFilterSet, CityFilterSet
+from .permissions import IsFavoriteOwner
 from .serializers import *
 
 
@@ -38,6 +39,18 @@ class CityViewSet(viewsets.ModelViewSet):
                 City.objects.create(**city)
 
         return super().list(request, *args, **kwargs)
+
+
+class FavoriteCityViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsFavoriteOwner,)
+    queryset = FavoriteCity.objects.all()
+    serializer_class = FavoriteCitySerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
 
 class CityDailyViewSet(ListAPIView):
