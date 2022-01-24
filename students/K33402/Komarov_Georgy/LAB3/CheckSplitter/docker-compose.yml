@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  web:
+    build: .
+    command: bash -c "python entrypoint.py && uwsgi --ini ../configs/uwsgi.ini"
+    volumes:
+      - /var/www/${COMPOSE_PROJECT_NAME}:/app/data
+    depends_on:
+      - db
+    restart: on-failure
+    env_file: .env
+
+  db:
+    image: postgres:latest
+    restart: on-failure
+    volumes:
+      - check_splitter_db:/var/lib/postgresql
+    env_file: .env
+
+volumes:
+  check_splitter_db:
+    external: true
