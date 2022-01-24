@@ -1,0 +1,4 @@
+__pycache__/
+*.doc[x]
+db.sqlite3
+blog/
