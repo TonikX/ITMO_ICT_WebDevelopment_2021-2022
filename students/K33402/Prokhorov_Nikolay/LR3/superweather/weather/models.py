@@ -9,6 +9,7 @@ class City(models.Model):
     country = models.CharField(max_length=128)
     state = models.CharField(max_length=128)
     name = models.CharField(max_length=128)
+    name_ru = models.CharField(max_length=128)
 
     lat = models.FloatField()
     lon = models.FloatField()
@@ -45,7 +46,7 @@ class WeatherForecast(models.Model):
         verbose_name_plural = 'Прогнозы'
 
     city = models.ForeignKey(City, on_delete=models.CASCADE)
-    current = models.ForeignKey(WeatherCurrent, on_delete=models.CASCADE, related_name='forecast')
+    current = models.OneToOneField(WeatherCurrent, on_delete=models.CASCADE, related_name='forecast')
 
     lat = models.FloatField()
     lon = models.FloatField()
@@ -58,6 +59,10 @@ class WeatherForecast(models.Model):
     alerts = models.JSONField()
 
     date_created = models.DateTimeField(auto_now_add=True)
+
+    def delete(self, using=None, keep_parents=False):
+        self.current.delete()
+        return super().delete(using, keep_parents)
 
 
 class WeatherDaily(models.Model):

@@ -8,8 +8,15 @@ class CitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class WeatherCurrentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WeatherCurrent
+        fields = '__all__'
+
+
 class ForecastSerializer(serializers.ModelSerializer):
     city = CitySerializer()
+    current = WeatherCurrentSerializer()
 
     class Meta:
         model = WeatherForecast
@@ -17,7 +24,6 @@ class ForecastSerializer(serializers.ModelSerializer):
 
 
 class CityDailySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = WeatherDaily
         fields = '__all__'

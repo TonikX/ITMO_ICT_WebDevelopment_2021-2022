@@ -19,7 +19,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework.routers import DefaultRouter
-from weather.views import CityViewSet, ForecastViewSet, CityDailyViewSet
+
+from weather.views import CityViewSet, ForecastViewSet, CityDailyViewSet, CityForecastViewSet
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -42,5 +43,6 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     path('', include(router.urls)),
-    path('city/<int:id>/daily', CityDailyViewSet.as_view())
+    path('city/<int:id>/daily', CityDailyViewSet.as_view()),
+    path('city/<int:id>/forecast', CityForecastViewSet.as_view()),
 ]
