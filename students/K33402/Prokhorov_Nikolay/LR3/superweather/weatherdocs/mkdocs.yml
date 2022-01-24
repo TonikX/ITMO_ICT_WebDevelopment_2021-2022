@@ -1,0 +1,13 @@
+site_name: Superweather Docs
+site_url: http://localhost:8000
+
+nav:
+  - О проекте: "index.md"
+  - Swagger: "swagger.md"
+  - Авторизация: "Apis/AuthApi.md"
+  - Города: "Apis/CityApi.md"
+  - Прогнозы: "Apis/ForecastApi.md"
+  - Избранное: "Apis/FavoritesApi.md"
+
+theme:
+  name: material

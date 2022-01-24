@@ -1,0 +1,1018 @@
+swagger: '2.0'
+info:
+  title: SuperWeather API
+  version: v1
+host: localhost:8888
+schemes:
+  - http
+basePath: /
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+  - Basic: []
+paths:
+  /auth/token/login/:
+    post:
+      operationId: auth_token_login_create
+      description: Use this endpoint to obtain user authentication token.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TokenCreate'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/TokenCreate'
+      tags:
+        - auth
+    parameters: []
+  /auth/token/logout/:
+    post:
+      operationId: auth_token_logout_create
+      description: Use this endpoint to logout user (remove user authentication token).
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - auth
+    parameters: []
+  /auth/users/:
+    get:
+      operationId: auth_users_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+      tags:
+        - auth
+    post:
+      operationId: auth_users_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UserCreate'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/UserCreate'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/activation/:
+    post:
+      operationId: auth_users_activation
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Activation'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Activation'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/me/:
+    get:
+      operationId: auth_users_me_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+      tags:
+        - auth
+    put:
+      operationId: auth_users_me_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - auth
+    patch:
+      operationId: auth_users_me_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - auth
+    delete:
+      operationId: auth_users_me_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - auth
+    parameters: []
+  /auth/users/resend_activation/:
+    post:
+      operationId: auth_users_resend_activation
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/reset_password/:
+    post:
+      operationId: auth_users_reset_password
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/reset_password_confirm/:
+    post:
+      operationId: auth_users_reset_password_confirm
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PasswordResetConfirm'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/PasswordResetConfirm'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/reset_username/:
+    post:
+      operationId: auth_users_reset_username
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/reset_username_confirm/:
+    post:
+      operationId: auth_users_reset_username_confirm
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UsernameResetConfirm'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/UsernameResetConfirm'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/set_password/:
+    post:
+      operationId: auth_users_set_password
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SetPassword'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SetPassword'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/set_username/:
+    post:
+      operationId: auth_users_set_username
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SetUsername'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SetUsername'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/{id}/:
+    get:
+      operationId: auth_users_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - auth
+    put:
+      operationId: auth_users_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - auth
+    patch:
+      operationId: auth_users_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - auth
+    delete:
+      operationId: auth_users_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - auth
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this user.
+        required: true
+        type: integer
+  /city:
+    get:
+      operationId: city_list
+      description: ''
+      parameters:
+        - name: q
+          in: query
+          description: ''
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/City'
+      tags:
+        - city
+    post:
+      operationId: city_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/City'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/City'
+      tags:
+        - city
+    parameters: []
+  /city/{id}:
+    get:
+      operationId: city_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/City'
+      tags:
+        - city
+    put:
+      operationId: city_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/City'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/City'
+      tags:
+        - city
+    patch:
+      operationId: city_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/City'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/City'
+      tags:
+        - city
+    delete:
+      operationId: city_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - city
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Город.
+        required: true
+        type: integer
+  /city/{id}/daily:
+    get:
+      operationId: city_daily_list
+      description: ''
+      parameters:
+        - name: weekday
+          in: query
+          description: ''
+          required: false
+          type: number
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CityDaily'
+      tags:
+        - city
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Прогноз по дням.
+        required: true
+        type: integer
+  /city/{id}/forecast:
+    get:
+      operationId: city_forecast_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Forecast'
+      tags:
+        - city
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Прогноз.
+        required: true
+        type: integer
+  /favorites:
+    get:
+      operationId: favorites_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FavoriteCity'
+      tags:
+        - favorites
+    post:
+      operationId: favorites_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/FavoriteCity'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/FavoriteCity'
+      tags:
+        - favorites
+    parameters: []
+  /favorites/{id}:
+    get:
+      operationId: favorites_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/FavoriteCity'
+      tags:
+        - favorites
+    put:
+      operationId: favorites_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/FavoriteCity'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/FavoriteCity'
+      tags:
+        - favorites
+    patch:
+      operationId: favorites_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/FavoriteCity'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/FavoriteCity'
+      tags:
+        - favorites
+    delete:
+      operationId: favorites_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - favorites
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this favorite city.
+        required: true
+        type: integer
+  /forecast:
+    get:
+      operationId: forecast_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Forecast'
+      tags:
+        - forecast
+    parameters: []
+  /forecast/{id}:
+    get:
+      operationId: forecast_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Forecast'
+      tags:
+        - forecast
+    delete:
+      operationId: forecast_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - forecast
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Прогноз.
+        required: true
+        type: integer
+definitions:
+  TokenCreate:
+    type: object
+    properties:
+      password:
+        title: Password
+        type: string
+        minLength: 1
+      username:
+        title: Username
+        type: string
+        minLength: 1
+  User:
+    type: object
+    properties:
+      email:
+        title: Email address
+        type: string
+        format: email
+        maxLength: 254
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      username:
+        title: Username
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+        type: string
+        readOnly: true
+        minLength: 1
+  UserCreate:
+    required:
+      - username
+      - password
+    type: object
+    properties:
+      email:
+        title: Email address
+        type: string
+        format: email
+        maxLength: 254
+      username:
+        title: Username
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+        type: string
+        pattern: ^[\w.@+-]+$
+        maxLength: 150
+        minLength: 1
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      password:
+        title: Password
+        type: string
+        minLength: 1
+  Activation:
+    required:
+      - uid
+      - token
+    type: object
+    properties:
+      uid:
+        title: Uid
+        type: string
+        minLength: 1
+      token:
+        title: Token
+        type: string
+        minLength: 1
+  SendEmailReset:
+    required:
+      - email
+    type: object
+    properties:
+      email:
+        title: Email
+        type: string
+        format: email
+        minLength: 1
+  PasswordResetConfirm:
+    required:
+      - uid
+      - token
+      - new_password
+    type: object
+    properties:
+      uid:
+        title: Uid
+        type: string
+        minLength: 1
+      token:
+        title: Token
+        type: string
+        minLength: 1
+      new_password:
+        title: New password
+        type: string
+        minLength: 1
+  UsernameResetConfirm:
+    required:
+      - new_username
+    type: object
+    properties:
+      new_username:
+        title: Username
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+        type: string
+        pattern: ^[\w.@+-]+$
+        maxLength: 150
+        minLength: 1
+  SetPassword:
+    required:
+      - new_password
+      - current_password
+    type: object
+    properties:
+      new_password:
+        title: New password
+        type: string
+        minLength: 1
+      current_password:
+        title: Current password
+        type: string
+        minLength: 1
+  SetUsername:
+    required:
+      - current_password
+      - new_username
+    type: object
+    properties:
+      current_password:
+        title: Current password
+        type: string
+        minLength: 1
+      new_username:
+        title: Username
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+        type: string
+        pattern: ^[\w.@+-]+$
+        maxLength: 150
+        minLength: 1
+  City:
+    required:
+      - country
+      - state
+      - name
+      - name_ru
+      - lat
+      - lon
+      - local_names
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      country:
+        title: Country
+        type: string
+        maxLength: 128
+        minLength: 1
+      state:
+        title: State
+        type: string
+        maxLength: 128
+        minLength: 1
+      name:
+        title: Name
+        type: string
+        maxLength: 128
+        minLength: 1
+      name_ru:
+        title: Name ru
+        type: string
+        maxLength: 128
+        minLength: 1
+      lat:
+        title: Lat
+        type: number
+      lon:
+        title: Lon
+        type: number
+      local_names:
+        title: Local names
+        type: object
+  CityDaily:
+    required:
+      - weekday
+      - dt
+      - sunrise
+      - sunset
+      - moonrise
+      - moonset
+      - moon_phase
+      - temp
+      - feels_like
+      - pressure
+      - humidity
+      - dew_point
+      - wind_speed
+      - wind_deg
+      - wind_gust
+      - weather
+      - clouds
+      - pop
+      - uvi
+      - forecast
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      weekday:
+        title: Weekday
+        type: integer
+      dt:
+        title: Dt
+        type: number
+      sunrise:
+        title: Sunrise
+        type: number
+      sunset:
+        title: Sunset
+        type: number
+      moonrise:
+        title: Moonrise
+        type: number
+      moonset:
+        title: Moonset
+        type: number
+      moon_phase:
+        title: Moon phase
+        type: number
+      temp:
+        title: Temp
+        type: object
+      feels_like:
+        title: Feels like
+        type: object
+      pressure:
+        title: Pressure
+        type: number
+      humidity:
+        title: Humidity
+        type: number
+      dew_point:
+        title: Dew point
+        type: number
+      wind_speed:
+        title: Wind speed
+        type: number
+      wind_deg:
+        title: Wind deg
+        type: number
+      wind_gust:
+        title: Wind gust
+        type: number
+      weather:
+        title: Weather
+        type: object
+      clouds:
+        title: Clouds
+        type: number
+      pop:
+        title: Pop
+        type: number
+      snow:
+        title: Snow
+        type: number
+        x-nullable: true
+      uvi:
+        title: Uvi
+        type: number
+      forecast:
+        title: Forecast
+        type: integer
+  WeatherCurrent:
+    required:
+      - dt
+      - temp
+      - feels_like
+      - pressure
+      - humidity
+      - dew_point
+      - uvi
+      - clouds
+      - visibility
+      - wind_speed
+      - wind_deg
+      - weather
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      dt:
+        title: Dt
+        type: number
+      sunrise:
+        title: Sunrise
+        type: number
+        x-nullable: true
+      sunset:
+        title: Sunset
+        type: number
+        x-nullable: true
+      temp:
+        title: Temp
+        type: number
+      feels_like:
+        title: Feels like
+        type: number
+      pressure:
+        title: Pressure
+        type: number
+      humidity:
+        title: Humidity
+        type: number
+      dew_point:
+        title: Dew point
+        type: number
+      uvi:
+        title: Uvi
+        type: number
+      clouds:
+        title: Clouds
+        type: number
+      visibility:
+        title: Visibility
+        type: number
+      wind_speed:
+        title: Wind speed
+        type: number
+      wind_deg:
+        title: Wind deg
+        type: number
+      weather:
+        title: Weather
+        type: object
+      wind_gust:
+        title: Wind gust
+        type: number
+        x-nullable: true
+      pop:
+        title: Pop
+        type: number
+        x-nullable: true
+  Forecast:
+    required:
+      - city
+      - current
+      - lat
+      - lon
+      - timezone
+      - timezone_offset
+      - minutely
+      - hourly
+      - alerts
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      city:
+        $ref: '#/definitions/City'
+      current:
+        $ref: '#/definitions/WeatherCurrent'
+      lat:
+        title: Lat
+        type: number
+      lon:
+        title: Lon
+        type: number
+      timezone:
+        title: Timezone
+        type: string
+        maxLength: 128
+        minLength: 1
+      timezone_offset:
+        title: Timezone offset
+        type: integer
+      minutely:
+        title: Minutely
+        type: object
+      hourly:
+        title: Hourly
+        type: object
+      alerts:
+        title: Alerts
+        type: object
+      date_created:
+        title: Date created
+        type: string
+        format: date-time
+        readOnly: true
+  FavoriteCity:
+    required:
+      - city
+    type: object
+    properties:
+      city:
+        title: City
+        type: integer
+      city_info:
+        $ref: '#/definitions/City'

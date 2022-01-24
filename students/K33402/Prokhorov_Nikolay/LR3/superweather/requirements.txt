@@ -9,3 +9,4 @@ drf-yasg
 djoser
 djangorestframework_simplejwt
 requests~=2.24.0
+mkdocs
