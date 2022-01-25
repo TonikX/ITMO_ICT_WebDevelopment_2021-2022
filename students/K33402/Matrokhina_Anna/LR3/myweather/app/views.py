@@ -83,7 +83,7 @@ class WeatherItemView(mixins.RetrieveModelMixin, GenericAPIView):
         return self.retrieve(request, *args, **kwargs)
 
 
-class MyCityView(mixins.ListModelMixin, GenericAPIView):
+class MyCityListView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericAPIView):
     serializer_class = MyCityFullSerializer
     queryset = MyCitiesModel.objects.all()
     permission_classes = (IsAuthenticated,)
@@ -91,20 +91,26 @@ class MyCityView(mixins.ListModelMixin, GenericAPIView):
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
-class MyCityEditView(mixins.RetrieveModelMixin,
-                     mixins.CreateModelMixin,
-                     mixins.UpdateModelMixin,
+    def post(self, request, *args, **kwargs):
+        self.serializer_class = MyCitySerializer
+        return self.create(request, *args, **kwargs)
+
+
+class MyCityEditView(mixins.UpdateModelMixin,
+                     mixins.DestroyModelMixin,
                      GenericAPIView):
     serializer_class = MyCitySerializer
     queryset = MyCitiesModel.objects.all()
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)

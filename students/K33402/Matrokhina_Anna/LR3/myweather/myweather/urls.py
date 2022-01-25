@@ -44,8 +44,8 @@ urlpatterns = [
     path('weather/', WeaherListView.as_view()),
     path('weather/<int:id>', WeatherItemView.as_view()),
 
-    path('mycities', MyCityView.as_view()),
-    path('mycities/<int:id>', MyCityEditView.as_view()),
+    path('mycities/', MyCityListView.as_view()),
+    path('mycities/<int:pk>', MyCityEditView.as_view()),
 
     path('doc/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('doc/redoc', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc')

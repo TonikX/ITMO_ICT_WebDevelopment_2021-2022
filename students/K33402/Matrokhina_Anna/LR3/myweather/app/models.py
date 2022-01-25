@@ -13,7 +13,7 @@ class CityModel(models.Model):
 
 
 class WeatherModel(models.Model):
-    city = models.ForeignKey(CityModel, on_delete=models.CASCADE)
+    city = models.ForeignKey(CityModel, on_delete=models.CASCADE, related_name='weather')
     lat = models.FloatField()
     lon = models.FloatField()
     current = models.JSONField()

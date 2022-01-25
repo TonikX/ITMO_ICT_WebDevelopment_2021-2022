@@ -19,13 +19,14 @@ class WeatherSerializer(serializers.ModelSerializer):
 class MyCitySerializer(serializers.ModelSerializer):
     class Meta:
         model = MyCitiesModel
-        fields = '__all__'
+        fields = ['city']
 
 
 class MyCityFullSerializer(serializers.ModelSerializer):
     city = CitySerializer()
-    weather = WeatherSerializer()
+    weather = WeatherSerializer(source='city.weather', many=True)
 
     class Meta:
-        model = WeatherModel
+        model = MyCitiesModel
         fields = '__all__'
+
