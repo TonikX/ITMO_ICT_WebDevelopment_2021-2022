@@ -39,10 +39,10 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
 
     path('city/', CityListView.as_view()),
-    path('city/<int:id>', CityItemView.as_view()),
+    path('city/<int:pk>', CityItemView.as_view()),
 
     path('weather/', WeaherListView.as_view()),
-    path('weather/<int:id>', WeatherItemView.as_view()),
+    path('weather/<int:pk>', WeatherItemView.as_view()),
 
     path('mycities/', MyCityListView.as_view()),
     path('mycities/<int:pk>', MyCityEditView.as_view()),
