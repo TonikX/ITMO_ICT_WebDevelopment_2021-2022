@@ -1,0 +1,20 @@
+{% extends "base_page.html" %}
+{% block title %}Main page{% endblock %}
+{% block content %}
+  <span><h1>Students</h1>
+  <ul>
+	{% for student in data %}
+    <li>
+    <p><strong>First Name:</strong> {{ student.first_name }}</p> 
+    <p><strong>Last Name:</strong> {{ student.last_name }}</p>
+    <p><strong>Gender:</strong> {{ student.gender }}</p>
+    actions:  <a href="/students/update/{{ student.id }}/">Update</a> 
+    <a href="/students/delete/{{ student.id }}">Delete</a> 
+
+
+	</li>
+	{% empty %}
+	<li>No students yet.</li>
+	{% endfor %}
+  </ul>
+{% endblock %}
