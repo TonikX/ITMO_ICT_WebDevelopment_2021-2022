@@ -26,19 +26,35 @@
       </v-btn>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
+        v-if="isLoggedIn === true"
+        href="/responses"
         text
       >
         <span class="mr-2">Мои отклики</span>
       </v-btn>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
+        v-if="isLoggedIn === false"
+        href="/login"
         text
       >
         <span class="mr-2">Войти</span>
+      </v-btn>
+
+      <v-btn
+        v-if="isLoggedIn === false"
+        href="/register"
+        text
+      >
+        <span class="mr-2">Зарегистрироваться</span>
+      </v-btn>
+
+      <v-btn
+        v-if="isLoggedIn"
+        @click="logout"
+        text
+      >
+        <span class="mr-2">Выйти</span>
       </v-btn>
     </v-app-bar>
 
@@ -55,7 +71,19 @@ export default {
 
   data: () => ({
     //
-  })
+  }),
+
+  computed: {
+    isLoggedIn: function () { return this.$store.getters.isLoggedIn }
+  },
+  methods: {
+    logout: function () {
+      this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('/login')
+        })
+    }
+  }
 }
 </script>
 

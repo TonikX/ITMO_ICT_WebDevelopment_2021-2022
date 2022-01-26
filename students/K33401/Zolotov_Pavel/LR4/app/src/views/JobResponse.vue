@@ -97,25 +97,22 @@ export default {
     },
 
     async submit () {
-      if (this.$refs.form.value) {
-        try {
-          var url = `${apiUrl}/api/jobs-response/new`
-          const response = await this.axios.post(url, {
-            cv: this.cv,
-            text: this.text,
-            created_at: new Date().toISOString(),
-            job: this.$route.params.id
-          })
+      this.$refs.form.validate()
+      try {
+        var url = `${apiUrl}/api/jobs-response/new`
+        const response = await this.axios.post(url, {
+          cv: this.cv,
+          text: this.text,
+          created_at: new Date().toISOString(),
+          job: this.$route.params.id
+        })
 
-          if (response.status !== 200) {
-            throw new Error(response.error)
-          }
-        } catch (e) {
-          console.error('AN API ERROR', e)
+        window.location.href = '/responses'
+        if (response.status !== 200) {
+          throw new Error(response.error)
         }
-        // this.$route.go(2)
-      } else {
-        this.$refs.form.validate()
+      } catch (e) {
+        console.error('AN API ERROR', e)
       }
     }
   },

@@ -31,6 +31,15 @@ class RegionSerializer(serializers.ModelSerializer):
 
 class JobResponseSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
+    job = JobSerializer()
+
+    class Meta:
+        model = JobResponse
+        fields = "__all__"
+
+
+class JobResponseSerializer2(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = JobResponse

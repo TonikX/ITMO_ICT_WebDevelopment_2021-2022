@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store.js'
 import Home from '../views/Home.vue'
 import JobList from '@/views/JobList.vue'
 import JobDetails from '@/views/JobDetails.vue'
 import JobResponse from '@/views/JobResponse.vue'
+import JobResponseList from '@/views/JobResponseList.vue'
+import Login from '../components/Login.vue'
+import Register from '../components/Register.vue'
 
 Vue.use(VueRouter)
 
@@ -34,7 +38,28 @@ const routes = [
   {
     path: '/jobs/:id/response',
     name: 'JobResponse',
-    component: JobResponse
+    component: JobResponse,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/responses',
+    name: 'JobResponseList',
+    component: JobResponseList,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
   }
 ]
 
@@ -42,6 +67,18 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.isLoggedIn) {
+      next()
+      return
+    }
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router

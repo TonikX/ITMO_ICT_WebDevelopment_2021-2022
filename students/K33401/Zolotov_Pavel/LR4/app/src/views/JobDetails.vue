@@ -122,6 +122,7 @@
                 <v-btn
                     color="success"
                     depressed
+                    @click="$router.push({ name: 'JobResponse', params: { id: job.id }})"
                 >
                     Откликнуться
                 </v-btn>

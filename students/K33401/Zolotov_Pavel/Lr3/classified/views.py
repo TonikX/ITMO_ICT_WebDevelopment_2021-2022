@@ -76,7 +76,7 @@ class JobResponseGetView(ListAPIView):
 
 class JobResponseApiCreateView(CreateAPIView):
     queryset = JobResponse.objects.all()
-    serializer_class = JobResponseSerializer
+    serializer_class = JobResponseSerializer2
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
