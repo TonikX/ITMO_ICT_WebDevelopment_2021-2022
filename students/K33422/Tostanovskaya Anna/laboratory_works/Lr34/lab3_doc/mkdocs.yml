@@ -1,0 +1,31 @@
+site_name: My docs
+nav:
+ - Home: index.md
+ - Endpoints:
+     - "Client": endpoint/client.md
+     - "ServicePL": endpoint/services_pl.md
+     - "MaterialsPL": endpoint/materials_pl.md
+     - "Executor": endpoint/executor.md
+     - "Request": endpoint/request.md
+     - "Chosen Services": endpoint/chosen_services.md
+     - "Chosen Materials": endpoint/chosen_materials.md
+     - "Work Group": endpoint/work_group.md
+     - "Invoice": endpoint/invoice.md
+     - "Payment Order": endpoint/payment_order.md
+ - Interfaces:
+     - "SignUp": interfaces/sign_up.md
+     - "SignIn": interfaces/sign_in.md
+     - "Account Details": interfaces/account_details.md
+     - "Client": interfaces/client.md
+     - "ServicePL": interfaces/services_pl.md
+     - "MaterialsPL": interfaces/materials_pl.md
+     - "Executor": interfaces/executor.md
+     - "Request": interfaces/request.md
+     - "Chosen Services": interfaces/chosen_services.md
+     - "Chosen Materials": interfaces/chosen_materials.md
+     - "Work Group": interfaces/work_group.md
+     - "Invoice": interfaces/invoice.md
+     - "Payment Order": interfaces/payment_order.md
+
+theme:
+ name: material
