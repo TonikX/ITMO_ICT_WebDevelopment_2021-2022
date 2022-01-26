@@ -38,7 +38,7 @@ class FavoriteCityEditSerializer(serializers.ModelSerializer):
 
 class FavoriteCitySerializer(serializers.ModelSerializer):
     city_info = CitySerializer(read_only=True, source='city')
-    city_weather = ForecastSerializer(read_only=True, source='city_set', many=True)
+    city_weather = ForecastSerializer(read_only=True, source='city.weatherforecast_set', many=True)
 
     class Meta:
         model = FavoriteCity
