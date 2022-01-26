@@ -1,9 +1,11 @@
 import requests
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import mixins
+from rest_framework import mixins, status
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import ListAPIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from .filters import DailyFilterSet, CityFilterSet
 from .permissions import IsFavoriteOwner
@@ -110,6 +112,34 @@ class CityForecastViewSet(ListAPIView):
             WeatherDaily.objects.bulk_create(daily)
 
         return super().list(request, *args, **kwargs)
+
+
+class CityFavoriteEdit(mixins.CreateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
+    queryset = FavoriteCity.objects.all()
+    serializer_class = serializers.Serializer()
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        return super().get_queryset().filter(city_id=self.kwargs['id'])
+
+    def create(self, request, *args, **kwargs):
+        city_id = self.kwargs['id']
+        user = self.request.user
+
+        existing = FavoriteCity.objects.filter(city_id=city_id, user=user)
+        if existing.count() != 0:
+            raise ValidationError('Город уже в избранном')
+
+        favorite = FavoriteCity.objects.create(city_id=city_id, user=user)
+        return Response(FavoriteCityEditSerializer(favorite).data, status=status.HTTP_201_CREATED)
+
+    def destroy(self, request, *args, **kwargs):
+        city_id = self.kwargs['id']
+        user = self.request.user
+
+        instance = FavoriteCity.objects.filter(city_id=city_id, user=user).first()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class ForecastViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):

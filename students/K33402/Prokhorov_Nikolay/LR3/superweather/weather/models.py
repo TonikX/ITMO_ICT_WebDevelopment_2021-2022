@@ -37,6 +37,7 @@ class WeatherCurrent(models.Model):
     wind_speed = models.FloatField()
     wind_deg = models.FloatField()
     weather = models.JSONField()
+    snow = models.JSONField(blank=True, null=True)
     wind_gust = models.FloatField(blank=True, null=True)
     pop = models.FloatField(blank=True, null=True)
 
@@ -57,7 +58,7 @@ class WeatherForecast(models.Model):
 
     minutely = models.JSONField()
     hourly = models.JSONField()
-    alerts = models.JSONField()
+    alerts = models.JSONField(blank=True, null=True)
 
     date_created = models.DateTimeField(auto_now_add=True)
 

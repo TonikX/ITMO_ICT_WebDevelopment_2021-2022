@@ -20,3 +20,8 @@ class WeatherDailyModel(admin.ModelAdmin):
 @admin.register(WeatherForecast)
 class WeatherForecastModel(admin.ModelAdmin):
     pass
+
+
+@admin.register(FavoriteCity)
+class FavoriteCityModel(admin.ModelAdmin):
+    list_display = ('user', 'city')
