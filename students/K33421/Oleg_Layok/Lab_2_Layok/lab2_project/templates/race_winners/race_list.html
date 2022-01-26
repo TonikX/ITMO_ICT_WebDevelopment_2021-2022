@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Race list:</h2>
+    <ul style="list-style: none;">
+        {% for race in object_list %}
+            <li style="height: 45px; line-height: 45px; background-color: #E0E0E0; margin-top: 7px; padding-left: 25px">
+                <a href="/race/{{ race.pk }}" style="text-decoration: none">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div style="font-size: 21px;">{{ race.name }}</div>
+                        <div style="margin-right: 27px;">{{ race.date }}</div>
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
