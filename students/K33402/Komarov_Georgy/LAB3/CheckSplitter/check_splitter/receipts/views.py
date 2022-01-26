@@ -8,14 +8,15 @@ from drf_spectacular.utils import extend_schema_view
 from rest_framework import serializers
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
+from rest_framework.filters import SearchFilter
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from receipts.models import Receipt, ReceiptItem, ReceiptItemPart
 from receipts.openapi import *
-from receipts.serializers import CheckSerializer, CheckItemPartSerializer
+from receipts.serializers import CheckSerializer, CheckItemPartSerializer, CheckUsersUpdateSerializer, CheckNameUpdateSerializer
 from utils.views import CamelCaseView
 
 
@@ -24,14 +25,31 @@ from utils.views import CamelCaseView
     retrieve=checks_retrieve_schema,
     sync=checks_sync_schema,
     items=checks_items_schema,
+    users=checks_users_schema,
+    update_name=checks_name_schema,
 )
 class CheckViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet, CamelCaseView):
     serializer_class = CheckSerializer
     queryset = Receipt.objects.all()
-    pagination_class = PageNumberPagination
+    pagination_class = LimitOffsetPagination
+
+    filter_backends = [SearchFilter]
+    search_fields = ['id', 'name', 'total_sum', 'fn', 'fp', 'fd', 'org_inn', 'org_name', 'org_address', 'users__username']
 
     def get_queryset(self):
-        return super().get_queryset().filter(created_by=self.request.user)
+        return super().get_queryset().filter(created_by=self.request.user).order_by('-id')
+
+    @action(detail=True, methods=['PUT'], serializer_class=CheckUsersUpdateSerializer, parser_classes=[CamelCaseJSONParser])
+    def users(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        input_serializer = self.get_serializer(instance, data=request.data)
+        input_serializer.is_valid(raise_exception=True)
+        input_serializer.save()
+
+        serializer = CheckSerializer(instance, context=self.get_serializer_context())
+
+        return Response(serializer.data)
 
     @action(detail=False, methods=['POST'], serializer_class=serializers.Serializer)
     def sync(self, request, *args, **kwargs):
@@ -117,4 +135,14 @@ class CheckViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet, CamelCase
 
         ReceiptItemPart.objects.filter(item__receipt=instance).delete()
         serializer.save()
+        return Response(status=200)
+
+    @action(detail=True, methods=['PATCH'], serializer_class=CheckNameUpdateSerializer, url_path='name')
+    def update_name(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
         return Response(status=200)

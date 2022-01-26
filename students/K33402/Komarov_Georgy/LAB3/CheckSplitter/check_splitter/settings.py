@@ -227,7 +227,6 @@ REST_FRAMEWORK = {
     'JSON_UNDERSCOREIZE':             {
         'no_underscore_before_number': True,
     },
-    'PAGE_SIZE':                      10,
 }
 
 # Authentication settings

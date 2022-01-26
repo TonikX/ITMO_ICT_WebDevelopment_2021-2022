@@ -33,7 +33,7 @@ class User(ExtendedModel, AbstractUser):
     @property
     @extend_schema_field(OpenApiTypes.URI)
     def avatar_url(self) -> str:
-        return self.avatar if self.avatar else f'https://www.gravatar.com/avatar/{md5(self.email.lower().strip().encode()).hexdigest()}?d=identicon'
+        return self.avatar.url if self.avatar else f'https://www.gravatar.com/avatar/{md5(self.email.lower().strip().encode()).hexdigest()}?d=identicon'
 
     @property
     def full_name(self) -> str:

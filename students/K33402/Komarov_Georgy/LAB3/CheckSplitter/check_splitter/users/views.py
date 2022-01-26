@@ -3,6 +3,7 @@ from drf_spectacular.utils import extend_schema_view
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, GenericAPIView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from users.models import User
 from users.openapi import *
@@ -42,6 +43,7 @@ class ProfileView(RetrieveUpdateDestroyAPIView, ProfileMixin):
 
 @extend_schema_view(
     put=user_avatar_update_schema,
+    delete=user_avatar_destroy_schema,
 )
 class ProfileAvatarView(UpdateModelMixin, ProfileMixin):
     serializer_class = ProfileAvatarSerializer
@@ -49,3 +51,11 @@ class ProfileAvatarView(UpdateModelMixin, ProfileMixin):
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.avatar = None
+        instance.save()
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
