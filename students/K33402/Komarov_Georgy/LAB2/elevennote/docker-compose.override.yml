@@ -1,0 +1,11 @@
+version: '3'
+services:
+    web:
+        build: .
+        container_name: dg01
+        depends_on:
+            - db
+        volumes:
+            - ./src:/src
+        ports:
+            - "8000:8000"

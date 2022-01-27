@@ -1,0 +1,9 @@
+Django~=3.0.6
+psycopg2-binary
+python-decouple
+pytz
+uWSGI
+django-widget-tweaks
+django-wysiwyg
+djangorestframework
+djangorestframework-jwt
