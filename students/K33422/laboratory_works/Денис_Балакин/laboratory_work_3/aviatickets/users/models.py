@@ -38,8 +38,8 @@ class User(AbstractUser):
 
     objects = UserManager()
 
-    profile_picture = models.URLField()
-    bonus_count = models.PositiveIntegerField()
+    profile_picture = models.URLField(blank=True)
+    bonus_count = models.PositiveIntegerField(default=0)
 
     def bookings_count(self):
         return self.bookings.count()

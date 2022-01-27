@@ -35,7 +35,7 @@ class Flight(models.Model):
         return self.arrival_datetime - self.departure_datetime
 
 
-class FlightBookings(models.Model):
+class FlightBooking(models.Model):
     flight = models.ForeignKey(
         'tickets.Flight',
         on_delete=models.CASCADE,

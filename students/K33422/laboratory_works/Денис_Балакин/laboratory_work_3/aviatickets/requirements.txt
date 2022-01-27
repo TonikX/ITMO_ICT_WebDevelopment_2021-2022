@@ -4,3 +4,4 @@ djangorestframework
 djangorestframework-simplejwt
 djoser
 psycopg2-binary
+drf_spectacular
