@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Rooms</title>
+</head>
+<body>
+<div class="navbar">
+    <div class="logo">Hotel project</div>
+    <div class="navbar-content">
+        {% if user.is_authenticated %}
+            <div><a href="rooms">Rooms page</a></div>
+            <div><a href="lastmonth">Guests</a></div>
+            <div><a href="profile">Profile</a></div>
+            <div><a href="logout">Logout</a></div>
+        {% else %}
+            <div><a href="register">Sign up</a></div>
+            <div><a href="login">Login</a></div>
+        {% endif %}
+    </div>
+</div>
+<div style="display: flex; align-items: center; flex-direction: column">
+    <h1>List of rooms : </h1>
+    <form method="post" action="{% url 'search_rooms' %}">
+        {% csrf_token %}
+        <input name="search_value" type="number"/>
+        <button type="submit">Search</button>
+    </form>
+    {% block content %}
+    {% endblock content %}
+    {% for room in rooms reversed %}
+        <div>
+            <h1><a href="room/{{ room.id }}" style="text-decoration: none; color: black">Room {{ room.number }}</a></h1>
+            <h4>Room type : {{ room.type }}</h4>
+            <h4>Max occupancy : {{ room.max_occupancy }}</h4>
+            <h4><a href="/comment/{{ room.id }}" style="text-decoration: none">Add comment</a></h4>
+        </div>
+    {% endfor %}
+    <div style="display: flex; align-items: center; flex-direction: row">
+        {% if rooms.has_previous %}
+            <h1><a style="text-decoration: none; color: red; padding: 5px"
+                   href="{% url 'rooms' %}?page={{ rooms.previous_page_number }}"><<</a></h1>
+        {% endif %}
+        {% if rooms.has_next %}
+            <h1><a style="text-decoration: none; color: red; padding: 5px"
+                   href="{% url 'rooms' %}?page={{ rooms.next_page_number }}">>></a></h1>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

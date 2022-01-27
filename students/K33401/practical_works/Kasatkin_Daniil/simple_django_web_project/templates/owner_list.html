@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users list</title>
+</head>
+<body>
+<span><h1>Users</h1><a href="/owner_create_view/">Add new one</a></span>
+<ul>
+    {% for user in dataset %}
+        <li>
+            <p><strong>Name:</strong> {{ user.first_name }},{{ user.last_name }}</p>
+            <p><strong>Birth date:</strong> {{ user.birth_date }}</p>
+            <p><strong>Passport id:</strong> {{ user.passport_id }}</p>
+            <p><strong>Nationality:</strong> {{ user.nation }}</p>
+            <p><strong>Address:</strong> {{ user.address }}</p>
+        </li>
+    {% empty %}
+        <li>No users yet.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     {% load static %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Profile</title>
+</head>
+<body>
+<div class="navbar">
+    <div class="logo">Hotel project</div>
+    <div class="navbar-content">
+        {% if user.is_authenticated %}
+            <div><a href="rooms">Rooms page</a></div>
+            <div><a href="lastmonth">Guests</a></div>
+            <div><a href="profile">Profile</a></div>
+            <div><a href="logout">Logout</a></div>
+        {% else %}
+            <div><a href="register">Sign up</a></div>
+            <div><a href="login">Login</a></div>
+        {% endif %}
+    </div>
+</div>
+<div style="display: flex; align-items: center; flex-direction: column">
+    <h1>Hello {{ user.username }}</h1>
+    <h2>Your recent reservation</h2>
+    {% for reservation in reservations reversed %}
+        <div style="border: 2px solid blue; padding: 10px">
+            <h4>Room {{ reservation.room.number }} </h4>
+            <h4>Room type : {{ reservation.room.type }}</h4>
+            <h4>Max occupancy : {{ reservation.room.max_occupancy }}</h4>
+            <h4>Arrival time : {{ reservation.arrival_date }}</h4>
+            <h4>Departure time : {{ reservation.departure_date }}</h4>
+            <h4>Reservation time : {{ reservation.reserve_time }}</h4>
+            <a href="delete_res/{{ reservation.id }}">Delete</a>
+            <a href="edit_res/{{ reservation.id }}">Edit</a>
+        </div>
+
+    {% empty %}
+        <h1 style="color: red;">You haven't booked anything!</h1>
+    {% endfor %}
+    <h2><a href="/">Home</a></h2>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Reservation</title>
+</head>
+<body>
+<div class="navbar">
+    <div class="logo">Hotel project</div>
+    <div class="navbar-content">
+        {% if user.is_authenticated %}
+            <div><a href="rooms">Rooms page</a></div>
+            <div><a href="lastmonth">Guests</a></div>
+            <div><a href="profile">Profile</a></div>
+            <div><a href="logout">Logout</a></div>
+        {% else %}
+            <div><a href="register">Sign up</a></div>
+            <div><a href="login">Login</a></div>
+        {% endif %}
+    </div>
+</div>
+<div style="display: flex; align-items: center; flex-direction: column">
+    <h1>Room {{ room.number }} </h1>
+    <h4>Room type : {{ room.type }}</h4>
+    <h4>Max occupancy : {{ room.max_occupancy }}</h4>
+    {% for message in messages %}
+        <h5 style="color: red">{{ message }}</h5>
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Reserve</button>
+    </form>
+</div>
+</body>
+</html>

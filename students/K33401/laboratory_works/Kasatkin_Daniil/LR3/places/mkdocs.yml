@@ -1,0 +1,22 @@
+site_name: PLACES API DOC
+nav:
+  - Home: index.md
+  - Places:
+      - "places list": places/places_list.md
+      - "places detail": places/places_detail.md
+      - "places create": places/places_create.md
+      - "places search filter": places/places_search_filter.md
+  - Registration: registration.md
+  - Authtorizaiton:
+      - "token": token.md
+      - "token refresh": token_refresh.md
+  - Reserves:
+      - "reserves list": reserves/reserves_list.md
+      - "reserves detail": reserves/reserves_detail.md
+      - "reserves create": reserves/reserves_create.md
+  - Reviews:
+      - "reviews list": reviews/reviews_list.md
+      - "reviews detail": reviews/reviews_detail.md
+      - "reviews create": reviews/reviews_create.md
+theme:
+  name: material

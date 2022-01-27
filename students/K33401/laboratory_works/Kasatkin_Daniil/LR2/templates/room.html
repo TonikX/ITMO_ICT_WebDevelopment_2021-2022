@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Room</title>
+</head>
+<body>
+<div class="navbar">
+    <div class="logo">Hotel project</div>
+    <div class="navbar-content">
+        {% if user.is_authenticated %}
+            <div><a href="rooms">Rooms page</a></div>
+            <div><a href="lastmonth">Guests</a></div>
+            <div><a href="profile">Profile</a></div>
+            <div><a href="logout">Logout</a></div>
+        {% else %}
+            <div><a href="register">Sign up</a></div>
+            <div><a href="login">Login</a></div>
+        {% endif %}
+    </div>
+</div>
+<div style="display: flex; align-items: center; flex-direction: column">
+    <h1>Room {{ room.number }} </h1>
+    <h4>Room type : {{ room.type }}</h4>
+    <h4>Max occupancy : {{ room.max_occupancy }}</h4>
+    <h4>Comments : </h4>
+    <div style="border: 1px solid teal; margin: 20px; padding: 20px; width: 600px">
+        {% for comment in comments %}
+            <h4 style="color: blue;border: 1px solid teal">User {{ comment.user.username }}</h4>
+            <h4 style="border: 1px solid teal; color: red">Text : {{ comment.text }}</h4>
+            <h4 style="border: 1px solid teal; color: yellowgreen">Rate : {{ comment.rate }}</h4>
+        {% endfor %}
+    </div>
+    <a href="/reservation/{{ room.id }}">Reserve this room</a>
+    <h2><a href="/rooms">Rooms</a></h2>
+</div>
+</body>
+</html>
