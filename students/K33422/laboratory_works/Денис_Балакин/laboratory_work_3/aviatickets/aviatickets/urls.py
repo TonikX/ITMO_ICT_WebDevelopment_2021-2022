@@ -28,4 +28,5 @@ urlpatterns = [
          name='swagger-ui'),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
+    path('profiles/', include('users.urls'))
 ]
