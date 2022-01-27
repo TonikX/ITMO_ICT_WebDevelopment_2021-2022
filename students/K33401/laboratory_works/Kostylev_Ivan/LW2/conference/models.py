@@ -15,12 +15,15 @@ class Conference(models.Model):
     description = models.CharField(max_length=200)
     conditions = models.CharField(max_length=200)
 
+    def __str__(self):
+        return f'{self.name}\nAbout {self.topic}\n{self.description}\nWhere: {self.place}\n When:{self.date}\n' \
+               f'Conditions: {self.conditions}'
+
 
 class Registration(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     conference = models.ForeignKey(Conference, on_delete=models.CASCADE)
     is_approved = models.BooleanField()
-    date = models.DateTimeField()
 
 
 class Review(models.Model):
@@ -32,3 +35,7 @@ class Review(models.Model):
             MaxValueValidator(10),
             MinValueValidator(1)
         ])
+
+    def __str__(self):
+        return f'User: {self.user.username}\nAbout conf: {self.conference.name}\nRating: ' \
+               f'{self.rating}\nReview:\n{self.description}'
