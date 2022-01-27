@@ -41,7 +41,6 @@ export default {
                 navigator.geolocation.getCurrentPosition(function (location) {
                     // User allowed location
                     store.dispatch('selectClosestCity', location).then(function () {
-                        console.log(store.state);
                         store.dispatch('getForecast', store.state.selectedCity.id);
                     });
                 });

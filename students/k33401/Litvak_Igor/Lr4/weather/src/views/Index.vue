@@ -88,7 +88,9 @@ export default {
     name: "Index",
     components: {ChooseCityModal, WeatherWeek, WeatherToday},
     async created() {
-        await store.dispatch('getForecast', store.state.selectedCity.id);
+        if (store.state.selectedCity) {
+            await store.dispatch('getForecast', store.state.selectedCity.id);
+        }
     }
 }
 </script>
