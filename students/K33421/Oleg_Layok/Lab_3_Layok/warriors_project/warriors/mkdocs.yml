@@ -1,0 +1,11 @@
+site_name: Описание сервиса "Warriors"
+nav:
+ - Home: index.md
+ - Warriors:
+     - "updating warrior's info": warriors/update.md
+     - "picking warrior's skills": warriors/skills.md
+ - Skills:
+     - "watching skills' list": skills/view.md
+
+theme:
+ name: material
