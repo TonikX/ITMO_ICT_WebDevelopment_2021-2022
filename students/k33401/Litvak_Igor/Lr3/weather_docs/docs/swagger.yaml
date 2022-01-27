@@ -1,0 +1,742 @@
+swagger: '2.0'
+info:
+  title: Weather API documentation
+  version: v1
+host: localhost:8000
+schemes:
+  - http
+basePath: /api
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+  - Basic: []
+paths:
+  /auth/jwt/create/:
+    post:
+      operationId: auth_jwt_create_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TokenObtainPair'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/TokenObtainPair'
+      tags:
+        - auth
+    parameters: []
+  /auth/jwt/refresh/:
+    post:
+      operationId: auth_jwt_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TokenRefresh'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/TokenRefresh'
+      tags:
+        - auth
+    parameters: []
+  /auth/jwt/verify/:
+    post:
+      operationId: auth_jwt_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TokenVerify'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/TokenVerify'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/:
+    get:
+      operationId: auth_users_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+      tags:
+        - auth
+    post:
+      operationId: auth_users_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CustomUserCreate'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/CustomUserCreate'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/activation/:
+    post:
+      operationId: auth_users_activation
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Activation'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Activation'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/me/:
+    get:
+      operationId: auth_users_me_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+      tags:
+        - auth
+    put:
+      operationId: auth_users_me_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - auth
+    patch:
+      operationId: auth_users_me_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - auth
+    delete:
+      operationId: auth_users_me_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - auth
+    parameters: []
+  /auth/users/resend_activation/:
+    post:
+      operationId: auth_users_resend_activation
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/reset_password/:
+    post:
+      operationId: auth_users_reset_password
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/reset_password_confirm/:
+    post:
+      operationId: auth_users_reset_password_confirm
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PasswordResetConfirm'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/PasswordResetConfirm'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/reset_username/:
+    post:
+      operationId: auth_users_reset_username
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SendEmailReset'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/reset_username_confirm/:
+    post:
+      operationId: auth_users_reset_username_confirm
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UsernameResetConfirm'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/UsernameResetConfirm'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/set_password/:
+    post:
+      operationId: auth_users_set_password
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SetPassword'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SetPassword'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/set_username/:
+    post:
+      operationId: auth_users_set_username
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SetUsername'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SetUsername'
+      tags:
+        - auth
+    parameters: []
+  /auth/users/{id}/:
+    get:
+      operationId: auth_users_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - auth
+    put:
+      operationId: auth_users_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - auth
+    patch:
+      operationId: auth_users_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - auth
+    delete:
+      operationId: auth_users_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - auth
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this user.
+        required: true
+        type: integer
+  /cities/:
+    get:
+      operationId: cities_list
+      description: Viewset for cities
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/City'
+      tags:
+        - cities
+    parameters: []
+  /cities/closest/:
+    get:
+      operationId: cities_closest
+      description: Returns city closest to certain coordinates
+      parameters:
+        - name: lat
+          in: query
+          required: true
+          type: number
+        - name: lon
+          in: query
+          required: true
+          type: number
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/City'
+      tags:
+        - cities
+    parameters: []
+  /cities/favourite/:
+    get:
+      operationId: cities_favourite_list
+      description: Viewset for favourite cities
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FavouriteCity'
+      tags:
+        - cities
+    post:
+      operationId: cities_favourite_create
+      description: Viewset for favourite cities
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/FavouriteCity'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/FavouriteCity'
+      tags:
+        - cities
+    parameters: []
+  /cities/favourite/{id}/:
+    get:
+      operationId: cities_favourite_read
+      description: Viewset for favourite cities
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/FavouriteCity'
+      tags:
+        - cities
+    put:
+      operationId: cities_favourite_update
+      description: Viewset for favourite cities
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/FavouriteCity'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/FavouriteCity'
+      tags:
+        - cities
+    patch:
+      operationId: cities_favourite_partial_update
+      description: Viewset for favourite cities
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/FavouriteCity'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/FavouriteCity'
+      tags:
+        - cities
+    delete:
+      operationId: cities_favourite_delete
+      description: Viewset for favourite cities
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - cities
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Favourite city.
+        required: true
+        type: integer
+  /cities/{id}/:
+    get:
+      operationId: cities_read
+      description: Viewset for cities
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/City'
+      tags:
+        - cities
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this City.
+        required: true
+        type: integer
+  /cities/{id}/forecast/:
+    get:
+      operationId: cities_forecast
+      description: Cached wrapper around OpenWeatherMap API
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/City'
+      tags:
+        - cities
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this City.
+        required: true
+        type: integer
+definitions:
+  TokenObtainPair:
+    required:
+      - username
+      - password
+    type: object
+    properties:
+      username:
+        title: Username
+        type: string
+        minLength: 1
+      password:
+        title: Password
+        type: string
+        minLength: 1
+  TokenRefresh:
+    required:
+      - refresh
+    type: object
+    properties:
+      refresh:
+        title: Refresh
+        type: string
+        minLength: 1
+      access:
+        title: Access
+        type: string
+        readOnly: true
+  TokenVerify:
+    required:
+      - token
+    type: object
+    properties:
+      token:
+        title: Token
+        type: string
+        minLength: 1
+  User:
+    type: object
+    properties:
+      email:
+        title: Email address
+        type: string
+        format: email
+        maxLength: 254
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      username:
+        title: Username
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          only.
+        type: string
+        readOnly: true
+        minLength: 1
+  CustomUserCreate:
+    required:
+      - username
+      - password
+    type: object
+    properties:
+      username:
+        title: Username
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          only.
+        type: string
+        pattern: ^[\w.@+-]+$
+        maxLength: 150
+        minLength: 1
+      first_name:
+        title: First name
+        type: string
+        maxLength: 150
+      last_name:
+        title: Last name
+        type: string
+        maxLength: 150
+      password:
+        title: Password
+        type: string
+        minLength: 1
+  Activation:
+    required:
+      - uid
+      - token
+    type: object
+    properties:
+      uid:
+        title: Uid
+        type: string
+        minLength: 1
+      token:
+        title: Token
+        type: string
+        minLength: 1
+  SendEmailReset:
+    required:
+      - email
+    type: object
+    properties:
+      email:
+        title: Email
+        type: string
+        format: email
+        minLength: 1
+  PasswordResetConfirm:
+    required:
+      - uid
+      - token
+      - new_password
+    type: object
+    properties:
+      uid:
+        title: Uid
+        type: string
+        minLength: 1
+      token:
+        title: Token
+        type: string
+        minLength: 1
+      new_password:
+        title: New password
+        type: string
+        minLength: 1
+  UsernameResetConfirm:
+    required:
+      - new_username
+    type: object
+    properties:
+      new_username:
+        title: Username
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          only.
+        type: string
+        pattern: ^[\w.@+-]+$
+        maxLength: 150
+        minLength: 1
+  SetPassword:
+    required:
+      - new_password
+      - current_password
+    type: object
+    properties:
+      new_password:
+        title: New password
+        type: string
+        minLength: 1
+      current_password:
+        title: Current password
+        type: string
+        minLength: 1
+  SetUsername:
+    required:
+      - current_password
+      - new_username
+    type: object
+    properties:
+      current_password:
+        title: Current password
+        type: string
+        minLength: 1
+      new_username:
+        title: Username
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          only.
+        type: string
+        pattern: ^[\w.@+-]+$
+        maxLength: 150
+        minLength: 1
+  City:
+    required:
+      - name
+      - lat
+      - lon
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      name:
+        title: City name
+        type: string
+        maxLength: 50
+        minLength: 1
+      lat:
+        title: Latitude
+        type: number
+        maximum: 180
+        minimum: -180
+      lon:
+        title: Longtitude
+        type: number
+        maximum: 180
+        minimum: -180
+  FavouriteCity:
+    required:
+      - city_id
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      city:
+        $ref: '#/definitions/City'
+      city_id:
+        title: City id
+        type: integer

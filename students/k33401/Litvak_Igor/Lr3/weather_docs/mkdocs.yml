@@ -1,0 +1,10 @@
+site_name: Weather API docs
+site_url: http://localhost:8000
+
+nav:
+  - Home: "README.md"
+  - Auth: "Apis/AuthApi.md"
+  - Cities: "Apis/CitiesApi.md"
+
+theme:
+  name: readthedocs

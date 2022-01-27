@@ -1,0 +1,17 @@
+.openapi-generator-ignore
+Apis/AuthApi.md
+Apis/CitiesApi.md
+Models/Activation.md
+Models/City.md
+Models/CustomUserCreate.md
+Models/FavouriteCity.md
+Models/PasswordResetConfirm.md
+Models/SendEmailReset.md
+Models/SetPassword.md
+Models/SetUsername.md
+Models/TokenObtainPair.md
+Models/TokenRefresh.md
+Models/TokenVerify.md
+Models/User.md
+Models/UsernameResetConfirm.md
+README.md

@@ -1,0 +1,13 @@
+site_name: Weather app frontend
+site_url: http://127.0.0.1:7000
+dev_addr: 127.0.0.1:7000
+
+nav:
+  - Home: "index.md"
+  - Index page: "pages/index.md"
+  - Login page: "pages/login.md"
+  - Registration page: "pages/register.md"
+  - Profile page: "pages/profile.md"
+
+theme:
+  name: readthedocs
