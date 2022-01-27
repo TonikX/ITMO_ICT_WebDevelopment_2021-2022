@@ -5,6 +5,7 @@ from .views import *
 app_name = "classified"
 
 urlpatterns = [
+   path('jobs/<int:pk>', JobApiSingleView.as_view()),
    path('jobs/get', JobApiGetView.as_view()),
    path('jobs/new', JobApiCreateView.as_view()),
    path('industry/get', IndustryGetView.as_view()),
