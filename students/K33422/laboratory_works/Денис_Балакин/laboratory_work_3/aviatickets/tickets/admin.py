@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from tickets.models import Airport, Company, Flight
+
+admin.site.register(Company)
+admin.site.register(Airport)
+admin.site.register(Flight)

@@ -5,10 +5,16 @@ class Company(models.Model):
     name = models.CharField(max_length=255)
     image_url = models.URLField()
 
+    def __str__(self):
+        return self.name
+
 
 class Airport(models.Model):
     name = models.CharField(max_length=255)
     city_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class Flight(models.Model):
@@ -32,7 +38,7 @@ class Flight(models.Model):
     price = models.FloatField()
 
     def flight_length(self):
-        return self.arrival_datetime - self.departure_datetime
+        return str(self.arrival_datetime - self.departure_datetime)
 
 
 class FlightBooking(models.Model):
