@@ -1,0 +1,19 @@
+{% extends "conf/base.html" %}
+
+{% block body %}
+
+    <h2>List</h2>
+    {% regroup regs by conference as conference_list %}
+    <ul>
+        {% for conference in conference_list %}
+            <li>{{ conference.grouper }}
+                <ul>
+                    {% for reg in conference.list %}
+                        <li> {{ reg.user.username }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

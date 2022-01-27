@@ -8,8 +8,8 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 
-from conference.forms import ReviewForm, RegistrationForm
-from conference.models import Conference, User
+from conference.forms import ReviewForm, RegConfForm
+from conference.models import Conference, User, Registration
 
 
 class ConferenceList(ListView):
@@ -64,14 +64,23 @@ def review(request):
 @login_required
 def registration_to_conf(request):
     context = {}
-    form = RegistrationForm(request.POST or None)
+    form = RegConfForm(request.POST or None)
     if form.is_valid():
         data = form.save(commit=False)
         data.user = request.user
         try:
             data.save()
-            form = RegistrationForm()
+            form = RegConfForm()
         except IntegrityError:
             messages.error(request, "You can't submit task again")
     context['form'] = form
     return render(request, "conf/registration_to_conf.html", context)
+
+
+def members_of_conference(request):
+    confs = Conference.objects.all()
+    users = User.objects.all()
+    regs = Registration.objects.all()
+
+    context = {'confs': confs, 'regs': regs, 'users': users}
+    return render(request, 'conf/members.html', context)

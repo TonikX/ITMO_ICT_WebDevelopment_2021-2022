@@ -25,9 +25,10 @@ urlpatterns = [
     path("login/", auth_views.LoginView.as_view(template_name='conf/login.html'), name="login"),
     path("register", views.register, name="register"),
     path("logout", auth_views.LogoutView.as_view(), name="logout"),
-    # path("regtoconf", None),
+    path("regtoconf/", views.registration_to_conf, name='regtoconf'),
     # path('conferences', views.Conference.as_view(template_name='conf/conferences.html'), name='conferences')
     path('accounts/', include('django.contrib.auth.urls')),
     path('', ConferenceList.as_view(), name="home"),
-    path('newreview/', review, name="newreview")
+    path('newreview/', review, name="newreview"),
+    path('members/', views.members_of_conference, name="members")
 ]

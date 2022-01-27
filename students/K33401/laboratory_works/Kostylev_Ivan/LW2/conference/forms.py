@@ -8,7 +8,7 @@ class ReviewForm(forms.ModelForm):
         fields = ['conference', 'description', 'rating']
 
 
-class RegistrationForm(forms.ModelForm):
+class RegConfForm(forms.ModelForm):
     class Meta:
         model = Registration
         fields = ['conference']
