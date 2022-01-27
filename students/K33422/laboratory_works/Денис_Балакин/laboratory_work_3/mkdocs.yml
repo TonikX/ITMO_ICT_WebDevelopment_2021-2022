@@ -1,0 +1,11 @@
+site_name: AviaTickets API
+nav:
+    - Главная: index.md
+    - Билеты:
+          - Поиск: tickets/list.md
+          - Купить билет: tickets/make_booking.md
+          - Мои билеты: tickets/my_bookings.md
+    - Учётные записи:
+          - Регистрация: auth/registration.md
+          - Авторизация: auth/login.md
+          - Редактирование профиля: auth/edit_profile.md

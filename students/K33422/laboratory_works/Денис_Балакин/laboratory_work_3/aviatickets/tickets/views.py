@@ -1,7 +1,8 @@
 from rest_framework import generics, permissions
 
 from tickets.models import Flight, FlightBooking
-from tickets.serializers import FlightBookingSerializer, FlightSerializer
+from tickets.serializers import (CreateFlightBookingSerializer,
+                                 FlightBookingSerializer, FlightSerializer)
 
 
 class FlightListView(generics.ListAPIView):
@@ -18,7 +19,7 @@ class FlightDetailView(generics.RetrieveAPIView):
 
 class CreateBookingView(generics.CreateAPIView):
     queryset = FlightBooking.objects.all()
-    serializer_class = FlightBookingSerializer
+    serializer_class = CreateFlightBookingSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def perform_create(self, serializer):
@@ -28,6 +29,7 @@ class CreateBookingView(generics.CreateAPIView):
 class MyBookingsView(generics.ListAPIView):
     serializer_class = FlightBookingSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    queryset = FlightBooking.objects.none()
 
     def get_queryset(self):
         return FlightBooking.objects.filter(user=self.request.user)

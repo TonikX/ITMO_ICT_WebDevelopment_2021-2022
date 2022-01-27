@@ -40,6 +40,9 @@ class Flight(models.Model):
     def flight_length(self):
         return str(self.arrival_datetime - self.departure_datetime)
 
+    def __str__(self):
+        return f"{self.departure_airport} to {self.arrival_airport}"
+
 
 class FlightBooking(models.Model):
     flight = models.ForeignKey(
