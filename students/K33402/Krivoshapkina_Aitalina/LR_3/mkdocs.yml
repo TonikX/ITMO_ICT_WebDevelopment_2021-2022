@@ -1,0 +1,15 @@
+site_name: My Docs
+nav:
+    - Home: index.md
+    - Visit: visit.md
+    - Cabinet Officer: cabinetoficer.md
+    - Doctor: doctor.md
+    - Medical Card: medicalcard.md
+    - Pacient: pacient.md
+    - Pricelist: pricelist.md
+    - Schedule of Doctor: scheduleofdoctor.md
+    - Schedule of Cabinet: scheduleofcabinet.md
+    - Specialization: specializatione.md
+use_directory_urls: false
+docs_dir: project_docs/docs
+site_dir: project_docs/site
