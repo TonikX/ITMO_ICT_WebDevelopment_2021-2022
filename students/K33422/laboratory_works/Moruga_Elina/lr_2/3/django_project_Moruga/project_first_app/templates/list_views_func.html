@@ -1,0 +1,16 @@
+<span><h1>Owners</h1><a href="/owner_create_form">Add new one</a></span>
+<div class="main">
+  
+    {% for owner in dataset %}.
+  
+    {{ owner.first_name }}<br/>
+    {{ owner.last_name }}<br/>
+    {{ owner.birth_date }}<br/>
+    {{ owner.passport}}<br/>
+    {{ owner.address }}<br/>
+    {{ owner.nationality }}<br/>
+    <hr/>
+  
+    {% endfor %}
+  
+</div>

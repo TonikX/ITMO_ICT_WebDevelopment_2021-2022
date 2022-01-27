@@ -1,0 +1,27 @@
+site_name: Описание сервиса "Войны"
+nav:
+ - Home: index.md
+ - Professions:
+     - "mining engineering": professions/mining_engineering.md
+     - "doctor": professions/doctor.md
+ - Skills:
+     - "flying": skills/flying.md
+     - "invisibility": skills/invisibility.md
+ - Api:
+     - "api/warriors[GET]": api/warriors.md
+     - "api/warriors[POST]": api/warriors_create.md
+     - "api/warriors[DELETE]": api/warriors_delete.md
+     - "api/warriors[GET]": api/warriors_profession.md
+     - "api/warriors[GET]": api/warriors_skills.md
+     - "api/warriors[PATCH]": api/warriors_update.md
+     - "api/warriors[PUT]": api/warriors_upd.md
+     - "api/warriors[GET]": api/warriors_read.md
+     - "api/skill[GET]": api/skill.md
+     - "api/skill[POST]": api/skill_create.md
+     - "api/profession[POST]": api/profession_create.md
+
+theme:
+ name: cinder
+site_url: http://127.0.0.1:8000/
+repo_name: http://123.git
+site_author: Elya

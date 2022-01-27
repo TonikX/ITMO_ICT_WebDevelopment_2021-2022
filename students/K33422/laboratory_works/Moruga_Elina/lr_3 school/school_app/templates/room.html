@@ -1,0 +1,16 @@
+{% extends "base_page.html" %}
+{% block title %}Main page{% endblock %}
+{% block content %}
+  <span><h1>Rooms</h1>
+  <ul>
+	{% for room in data %}
+    <li>
+    <p><strong>Room:</strong> {{ room.room }}</p> 
+
+
+	</li>
+	{% empty %}
+	<li>No rooms yet.</li>
+	{% endfor %}
+  </ul>
+{% endblock %}

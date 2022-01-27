@@ -1,0 +1,16 @@
+{% extends "base_page.html" %}
+{% block title %}Main page{% endblock %}
+{% block content %}
+  <span><h1>Subjects</h1>
+  <ul>
+	{% for subject in data %}
+    <li>
+    <p><strong>Teacher:</strong> {{ subject.teacher_id }}</p> 
+
+
+	</li>
+	{% empty %}
+	<li>No subjects yet.</li>
+	{% endfor %}
+  </ul>
+{% endblock %}

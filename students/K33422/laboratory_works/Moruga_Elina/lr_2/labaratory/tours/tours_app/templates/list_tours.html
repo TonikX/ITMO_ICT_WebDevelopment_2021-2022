@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour list</title>
+</head>
+
+<body>
+  {% include 'header.html' %}
+  <span><h1>Tours</h1>
+  <ul>
+	{% for tour in object_list %}
+    <li>
+    <p><strong>Name:</strong> {{ tour.name }}</p> actions:  <a href="/tour_detail/{{ tour.id }}/">Detail</a> <a href="/bookings_list/?tour={{ tour.id }}">Reserve</a> <a href="/reviews_list/?tour={{ tour.id }}">Reviews</a>
+    <p><strong>Description:</strong> {{ tour.description }}</p>
+    <p><strong>Start date:</strong> {{ tour.date_start }}</p>
+    <p><strong>End date:</strong> {{ tour.date_end }}</p>
+    <p><strong>Tour firm:</strong> {{ tour.firm }}</p>
+    <p><strong>Payment:</strong> {{ tour.payment }}</p>
+
+	</li>
+	{% empty %}
+	<li>No tours yet.</li>
+	{% endfor %}
+  </ul>
+</body>
+
+</html>
