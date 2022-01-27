@@ -1,0 +1,5 @@
+django==3.2.11
+djangorestframework
+markdown
+django-filter
+drf-yasg
