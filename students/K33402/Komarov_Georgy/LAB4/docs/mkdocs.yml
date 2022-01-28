@@ -1,0 +1,9 @@
+site_name: CheckSplitter Frontend Docs
+nav:
+  - Документация: "index.md"
+  - Компоненты: "components.md"
+  - Авторизация: "auth.md"
+  - Чеки: "receipts.md"
+  - Пользователь: "user.md"
+theme:
+  name: material
