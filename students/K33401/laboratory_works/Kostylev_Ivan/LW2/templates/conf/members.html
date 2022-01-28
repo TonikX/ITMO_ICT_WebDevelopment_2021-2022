@@ -3,16 +3,17 @@
 {% block body %}
 
     <h2>List</h2>
-    {% regroup regs by conference as conference_list %}
+    {#    {% regroup regs by conference as conference_list %}#}
     <ul>
-        {% for conference in conference_list %}
-            <li>{{ conference.grouper }}
-                <ul>
-                    {% for reg in conference.list %}
-                        <li> {{ reg.user.username }}</li>
-                    {% endfor %}
-                </ul>
+        {% for conference in confs %}
+            <li>
+            {{ conference.name }}
             </li>
+            <ul>
+                {% for usr in conference.members.all %}
+                    <li> {{ usr.username }}</li>
+                {% endfor %}
+            </ul>
         {% endfor %}
     </ul>
 

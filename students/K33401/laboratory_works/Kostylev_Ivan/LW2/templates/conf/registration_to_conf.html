@@ -1,0 +1,15 @@
+{% extends "conf/base.html" %}
+
+{% block body %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h2>List</h2>
+        <ul>
+            {% for conference in conferences %}
+                <li>{{ conference.name }}
+                </li>
+                <a class="btn btn-lg btn-warning ml-auto mb-2" href="{% url 'registration_to_conf' conference.pk %}">Register</a>
+            {% endfor %}
+        </ul>
+    </form>
+{% endblock %}

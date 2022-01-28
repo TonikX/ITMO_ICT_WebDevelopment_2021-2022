@@ -4,12 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.urls import reverse
 from django.views.generic import ListView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 
-from conference.forms import ReviewForm, RegConfForm
-from conference.models import Conference, User, Registration
+from conference.forms import ReviewForm
+from conference.models import Conference, User
 
 
 class ConferenceList(ListView):
@@ -60,27 +60,41 @@ def review(request):
     context['form'] = form
     return render(request, "conf/review.html", context)
 
+# @login_required
+# def conf_list(request):
+#     confs = Conference.objects.all()
+#     context = {'confs': confs}
+#     return render(request, "conf/registration_to_conf.html", context)
+
 
 @login_required
-def registration_to_conf(request):
-    context = {}
-    form = RegConfForm(request.POST or None)
-    if form.is_valid():
-        data = form.save(commit=False)
-        data.user = request.user
-        try:
-            data.save()
-            form = RegConfForm()
-        except IntegrityError:
-            messages.error(request, "You can't submit task again")
-    context['form'] = form
-    return render(request, "conf/registration_to_conf.html", context)
+def registration_to_conf(request, pk):
+    conf = Conference.objects.get(id=pk)
+
+    if conf.members.filter(id=request.user.id).exists():
+        conf.members.remove(request.user)
+    else:
+        conf.members.add(request.user)
+    confs = Conference.objects.all()
+    # context = {'conferences': confs}
+    return redirect('regtoconf')
+
+
+@login_required
+def conf_for_reg(request):
+    conferences = Conference.objects.all()
+    user_id = request.user.id
+    is_registered = []
+    for conference in conferences:
+        is_registered.append(conference.members.filter(id=user_id).exists())
+
+    context = {'conferences': conferences, 'is_registered': is_registered}
+    return render(request, 'conf/registration_to_conf.html', context)
 
 
 def members_of_conference(request):
     confs = Conference.objects.all()
     users = User.objects.all()
-    regs = Registration.objects.all()
 
-    context = {'confs': confs, 'regs': regs, 'users': users}
+    context = {'confs': confs, 'users': users}
     return render(request, 'conf/members.html', context)
