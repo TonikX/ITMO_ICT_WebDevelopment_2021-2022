@@ -1,3 +1,5 @@
+from copy import copy
+
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -82,15 +84,18 @@ def registration_to_conf(request, pk):
 
 @login_required
 def conf_for_reg(request):
-    conferences = Conference.objects.all()
+    conferences = copy(Conference.objects.all())
     user_id = request.user.id
-    is_registered = []
+    conferences.is_registered = False
     for conference in conferences:
-        is_registered.append(conference.members.filter(id=user_id).exists())
-
-    context = {'conferences': conferences, 'is_registered': is_registered}
+        conference.is_registered = conference.members.filter(id=user_id).exists()
+    context = {'conferences': conferences}
     return render(request, 'conf/registration_to_conf.html', context)
 
+
+def redirect_to_confs(request):
+    response = redirect('/conferences/')
+    return response
 
 def members_of_conference(request):
     confs = Conference.objects.all()

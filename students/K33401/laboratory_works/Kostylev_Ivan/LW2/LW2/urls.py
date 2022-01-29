@@ -30,7 +30,7 @@ urlpatterns = [
 
     # path('conferences', views.Conference.as_view(template_name='conf/conferences.html'), name='conferences')
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', ConferenceList.as_view(), name="home"),
+    path('', views.redirect_to_confs, name="main"),
     path('newreview/', review, name="newreview"),
-    path('members/', views.members_of_conference, name="members")
+    path('conferences/', views.members_of_conference, name="conferences")
 ]

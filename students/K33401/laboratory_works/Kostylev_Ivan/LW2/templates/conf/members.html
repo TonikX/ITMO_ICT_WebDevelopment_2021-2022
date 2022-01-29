@@ -2,19 +2,23 @@
 
 {% block body %}
 
-    <h2>List</h2>
-    {#    {% regroup regs by conference as conference_list %}#}
-    <ul>
-        {% for conference in confs %}
-            <li>
-            {{ conference.name }}
-            </li>
-            <ul>
-                {% for usr in conference.members.all %}
-                    <li> {{ usr.username }}</li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-    </ul>
+    <h2>Conference overview</h2>
+    {% for conference in confs %}
+        <div class="card">
+            <div class="card-body">
+                <div class="display-4 mb-2">{{ conference.name }}</div>
+                <div class="fs-4">About: {{ conference.topic }}</div>
+                <div class="fs-4">{{ conference.description }}</div>
+                <div class="fs-4">When: {{ conference.date }}</div>
+                <div class="fs-4">Where: {{ conference.place }}</div>
+                <div class="fs-4">Conditions: {{ conference.conditions }}</div>
+                <ul>
+                    {% for usr in conference.members.all %}
+                        <li> {{ usr.username }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
 
 {% endblock %}
