@@ -1,0 +1,17 @@
+site_name: Описание эндпоинтов сервиса "Рекламное агентство Луч"
+nav:
+ - Home: index.md
+ - Endpoints:
+     - "Client endpoints": endpoint/client.md
+     - "ServicePL endpoints": endpoint/services_pl.md
+     - "MaterialsPL endpoints": endpoint/materials_pl.md
+     - "Executor endpoints": endpoint/executor.md
+     - "Request endpoints": endpoint/request.md
+     - "Choosen Services endpoints": endpoint/chosen_services.md
+     - "Choosen Materials endpoints": endpoint/chosen_materials.md
+     - "Work Group endpoints": endpoint/work_group.md
+     - "Invoice endpoints": endpoint/invoice.md
+     - "Payment Order endpoints": endpoint/payment_order.md
+
+theme:
+ name: material
