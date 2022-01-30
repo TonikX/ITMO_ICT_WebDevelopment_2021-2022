@@ -47,26 +47,23 @@ def register(request):
 
 
 @login_required
-def review(request):
-    context = {}
-    form = ReviewForm(request.POST or None)
-    if form.is_valid():
-        data = form.save(commit=False)
-        data.user = request.user
-        data.user = request.user
-        try:
-            data.save()
-            form = ReviewForm()  # clean the form
-        except IntegrityError:
-            messages.error(request, "You can't submit task again")
-    context['form'] = form
+def review(request, pk):
+    conf = Conference.objects.get(id=pk)
+    usr = request.user
+    form = ReviewForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user = usr
+            data.conference = conf
+            try:
+                data.save()
+                form = ReviewForm()  # clean the form
+                return redirect('/conferences/')
+            except IntegrityError:
+                messages.error(request, "You can't submit task again")
+    context = {'form': form}
     return render(request, "conf/review.html", context)
-
-# @login_required
-# def conf_list(request):
-#     confs = Conference.objects.all()
-#     context = {'confs': confs}
-#     return render(request, "conf/registration_to_conf.html", context)
 
 
 @login_required

@@ -18,6 +18,9 @@
                         <a class="btn btn-danger ml-auto mb-2"
                            href="{% url 'registration_to_conf' conference.pk %}">Unregister</a>
                     {% endif %}
+                    <a class="btn btn-dark ml-auto mb-2" href="{% url 'newreview' conference.pk %}">
+                        Write review
+                    </a>
                 </div>
             </div>
         {% endfor %}

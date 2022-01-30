@@ -17,6 +17,11 @@
                         <li> {{ usr.username }}</li>
                     {% endfor %}
                 </ul>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-dark ml-auto mb-2" href="{% url 'newreview' conference.pk %}">
+                        Write review
+                    </a>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
