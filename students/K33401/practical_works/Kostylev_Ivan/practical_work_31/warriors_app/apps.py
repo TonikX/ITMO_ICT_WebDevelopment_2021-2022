@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ConferenceConfig(AppConfig):
+class WarriorsAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'conference'
+    name = 'warriors_app'

@@ -1,5 +1,5 @@
 """
-WSGI config for LW2 project.
+WSGI config for practical_work_31 project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LW2.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'practical_work_31.settings')
 
 application = get_wsgi_application()
