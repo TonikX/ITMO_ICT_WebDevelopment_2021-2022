@@ -1,3 +1,4 @@
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -39,3 +40,13 @@ class SkillsCreateView(APIView):
             skill_saved = serializer.save()
 
         return Response({"Success": "Skill '{}' created successfully.".format(skill_saved.title)})
+
+
+class WarriorProfessionView(APIView):
+    """
+    Вывод полной информации о всех войнах и их профессиях (в одном запросе).
+    """
+    def get(self, request):
+        warriors = Warrior.objects.all()
+        serializer = WarriorSerializer(warriors, many=True)
+        return Response({"warriors": serializer.data})
