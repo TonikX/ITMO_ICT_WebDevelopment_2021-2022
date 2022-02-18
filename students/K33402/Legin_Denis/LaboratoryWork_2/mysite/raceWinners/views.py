@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from .models import Users
 from .forms.regUserForm import RegUserForm
 
@@ -11,9 +10,10 @@ def list_view(request):
 
     # add the dictionary during initialization [en]
     # добавление данных об объектах, полученных в результате выполнения запроса exampleModel.objects.all() в словарь
-    context["dataset"] = Users.username
 
-    return render(request, "mainPage.html", context)
+    context["dataset"] = Users.objects.all()
+
+    return render(request, 'mainPage.html', context)
 
 
 def create_view(request):
