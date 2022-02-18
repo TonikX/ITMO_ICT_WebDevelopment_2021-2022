@@ -1,0 +1,15 @@
+site_name: Описание сайта прогноза погоды
+nav:
+ - Home: index.md
+ - User:
+     - "get token": users/token.md
+     - "registration": users/registration.md
+     - "logout": users/logout.md
+     - "user": users/user.md
+ - Api:
+     - "user's cities": api/citylist.md
+     - "add city": api/addcity.md
+     - "delete city": api/deletecity.md
+
+theme:
+ name: material
