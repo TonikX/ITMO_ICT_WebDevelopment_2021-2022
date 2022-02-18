@@ -1,0 +1,44 @@
+[
+  {
+    "model": "cities.city",
+    "pk": 524901,
+    "fields": {
+      "name": "Moscow"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 498817,
+    "fields": {
+      "name": "Saint Petersburg"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 480060,
+    "fields": {
+      "name": "Tver"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 698740,
+    "fields": {
+      "name": "Odessa"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 5128638,
+    "fields": {
+      "name": "New York"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 4887398,
+    "fields": {
+      "name": "Chicago"
+    }
+  }
+]

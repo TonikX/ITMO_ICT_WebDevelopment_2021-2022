@@ -1,0 +1,57 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+
+<div class="container">
+    <a href="{% url 'races:races' %}">Гонки</a>
+    <h1>{{ race.name }}</h1>
+    <table>
+        <tbody>
+        <tr>
+            <td>
+                Время
+            </td>
+            <td>
+                {{ race.timestamp }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Гонщики
+            </td>
+            <td>
+                <ul>
+                    {% for racer in race.racers.all %}
+                        <li>{{ racer.first_name }} {{ racer.last_name }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Результаты
+            </td>
+            <td>
+                <ul>
+                    {% for result in race.results.all %}
+                        <li>{{ result }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    {% if race.comments.all %}
+        <h1>Отзывы</h1>
+        {% for comment in race.comments.all %}
+            <h3>{{ comment.user.first_name }} {{ comment.user.last_name }}</h3>
+            <p>
+                {% with ''|center:comment.mark as range %}
+                    {% for x in range %}
+                        ★
+                    {% endfor %}
+                {% endwith %}
+            </p>
+            <p>{{ comment.text }}</p>
+        {% endfor %}
+    {% endif %}
+</div>
