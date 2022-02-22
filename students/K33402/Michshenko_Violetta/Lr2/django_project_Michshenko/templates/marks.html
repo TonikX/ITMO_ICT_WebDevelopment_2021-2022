@@ -1,0 +1,23 @@
+<html>
+    <body>
+        {% for hw in data %}
+        <p>Оценки по предемету {{hw.homework.lesson}}</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Студент</th>
+                    <th>Оценки</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student, marks in hw.students.items %}
+                <tr>
+                     <td>{{student}}</td>
+                     <td>{{marks}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+    </body>
+</html>

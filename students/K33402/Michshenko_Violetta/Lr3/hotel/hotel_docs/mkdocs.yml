@@ -1,0 +1,6 @@
+site_name: Hotel Documentation
+nav:
+  - Home: index.md
+  - Models: models.md
+  - About: about.md
+theme: material

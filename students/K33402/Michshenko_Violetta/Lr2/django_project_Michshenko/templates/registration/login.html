@@ -1,0 +1,18 @@
+<html>
+    <body>
+        {% if user.is_authenticated %}
+        <p>Вы уже авторизованы</p>
+        <a href="{% url 'logout' %}">Выйти</a>
+        {% else %}
+        <form method="post" action={% url 'login' %}>
+            {% csrf_token %}
+            <ul>
+                <li>Username: {{form.username}}</li>
+                <li>Password: {{form.password}}</li>
+            </ul>
+            <input type="submit" value="login" />
+            <input type="hidden" name="next" value="{% url 'homework' %}" />
+        </form>
+        {% endif %}
+    </body>
+</html>
