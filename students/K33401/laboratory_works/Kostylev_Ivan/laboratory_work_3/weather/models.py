@@ -28,6 +28,9 @@ class Town(models.Model):
     lon = FloatField()
     lat = FloatField()
 
+    def __str__(self):
+        return f'{self.name} in {self.country}'
+
 
 class User(AbstractUser):
     towns = ManyToManyField(Town, blank=True)
