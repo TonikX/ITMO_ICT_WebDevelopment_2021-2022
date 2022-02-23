@@ -1,0 +1,5 @@
+table {width: 100%; border-collapse: collapse;}
+table thead tr {color: #ffffff; font-weight: bold; background: #006400;}
+table thead tr td {border: 1px solid #01ab73;}
+table tbody tr td {border: 1px solid #e8e9eb;}
+table tbody tr:hover {background: #32cd32;}
