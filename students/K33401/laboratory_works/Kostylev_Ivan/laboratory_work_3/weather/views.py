@@ -1,6 +1,5 @@
-from django.views.generic import DetailView
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, RetrieveAPIView, UpdateAPIView
-
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, RetrieveAPIView
+import requests
 from weather.models import User, Country, Town
 from weather.serializers import UserSerializer, TownSerializer, CountrySerializer
 
@@ -33,6 +32,9 @@ class CreateCountryAPIView(CreateAPIView):
 class GetCountriesAPIView(RetrieveAPIView):
     serializer_class = CountrySerializer
     queryset = Country.objects.all()
+
+    # def get(self, request, *args, **kwargs):
+    #     requests.get()
 
 
 class CreateTownAPIView(CreateAPIView):
