@@ -1,0 +1,17 @@
+Django~=3.2
+dj-rest-auth[with_social]
+django-cors-headers
+django-currentuser
+django-environ
+django-extensions
+django-filter
+django-imagekit
+django-silk
+django-simple-history
+djangorestframework
+djangorestframework-camel-case
+djangorestframework-simplejwt
+drf-spectacular
+sentry-sdk
+Werkzeug
+Pillow

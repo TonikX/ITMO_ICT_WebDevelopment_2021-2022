@@ -1,0 +1,8 @@
+site_name: CheckSplitter Docs
+nav:
+  - Документация OpenAPI: "index.md"
+  - Авторизация: "apis/AuthApi.md"
+  - Чеки: "apis/ChecksApi.md"
+  - Пользователь: "apis/UsersApi.md"
+theme:
+  name: material
