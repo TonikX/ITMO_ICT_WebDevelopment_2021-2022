@@ -1,0 +1,20 @@
+site_name: Hotel-REST-API
+nav:
+  - Home: index.md
+  - Register: api/register.md
+  - Hotels:
+      - "Hotels list": hotels/hotels_list.md
+      - "Hotels detail": hotels/hotels_detail.md
+      - "Hotels create": hotels/hotels_create.md
+  - Reserves:
+      - "Reserves list": reserves/reserves_list.md
+      - "Reserves detail": reserves/reserves_detail.md
+      - "Reserves create": reserves/reserves_create.md
+  - "Reviews":
+      - "Reviews list": reviews/reviews_list.md
+      - "Reviews detail": reviews/reviews_detail.md
+      - "Reviews create": reviews/reviews_create.md
+
+theme:
+  name: material
+
