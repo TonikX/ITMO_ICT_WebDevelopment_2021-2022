@@ -1,5 +1,5 @@
+from django.http import JsonResponse
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView, RetrieveAPIView
-import requests
 from weather.models import User, Country, Town
 from weather.serializers import UserSerializer, TownSerializer, CountrySerializer
 
@@ -30,11 +30,12 @@ class CreateCountryAPIView(CreateAPIView):
 
 
 class GetCountriesAPIView(RetrieveAPIView):
-    serializer_class = CountrySerializer
-    queryset = Country.objects.all()
+    def get(self, request, **kwargs):
+        countries = Country.objects.all()
 
-    # def get(self, request, *args, **kwargs):
-    #     requests.get()
+        serializer = CountrySerializer(countries, many=True)
+
+        return JsonResponse({'towns': serializer.data})
 
 
 class CreateTownAPIView(CreateAPIView):
@@ -43,5 +44,9 @@ class CreateTownAPIView(CreateAPIView):
 
 
 class GetTownsAPIView(RetrieveAPIView):
-    serializer_class = TownSerializer
-    queryset = Town.objects.all()
+    def get(self, request, **kwargs):
+        towns = Town.objects.all()
+
+        serializer = TownSerializer(towns, many=True)
+
+        return JsonResponse({'towns': serializer.data})

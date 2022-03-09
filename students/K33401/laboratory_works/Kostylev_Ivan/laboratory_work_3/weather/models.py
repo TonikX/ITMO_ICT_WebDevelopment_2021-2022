@@ -35,3 +35,5 @@ class Town(models.Model):
 class User(AbstractUser):
     towns = ManyToManyField(Town, blank=True)
     days_count = IntegerRangeField(default=3, min_value=1, max_value=10)
+
+    # REQUIRED_FIELDS = ['email', 'towns']
