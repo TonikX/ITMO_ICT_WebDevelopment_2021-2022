@@ -4,7 +4,7 @@ from .models import *
 class PassengerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Passenger
-        fields = ['first_name','last_name']
+        fields = ['id','first_name','last_name','username']
 
 class PassengerCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,7 +44,7 @@ class FlightCreateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TicketSerializer(serializers.ModelSerializer):
-    flight = FlightCreateSerializer()
+    flight = FlightSerializer()
     passenger = PassengerSerializer()
 
     class Meta:
