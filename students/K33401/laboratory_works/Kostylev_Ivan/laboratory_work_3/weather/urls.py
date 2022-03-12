@@ -15,5 +15,4 @@ urlpatterns = [
     path('town/create/', CreateTownAPIView.as_view()),
     path('country/create/', CreateCountryAPIView.as_view()),
     path('country/all/', GetCountriesAPIView.as_view())
-    # path('towns/create', CreateTownAPIView)
 ]
