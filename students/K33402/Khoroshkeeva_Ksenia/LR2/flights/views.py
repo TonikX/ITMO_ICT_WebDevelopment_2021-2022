@@ -21,6 +21,7 @@ class BookingCreateView(LoginRequiredMixin, CreateView):
     model = Booking
     fields = ["flight", "seats"]
     success_url = "/booking_list"
+    login_url = "/login"
 
     # Заполнение нужного рейса
     def get_initial(self):
@@ -41,6 +42,7 @@ class BookingUpdateView(LoginRequiredMixin, UpdateView):
     model = Booking
     fields = ["review_text", "review_number"]
     success_url = "/booking_list"
+    login_url = "/login"
 
     # Фильтрация только бронирований текущего пользователя
     def get_queryset(self):
@@ -51,6 +53,7 @@ class BookingUpdateView(LoginRequiredMixin, UpdateView):
 class BookingListView(LoginRequiredMixin, ListView):
     template_name = "flights/booking_list.html"
     model = Booking
+    login_url = "/login"
 
     # Фильтрация только бронирований текущего пользователя
     def get_queryset(self):
