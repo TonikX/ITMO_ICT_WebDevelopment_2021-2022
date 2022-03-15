@@ -1,0 +1,20 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+
+<div class="container">
+    <h1>Гонки</h1>
+    {% if races %}
+        <ul>
+            {% for race in races %}
+                <li>
+                    <a href="{% url 'races:detail' race.id %}">{{ race }}</a>
+                    {% for result in race.results.all %}
+                        <p>{{ result }}</p>
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Гонок нет</p>
+    {% endif %}
+</div>
