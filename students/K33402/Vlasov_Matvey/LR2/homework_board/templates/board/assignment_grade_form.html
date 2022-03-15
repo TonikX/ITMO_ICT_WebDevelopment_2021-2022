@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{%  block title %}
+    Assignment Grading
+{% endblock %}
+
+{%  block content %}
+    <main role="main">
+        <div class="container py-3">
+            <div class="d-flex justify-content-center">
+                <h2>Assignment Grading</h2>
+            </div>
+            {% if user.pk != object.get_teacher.user.pk %}
+                <div class="alert alert-danger">
+                    You have no right to view this information.
+                    You can only see your students submissions
+                    <p class="pt-1 mb-0"><a href="javascript:history.back()">Go Back</a></p>
+                </div>
+            {% else %}
+                <div class="row">
+                     <div class="py-3 col-md-6 col-xl-5 offset-xl-1 order-2 order-md-1 order-xl-1">
+                         <form method="post">
+                            {% csrf_token %}
+                            <div class="info-text">
+                                 <p>Discipline: <a href="{% url 'discipline_teacher' pk=object.task.discipline.pk class=object.student.class_school.pk %}">
+                                     {{ object.task.discipline }} {{ object.student.class_school }}</a></p>
+                                <p>Title: <a href="{% url 'task' pk=object.task.pk class=object.student.class_school.pk %}">
+                                    {{ object.task.title }}</a></p>
+                                 <p>Assigned: {{ object.assigned }}</p>
+                                 <p>Deadline: {{ object.deadline }}</p>
+                                 {% if object.assigned|date:"YmdHis" == object.last_changed|date:"YmdHis" %}
+                                    <p>Last changed: None</p>
+                                 {% else %}
+                                     <p>Last changed: {{ object.last_changed }}</p>
+                                 {% endif %}
+                                 <p>Student: {{ object.student.user.last_name }} {{ object.student.user.first_name }}</p>
+                                 <p>Solution: {{ object.solution }}</p>
+
+                                {% for field in form.visible_fields %}
+                                    <div class="mb-1">
+                                        <p>{{ field.label_tag }}</p>
+                                        <div class="mb-1">
+                                            {{ field }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="mt-2 mb-0 p-1 alert alert-success">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="pt-3">
+                                    <input class="btn btn-danger col-4 col-lg-2" type="submit" value="Grade" />
+                                    <input class="btn btn-primary float-right" type="button"
+                                            onclick="location.href='javascript:history.back()'" value="Cancel" />
+                                </div>
+                                <div class="pt-3">
+                                    <input class="btn btn-danger col-4 col-lg-2" type="button"
+                                            onclick="location.href='{% url 'assignment_delete' pk=object.pk %}'" value="Delete" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="py-3 col-md-6 col-xl-6 info-text order-1 order-md-2 order-xl-2">
+                        <p>Description: {{ object.task.description }}</p>
+                     </div>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}

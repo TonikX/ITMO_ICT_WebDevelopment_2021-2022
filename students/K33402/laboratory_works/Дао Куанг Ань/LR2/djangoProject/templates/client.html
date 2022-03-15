@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client List</title>
+</head>
+<body>
+    <div class="main">
+        <h1>Clients</h1><a href="/client/create/">Become a member</a>
+        <br>
+        {% for c in clients %}
+            <li> Full name: {{ c.first_name }} {{ c.last_name }}</li>
+            <li>Birthdate: {{ c.birthdate }} </li>
+            <li>Sex: {{ c.sex }}</li>
+            <li>Tel: {{ c.tel }}</li>
+            <li>Passport: {{ c.passport }}</li>
+            <a href="/client/update/{{ c.id }}">Update</a>
+        <hr>
+        {% endfor %}
+    </div>
+</body>
+</html>

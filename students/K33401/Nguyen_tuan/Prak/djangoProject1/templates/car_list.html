@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car list</title>
+</head>
+<body>
+    {% for car in object_list %}
+	    <li><strong>Brand:</strong> {{ car.brand }}, actions: <a href="/car/{{ car.id }}/update/">Edit</a> | <a href="/car/{{ car.id }}/delete/">Delete</a> | <a href="/car/{{ car.id }}/">Detail</a>
+            <p><strong>State_number:</strong> {{ car.state_number }}</p>
+  	        <p><strong>Model:</strong> {{ car.model }}</p>
+            <p><strong>Color:</strong> {{ car.Color }}</p>
+	    </li>
+	{% empty %}
+	<li>No books yet.</li>
+	{% endfor %}
+</body>
+</html>
