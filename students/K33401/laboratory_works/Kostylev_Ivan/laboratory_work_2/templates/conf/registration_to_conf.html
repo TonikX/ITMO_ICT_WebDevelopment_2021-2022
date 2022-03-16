@@ -1,0 +1,28 @@
+{% extends "conf/base.html" %}
+
+{% block body %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h2>Conferences List</h2>
+        {% for conference in conferences %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="display-4 mb-2">{{ conference.name }}</div>
+                    <div class="fs-4">{{ conference.description }}</div>
+                    <div class="fs-4">When: {{ conference.date }}</div>
+                    <div class="fs-4">Where: {{ conference.place }}</div>
+                    {% if not conference.is_registered %}
+                        <a class="btn btn-primary ml-auto mb-2"
+                           href="{% url 'registration_to_conf' conference.pk %}">Register</a>
+                    {% else %}
+                        <a class="btn btn-danger ml-auto mb-2"
+                           href="{% url 'registration_to_conf' conference.pk %}">Unregister</a>
+                    {% endif %}
+                    <a class="btn btn-dark ml-auto mb-2" href="{% url 'newreview' conference.pk %}">
+                        Write review
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </form>
+{% endblock %}

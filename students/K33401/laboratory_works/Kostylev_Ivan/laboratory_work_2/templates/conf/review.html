@@ -1,0 +1,14 @@
+{% extends "conf/base.html" %}
+
+{% block body %}
+
+    <h2>Review</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+
+{% endblock %}

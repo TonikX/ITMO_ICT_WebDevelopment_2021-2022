@@ -1,0 +1,1 @@
+### No API Views for getting weather. Use OpenWeather API instead, please.

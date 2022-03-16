@@ -1,0 +1,9 @@
+site_name: My.WEATHER
+nav:
+  - Home: index.md
+  - API:
+      - User's actions: user.md
+      - Towns and contries: towns_contries.md
+      - Weather: weather.md
+  - About authors: about.md
+theme: material
