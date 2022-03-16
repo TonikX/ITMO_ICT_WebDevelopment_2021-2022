@@ -8,7 +8,7 @@ export const store = new Vuex.Store({
     username: 'Default',
     password: null,
     token: null,
-    cities: { Moscow: [55.751244, 37.618423], 'Saint Petersburg': [59.57, 30.19], Perm: [58.0, 56.3167] },
+    cities: {}, // Moscow: [55.751244, 37.618423], 'Saint Petersburg': [59.57, 30.19], Perm: [58.0, 56.3167]
     chosenCities: ['Moscow', 'Saint Petersburg', 'Perm'],
     weather: [],
     lastWeatherUpdate: Date.now() // Date

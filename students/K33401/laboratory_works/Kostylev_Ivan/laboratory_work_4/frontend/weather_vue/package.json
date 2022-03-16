@@ -9,16 +9,18 @@
   },
   "dependencies": {
     "axios": "^0.25.0",
+    "bootstrap": "^4.6.1",
+    "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
-    "vue-axios": "^3.4.0",
+    "vue-axios": "^3.4.1",
     "vue-router": "^3.2.0",
     "vuelidate": "^0.7.7",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression": "^7.16.7",
     "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-standard": "^5.1.2",

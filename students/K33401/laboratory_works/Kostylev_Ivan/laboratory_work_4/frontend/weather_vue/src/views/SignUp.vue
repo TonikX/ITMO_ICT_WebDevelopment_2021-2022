@@ -61,14 +61,14 @@
                     </div>
                 </b-form>
 
-                <b-form @submit.stop.prevent="onSubmit" class="needs-validation">
+                <b-form @submit.prevent="onSubmit" class="needs-validation">
                   <div class="mb-4">
                     <b-form-group id="input-group-3" label="Confirm password" label-for="confirm-password-input">
                       <b-form-input
                         id="confirm-password-input"
                         name="confirm-password-input"
                         v-model="$v.form.confirmPassword.$model"
-                        :state="validateState('password')"
+                        :state="validateState('confirmPassword')"
                         type="password"
                         aria-describedby="confirm-password-input-feedback"
                       ></b-form-input>
@@ -77,8 +77,10 @@
                       >This is a required field and must be at least 8 characters.</b-form-invalid-feedback>
                     </b-form-group>
                     </div>
+
+                  <b-button type="submit" variant="w-100 btn btn-lg btn-primary">Sign up</b-button>
                 </b-form>
-              <b-button type="submit" variant="w-100 btn btn-lg btn-primary">Sign up</b-button>
+
           <hr class="my-4">
           <small class="text-muted">If you already have an account, <router-link :to="{name: 'SignIn'}">sign in</router-link></small>
           </div>
@@ -100,7 +102,9 @@ export default {
     return {
       form: {
         nickname: null,
-        email: null
+        email: null,
+        password: null,
+        confirmPassword: null
       }
     }
   },
@@ -141,12 +145,22 @@ export default {
         this.$v.$reset()
       })
     },
-    onSubmit () {
-      this.$v.form.$touch()
-      if (this.$v.form.$anyError) {
-        return
+    async onSubmit () {
+      try {
+        const response = await this.axios.post('http://127.0.0.1:8000/auth/users/',
+          { 'email': this.form.email, 'username': this.form.nickname, 'password': this.form.password })
+
+        console.log('success', response)
+        await this.$store.dispatch('SET_USERNAME', response.data.username)
+        await this.$router.push({ name: 'SignIn' })
+      } catch (e) {
+        console.log(e)
+        console.log(e.response)
+
+        if (e.response) {
+          this.errors = e.response.data
+        }
       }
-      alert('Form submitted!')
     }
   }
 }

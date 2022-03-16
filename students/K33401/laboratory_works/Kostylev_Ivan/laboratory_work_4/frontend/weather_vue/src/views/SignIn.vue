@@ -9,11 +9,11 @@
           </div>
             <div class="p-4 p-md-5 border rounded-3 bg-light">
               <form class="form-floating mb-4" id="formNickname" >
-                <input class="form-control" ref="floatingNickname" id="floatingNickname" placeholder="nickname59">
+                <input v-model="form.nickname" class="form-control" ref="floatingNickname" id="floatingNickname" placeholder="nickname59">
                 <label for="floatingNickname">Nickname</label>
               </form>
               <div class="form-floating mb-4">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <input v-model="form.password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                 <label for="floatingPassword">Password</label>
               </div>
               <div class="checkbox mb-3">
@@ -22,9 +22,7 @@
                 </label>
               </div>
               <!-- <form> -->
-                <router-link :to="{name: 'Weather'}">
                   <button class="w-100 btn btn-lg btn-primary" @click="onSubmit">Log in</button>
-                </router-link>
               <!-- </form> -->
               <hr class="my-4">
               <small class="text-muted">If you don't have an account, <router-link to="/signup">register</router-link></small>
@@ -38,10 +36,30 @@
 <script>
 export default {
   name: 'SignIn',
+
+  data () {
+    return {
+      form: {
+        nickname: null,
+        password: null
+      }
+    }
+  },
+
   methods: {
-    onSubmit () {
-      this.$store.dispatch('SET_USERNAME', document.getElementById('floatingNickname').value)
-      
+    async onSubmit () {
+      try {
+        const response = await this.axios.post('http://127.0.0.1:8000/auth/token/login/',
+          { 'username': this.form.nickname, 'password': this.form.password })
+
+        console.log('success', response)
+        await this.$store.dispatch('SET_TOKEN', response.data.auth_token)
+        await this.$store.dispatch('SET_USERNAME', this.form.nickname)
+        await this.$router.push({ name: 'Weather' })
+      } catch (e) {
+        console.log(e)
+        console.log(e.response)
+      }
     }
   }
 }
