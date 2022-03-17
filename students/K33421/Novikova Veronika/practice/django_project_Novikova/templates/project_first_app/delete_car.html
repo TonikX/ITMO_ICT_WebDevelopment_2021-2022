@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete a car</title>
+</head>
+<body>
+
+<form method="POST">
+
+    {% csrf_token %}
+    <p>Are you sure you want to delete a car?</p>
+    <input type="submit" value="Save">
+
+</form>
+
+</body>
+</html>
