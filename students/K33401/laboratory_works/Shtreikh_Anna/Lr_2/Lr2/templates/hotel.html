@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+    <title>Hotel</title>
+</head>
+<body>
+    <h1>#Hotel {{ hotel.name }}</h1>
+    <ul>
+        <li>Owner: {{ hotel.owner }}</li>
+        <li>Address: {{ hotel.address }}</li>
+        <li>Description: {{ hotel.description }}</li>
+    </ul>
+    <a href="/hotel/{{ hotel.id }}/room_list/" class="btn btn-outline-info btn-lg">See rooms</a>
+    <a href="/hotel/{{ hotel.id }}/user_list/" class="btn btn-outline-info btn-lg">See last guests</a>
+<hr>
+    <a href="/hotel_list/">>>>Back to list</a>
+    <br>
+    <a href="/">>>>Back to main page</a>
+</body>
+</html>

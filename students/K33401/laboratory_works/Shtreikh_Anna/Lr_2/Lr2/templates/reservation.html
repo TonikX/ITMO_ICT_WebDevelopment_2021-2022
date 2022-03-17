@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+    <title>Reservation</title>
+</head>
+<body>
+<h1>#Reserve room №{{ room.number }}</h1>
+{% if request.user.is_authenticated %}
+    <hr>
+    <div>Use yyyy-mm-dd hh:mm:ss format</div>
+    <hr>
+    <form method="POST" autocomplete="off">
+
+        <!-- Security token -->
+        {% csrf_token %}
+
+        <!-- Using the formset -->
+        {{ form.as_p }}
+
+        <input type="submit" value="Submit" class="btn btn-outline-info btn-lg">
+    </form>
+{% else %}
+    <a>You are not authenticated to do reservation. </a>
+    <a href="/login/">Log in</a>
+    <br>
+{% endif %}
+<hr>
+
+<a href="/hotel/{{ hotel.id }}/room_list/room/{{ room.id }}">>>>Back to the room</a>
+</body>
+</html>
