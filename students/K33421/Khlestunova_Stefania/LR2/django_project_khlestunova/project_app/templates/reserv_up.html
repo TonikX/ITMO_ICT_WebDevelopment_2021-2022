@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Update reservation</title>
+    </head>
+
+    <body>
+        {% extends 'base.html' %}
+        {% block body %}
+        <form method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Save">
+        </form>
+        <br>
+        {% endblock %}
+    </body>
+</html>

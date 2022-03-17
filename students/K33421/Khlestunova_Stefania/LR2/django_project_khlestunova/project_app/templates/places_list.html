@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Places list</title>
+    </head>
+    <body>
+        {% extends 'base.html' %}
+        {% block body %}
+        <div class="main">
+            {% for place in object_list %}
+                <li>Number: {{ place.p_number }}</li>
+                <li>Price: {{ place.price }}</li>
+                <li>Plane: {{ place.plane_number.flight_number }}</li>
+                <hr/>
+            {% empty %}
+                No places
+            {% endfor %}
+        </div>
+        {% load bootstrap3 %}
+        {% bootstrap_pagination page_obj %}
+        {% endblock %}
+    </body>
+</html>

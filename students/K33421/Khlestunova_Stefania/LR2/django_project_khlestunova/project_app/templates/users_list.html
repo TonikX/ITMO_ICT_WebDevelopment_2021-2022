@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Users list</title>
+    </head>
+    <body>
+        {% extends 'base.html' %}
+        {% block body %}
+        <div class="main">
+            {% for user in users %}
+                <li>Last Name: {{ user.last_name }}</li>
+                <li>First Name: {{ user.first_name }}</li>
+                <li>Passport: {{ user.doc_data }}</li>
+                <hr/>
+            {% empty %}
+                No users
+            {% endfor %}
+        </div>
+        <br>
+        {% endblock %}
+    </body>
+</html> 

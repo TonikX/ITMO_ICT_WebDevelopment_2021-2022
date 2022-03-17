@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пассажиров</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block body %}
+    <div class="main">
+        {% for plane in planes %}
+            <h3>Номер самолета: {{ plane.flight_number }}</h3>
+            <a href="/reserve_place/"><h4>Reserve a place</h4></a><br>
+            <br><br>
+            {% for place in places %}
+                {% if place.plane_number == plane %}
+                    <hr>
+                    <h4>Место: {{ place.p_number }}</h4>
+                    {% for reserv in reservations %}
+                        {% if reserv.place == place %}
+                            Пассажир: {{ reserv.user.last_name }} {{ reserv.user.first_name }}<br/>
+                            Номер билета: {{ reserv.id}}<br/>
+                        {% else %}
+                            {{ continue }}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {{ continue }}
+                {% endif %}
+            {% endfor %}
+            <hr>
+            <br><br> 
+        {% endfor %}
+</div>
+{% endblock %}
+</body>
+</html>

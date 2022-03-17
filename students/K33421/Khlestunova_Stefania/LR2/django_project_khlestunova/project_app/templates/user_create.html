@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>User create</title>
+    </head>
+    <body>
+        {% extends 'base.html' %}
+        {% block body %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Create">
+        </form>
+        <br>
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Places list</title>
+    </head>
+    <body>
+        {% extends 'base.html' %}
+        {% block body %}
+        <div class="main">
+            {% for reserv in reservations %}
+                <li>Place: {{ reserv.place }}</li>
+                <li>User: {{ reserv.user.last_name }} {{ reserv.user.first_name }}</li>
+                <li><a href="/reserve/{{ reserv.id }}/update/"">Update reservation</a></li>
+                <li><a href="/reserve/{{ reserv.id }}/delete/"">Delete reservation</a></li>
+                <hr/>
+            {% empty %}
+                No places
+            {% endfor %}
+        </div>
+        <br>
+        {% endblock %}
+    </body>
+</html>

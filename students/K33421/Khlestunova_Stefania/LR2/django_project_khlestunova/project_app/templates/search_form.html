@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Search</title>
+    </head>
+    <body>
+        {% extends 'base.html' %}
+        {% block body %}
+        {% load bootstrap3 %}
+        <div>
+            <form action="search_form.html" class="navbar-form navbar-left" method="get">
+                <div class="input-group">
+                    <input id="search" name="q" type="text" class="form-control" placeholder="Поиск">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default">{% bootstrap_icon 'search' %}</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+        <br>
+        <br>
+        <br>
+        {% if places %}
+            {% for place in places %}
+            <ul>
+                <li>Number: {{ place.p_number }}</li><br>
+                <li>Price: {{ place.price }}</li><br>
+                <li>Plane: {{ place.plane_number.flight_number }}</li><br>
+                <hr/>
+            </ul>
+            {% empty %}
+                No places
+            {% endfor %}
+            {% bootstrap_pagination places url=last_question %}
+        {% else %}
+            <p>Не найдено мест по вашему запросу<br>Попробуйте повторить запрос с другой формулировкой</p>
+        <hr>
+        {% endif %}
+        {% endblock %}
+    </body>
+</html>
