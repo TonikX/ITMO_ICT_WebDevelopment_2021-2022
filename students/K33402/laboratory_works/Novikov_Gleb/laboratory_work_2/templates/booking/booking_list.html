@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My bookings</title>
+</head>
+<body>
+<table border="1px">
+    <tr>
+        <th>№</th>
+        <th>Count</th>
+        <th>Flight</th>
+        <th>Company</th>
+        <th>From city</th>
+        <th>Start time</th>
+        <th>To city</th>
+        <th>End time</th>
+        <th>Type</th>
+        <th>Gate</th>
+        <th></th>
+    </tr>
+    {% for booking in object_list %}
+        <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.seats }}</td>
+            <td>{{ booking.flight.number }}</td>
+            <td>{{ booking.flight.company.name }}</td>
+            <td>{{ booking.flight.from_city }}</td>
+            <td>{{ booking.flight.departure_time }}</td>
+            <td>{{ booking.flight.to_city }}</td>
+            <td>{{ booking.flight.arrival_time }}</td>
+            <td>{{ booking.flight.get_type_display }}</td>
+            <td>{{ booking.flight.gate }}</td>
+            <td><a href="/booking_update/{{ booking.id }}">Review</a></td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

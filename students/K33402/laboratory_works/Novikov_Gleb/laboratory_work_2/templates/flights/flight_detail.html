@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight</title>
+</head>
+<body>
+<p>№: {{ object.number }}</p>
+<p>Company: {{ object.company.name }}</p>
+<p>From city: {{ object.from_city }}</p>
+<p>Start time: {{ object.departure_time }}</p>
+<p>To city: {{ object.to_city }}</p>
+<p>End time: {{ object.arrival_time }}</p>
+<p>Type: {{ object.get_type_display }}</p>
+<p>Gate: {{ object.gate }}</p>
+<p>Reviews:</p>
+{% for booking in object.bookings.all %}
+    {% if booking.review_number %}
+        <p>{{ booking.user.username }}: {{ booking.review_text }} {{ booking.review_number }}/10</p>
+    {% endif %}
+{% empty %}
+    <p>No reviews</p>
+{% endfor %}
+<p><a href="/booking_create?flight={{ object.id }}">Book</a></p>
+</body>
+</html>

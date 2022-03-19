@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<a href="/flight_list">Table</a>
+{% if user.is_authenticated %}
+    <a href="/booking_list">Flights</a>
+    <a href="/logout">Logout</a>
+{% else %}
+    <a href="/signup">Sign up</a>
+    <a href="/signin">Sign in</a>
+{% endif %}
+</body>
+</html>
