@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Авторизация</title>
+    <link rel="icon" href="data:;base64,=">
+  </head>
+  <body>
+  {%extends "all_flights.html" %}
+  {% block register %}
+      <h2 align="center">Авторизация</h2>
+    <form action="." method="post">
+      {% csrf_token %}
+      <!-- as_p для того, чтобы каждый элемент формы был с новой строки -->
+      {{ form.as_p }}
+      <button type="submit">Войти</button>
+    </form>
+  {% endblock %}
+
+  </body>
+</html>

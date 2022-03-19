@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Табло рейсов</title>
+		<meta charset="utf-8" />
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'main.css' %}" />
+		<link rel="icon" href="data:;base64,=">
+
+	</head>
+	<body>
+        <div>
+            <p><b>Номер рейса: </b>
+            {{fly.number}}</p>
+            <h2>{{fly.title}}</h2>
+            <p><b>Время полета:</b>
+            </p>
+            <p> <b>Этот самолет прилетает или вылетает? </b>
+                {{fly.type}}</p>
+            <b>Название авиакомпании:</b> {{fly.flight_company}}
+            <p> <b>Номер выхода: </b> {{fly.gate_num}}</p>
+        </div>
+
+        <div class="features">
+        <h3>Комментарии</h3>
+            {% for comment in comments %}
+                <div style="border: solid 2px black; padding:20px">
+                    <b> Комментарий оставил: </b>
+                    {{comment.person.first_name}} {{comment.person.last_name}}
+                    </br>
+                    <b>Дата и время оставления комментария</b>
+                    {{comment.date}}
+                    </br>
+                    <b>Тип комментария: </b>
+                    {{comment.kind}}
+                    </br>
+                    <b>Текст комментария: </b>
+                    {{comment.text}}
+                </div>
+            {% empty %}
+                <div class="content">
+                    <h3>Комментариев пока нет...</h3>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <h2>Оставьте свой комментарий</h2>
+        <div style="width:50%">
+            <form action="#" method="post">
+                   {% csrf_token %}
+                    {{ form.as_p }}
+                <input type="submit" value="Отправить">
+            </form>
+        </div>
+        {% else %}
+        <div class="content">
+            <h2>Чтобы оставить свой комментарий, пожалуйста, авторизируйтесь!</h2>
+        </div>
+        {% endif %}
+	</body>
+</html>
