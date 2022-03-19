@@ -1,0 +1,19 @@
+site_name: Airport organization system
+nav:
+ - Home: index.md
+ - Users:
+     - "list of workers": users/worker.md
+ - Api:
+     - "api/aviacompany": api/aviacompany.md
+     - "api/dopusk": api/dopusk.md
+     - "api/ekipazh": api/ekipazh.md
+     - "api/plane": api/plane.md
+     - "api/polet": api/polet.md
+     - "api/razrechenie": api/razrechenie.md
+     - "api/remont": api/remont.md
+     - "api/reys": api/reys.md
+     - "api/tranzit": api/tranzit.md
+ - Model:
+     - "Model description": models/models.md
+theme:
+  name: material

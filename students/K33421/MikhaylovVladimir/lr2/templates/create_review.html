@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить отзыв</title>
+    <style>
+        button {
+            background: aqua;
+        }
+        .button2 {
+            background: aqua;
+            right: 15px;
+            top: 15px;
+            position: absolute;
+        }
+        body {
+            zoom: 100%;
+            background-color: aquamarine;
+            text-align: left;
+            font-size: 15px;
+        }
+        text {
+            top: 55px;
+            right: 15px;
+            position: absolute;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Добавить отзыв</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button class="btn btn-secondary">Отправить отзыв</button>
+
+</form>
+    <a href="/"><button class="button button2">На главную</button></a>
+
+</body>
+</html>
