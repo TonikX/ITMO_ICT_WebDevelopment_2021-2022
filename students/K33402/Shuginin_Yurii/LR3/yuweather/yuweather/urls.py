@@ -41,4 +41,5 @@ urlpatterns = [
     re_path(r'^auth/', include('djoser.urls.authtoken')),
     path('doc/swagger/', schema_view.with_ui('swagger', cache_timeout=0)),
     path('doc/redoc', schema_view.with_ui('redoc', cache_timeout=0)),
+    # path('doc/schema/', schema_view.without_ui(cache_timeout=0)),
 ]
