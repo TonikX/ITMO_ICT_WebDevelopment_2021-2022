@@ -73,10 +73,12 @@ export default {
     },
 
     async getFavourites () {
-      const favourites = await fetch('http://localhost:8000/users/', { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
-      const favouritesJSON = await favourites.json()
-      this.favourites = favouritesJSON.Users[0].favourite_cities
-      this.getTodayWeather(favouritesJSON.Users[0].favourite_cities)
+      if (localStorage.getItem('token')) {
+        const favourites = await fetch('http://localhost:8000/users/', { headers: { Authorization: `Token ${localStorage.getItem('token')}` } })
+        const favouritesJSON = await favourites.json()
+        this.favourites = favouritesJSON.Users[0].favourite_cities
+        this.getTodayWeather(favouritesJSON.Users[0].favourite_cities)
+      }
     },
 
     parseCities () {
