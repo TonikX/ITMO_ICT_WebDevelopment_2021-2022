@@ -1,0 +1,11 @@
+site_name: YuWeather API Docs
+
+nav:
+  - Home: "README.md"
+  - Auth: "Apis/AuthApi.md"
+  - Users: "Apis/UsersApi.md"
+  - Cities: "Apis/CitiesApi.md"
+  - Favourites: "Apis/FavouritesApi.md"
+
+theme:
+  name: material
