@@ -1,0 +1,15 @@
+site_name: YuWeather Frontend Docs
+site_url: http://127.0.0.1:8080
+dev_addr: 127.0.0.1:8080
+
+nav:
+  - General: "index.md"
+  - Home page: "home.md"
+  - Forecast page: "forecast.md"
+  - Login page: "login.md"
+  - Registration page: "registration.md"
+  - Favourites page: "favourites"
+  - Profile page: "profile.md"
+
+theme:
+  name: material
