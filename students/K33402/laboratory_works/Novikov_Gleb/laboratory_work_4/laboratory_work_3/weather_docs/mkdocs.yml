@@ -1,0 +1,8 @@
+site_name: Meta Weather
+nav:
+  - Home: index.md
+  - API:
+      - Пользователи: user.md
+      - Города: towns.md
+      - Погода: weather.md
+theme: material
