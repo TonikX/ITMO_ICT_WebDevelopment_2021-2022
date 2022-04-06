@@ -1,0 +1,1 @@
+Смотри [Open Weather Map API](https://openweathermap.org/api).
