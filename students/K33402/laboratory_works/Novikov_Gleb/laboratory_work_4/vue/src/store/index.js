@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     username: 'Default',
+    email: 'default@mail.ru',
     password: null,
     token: null,
     cities: {},
@@ -16,6 +17,9 @@ export const store = new Vuex.Store({
   getters: {
     USERNAME (state) {
       return state.username
+    },
+    EMAIL (state) {
+      return state.email
     },
     PASSWORD (state) {
       return state.password
@@ -55,6 +59,9 @@ export const store = new Vuex.Store({
     SET_USERNAME (state, payload) {
       state.username = payload
     },
+    SET_EMAIL (state, payload) {
+      state.email = payload
+    },
     SET_PASSWORD (state, payload) {
       state.password = payload
     },
@@ -71,6 +78,9 @@ export const store = new Vuex.Store({
     },
     SET_USERNAME (context, payload) {
       context.commit('SET_USERNAME', payload)
+    },
+    SET_EMAIL (context, payload) {
+      context.commit('SET_EMAIL', payload)
     },
     SET_TOKEN (context, payload) {
       context.commit('SET_TOKEN', payload)

@@ -12,6 +12,9 @@
                     <router-link class="nav-link" :to="{name: 'Weather'}">| 🌥️ Погода |</router-link>
                   </li>
                   <li class="nav-item">
+                    <router-link class="nav-link" :to="{name: 'Profile'}">| 👤 Профиль |</router-link>
+                  </li>
+                  <li class="nav-item">
                     <router-link class="nav-link" :to="{name: 'SignIn'}">| 🚪 Выход |</router-link>
                   </li>
                 </ul>

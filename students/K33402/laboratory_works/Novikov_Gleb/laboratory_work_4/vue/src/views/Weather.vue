@@ -18,7 +18,7 @@
 </template>
 
 <script>
-var API_KEY = 'a28fe17fbc392a1565fb2b9cd6832b82'
+var API_KEY = ''
 
 export default {
   data () {
