@@ -1,0 +1,8 @@
+site_name: Описание сервиса "advert_agency"
+nav:
+ - Home: index.md
+ - Auth: auth.md
+ - Api: api.md
+
+theme:
+ name: mkdocs
