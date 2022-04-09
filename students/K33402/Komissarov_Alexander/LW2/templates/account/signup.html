@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{%  block title %}
+    Sign up
+{% endblock %}
+
+{%  block content %}
+    <main role="main">
+        <div>
+            <div>
+                <h2>Sign up</h2>
+            </div>
+            <div>
+                <form>
+                    {% csrf_token %}
+
+                    {% for field in form.visible_fields %}
+                        <div>
+                            {{ field.label_tag }}
+                            <div>
+                                {{ field }}
+                            </div>
+                            {%  if field.errors  %}
+                                <div>
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <div>
+                        <input type="submit" value="Sign up" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}
