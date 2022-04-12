@@ -52,9 +52,11 @@ class SkillAPIView(APIView):
         return Response({"Skills": serializer.data})
 
 
-class SkillCreateView(APIView):
+class SkillCreateView(generics.CreateAPIView):
+    serializer_class = SkillCreateSerializer
+    queryset = Skill.objects.all()
 
-   def post(self, request):
+'''  def post(self, request):
        skill = request.data.get("skill")
        serializer = SkillCreateSerializer(data=skill)
 
@@ -62,7 +64,7 @@ class SkillCreateView(APIView):
            skill_saved = serializer.save()
 
        return Response({"Success": "Skill '{}' created succesfully.".format(skill_saved.title)})
-
+'''
 
 class WarriorProfessionListAPIView(generics.ListAPIView):
    serializer_class = WarriorProfessionSerializer

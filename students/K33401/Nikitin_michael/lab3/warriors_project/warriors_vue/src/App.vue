@@ -6,7 +6,7 @@
      dark
    >
      <div class="d-flex align-center">
-       <h1 class="headline">Простой проект на Vue</h1>
+       <h1 class="headline">Warriors проект на Vue</h1>
      </div>
    </v-app-bar>
  
