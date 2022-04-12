@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+</head>
+<body>
+<div class="main">
+    {% for car in object_list %}
+    <li><a href="{{ car.id }}">{{ car.id }}</a></li>
+        <li>Номер:{{ car.plate }}</li>
+        <li>{{ car.brand }} {{ car.model }} {{ car.color }}</li>
+        <li><a href="{{ car.id }}/update">Изменить</a></li>
+        <li><a href="{{ car.id }}/delete">Удалить</a></li>
+
+    <hr>
+    {% empty %}
+    <li>No objects yet.</li>
+    {% endfor %}
+ <li><a href="create">Добавить</a></li>
+<li><a href="../">Главная</a></li>
+</div>
+</body>
+</html>

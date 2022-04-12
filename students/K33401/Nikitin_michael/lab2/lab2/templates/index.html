@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start page</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <li><a href="/logout">Выйти</a></li>
+        <li><a href="/booklist/">Забронированные туры</a></li>
+        <li><a href="/comment/all">Все комментарии</a></li>
+    {% else %}
+        <li><a href="/login">Войти</a></li>
+        <li><a href="/registration">Регистрация</a></li>
+    {% endif %}
+
+     {% for tour in object_list %}
+     <h3><a href="tour/{{ tour.id }}">{{ tour.name }}</a>
+            <a href="comment/{{ tour.id }}">Left a comment</a></h3>
+     <h3>Wrote in:{{ tour.count_of_booked }}/{{ tour.count_of_place }}</h3>
+    <li> Agency:{{ tour.tour_agency }}. Start_date:{{ tour.date_of_tour }}</li>
+    <hr>
+    {% endfor %}
+
+</body>
+</html>

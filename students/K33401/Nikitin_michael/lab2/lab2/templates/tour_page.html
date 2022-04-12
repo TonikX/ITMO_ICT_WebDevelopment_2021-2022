@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking</title>
+</head>
+<body>
+<form method="POST">
+    <h3>Тур:{{ tour.name }}</h3>
+    <li>Агенство:{{ tour.tour_agency }}</li>
+    <li>Стоимость:{{ tour.payment }}</li>
+    <li>Дата тура:{{ tour.date_of_tour }}  Длительность:{{ tour.tour_duration }} дней</li>
+    <li>Мест всего:{{ tour.count_of_place }}/занято:{{ tour.count_of_booked }}</li>
+    <li>{{ tour.description }}</li>
+    {% if user.is_authenticated %}
+        {% if tour.count_of_place > tour.count_of_booked  %}
+            <li><a href="/booking/{{ tour.pk }}">Резервирование</a></li>
+        {% else %}
+            <li>Все места заняты</li>
+        {% endif %}
+    {% else %}
+        <li>Авторизуйтесь, чтобы забронировать тур</li>
+    {% endif %}
+
+    <li><a href="/">Выход</a></li>
+</form>
+
+</body>
+</html>

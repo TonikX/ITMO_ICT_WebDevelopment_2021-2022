@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Резервирование</title>
+</head>
+<body>
+ <form method="post">{% csrf_token %}
+    <p>Успешно зарезервирован тур "{{ name }}"?</p>
+</form>
+<a href="/">Главное меню</a>
+</body>
+</html>

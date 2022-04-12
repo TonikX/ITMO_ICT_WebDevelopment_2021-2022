@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your book</title>
+</head>
+<body>
+<div class="main">
+  {% for book in object_list %}
+      {% if book.user == user %}
+        <li> User:{{ book.user }}. Tour:{{ book.tour.name }}, TourID{{ book.tour.id }}</li>
+          <li>ID:{{ book.pk }}, Status:{{ book.status }}</li>
+          <li><a href="/bookdel/{{ book.pk }}">Отписаться</a></li>
+          <li><a href="/comment/{{ book.pk }}">Комментировать</a></li>
+      {% endif %}
+  {% endfor %}
+<li><a href="/">На главную</a></li>
+</div>
+</body>
+</html>

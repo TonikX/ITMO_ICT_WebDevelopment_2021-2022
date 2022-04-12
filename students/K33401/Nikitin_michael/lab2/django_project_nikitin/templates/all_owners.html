@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>owners</title>
+</head>
+<body>
+<div class="main">
+
+    {% for owner in owners %}
+    <li><a href="../owners/{{ owner.id }}">{{ owner.id }}</a></li>
+    <li>{{ owner.name }} {{ owner.surname }} {{ owner.date_of_birth }}</li>
+
+    <hr/>
+
+    {% endfor %}
+<li><a href="create">Добавить</a></li>
+</div>
+</body>
+</html>
