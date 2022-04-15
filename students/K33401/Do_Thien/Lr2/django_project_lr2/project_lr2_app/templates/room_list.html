@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rooms</title>
+</head>
+<body>
+    <div class="main">
+        <span><h1>Rooms</h1><a href="/book/">Book room!</a></span>
+         <ul>
+            {% for object in dataset %}
+            <li>Number: {{ object.number }}</li>
+            <li>Type: {{ object.type }}</li>
+            <li>Price: {{ object.price }}</li>
+            <li>Status: {{ object.status }}</li>
+            <li>Hotel: {{ object.id_hotel.name }}</li>
+            <li>Address{{ object.id_hotel.address }}</li>
+
+            <hr>
+            {% empty %}
+            <li>No objects yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

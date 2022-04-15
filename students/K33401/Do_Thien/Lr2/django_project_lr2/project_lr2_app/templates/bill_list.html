@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bill</title>
+</head>
+<body>
+    <div class="main">
+        <span><h1>Bill</h1><a href="/book/">Book room!</a></span>
+         <ul>
+            {% for object in dataset %}
+            <li>Time: {{ object.time }}</li>
+            <li>Date Start: {{ object.date_start }}</li>
+            <li>Check In: {{ object.check_in }}</li>
+            <li>Check Out: {{ object.check_out }}</li>
+            <li>Room: {{ object.id_room.number }}</li>
+            <li>User: {{ object.id_user.last_name }}</li>
+            {% comment %} <a href="/book/">Book room!</a> padding {% endcomment %} 
+            <hr>
+            {% empty %}
+            <li>No objects yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

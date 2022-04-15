@@ -1,0 +1,17 @@
+site_name: Hotel
+nav:
+  - Home: index.md
+  - Api:
+    - "api/rooms[GET]": api/rooms.md
+    - "api/floors[GET]": api/floors.md
+    - "api/status[GET]": api/status.md
+    - "api/types[GET]": api/types.md
+    - "api/guest[GET]": api/guests.md
+    - "api/staffs[GET]": api/staffs.md
+    - "api/schedules[GET]": api/schedules.md
+    - "api/reservations[GET]": api/reservations.md
+    
+    - "api/reservations_condition[GET]": api/reservation_condi.md
+
+theme:
+  name: material
