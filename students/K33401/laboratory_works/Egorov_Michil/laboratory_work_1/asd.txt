@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+Date: Fri, 12 Nov 2021 23:3458 GMT
+Server: Python socket
+Content-Length: 265
+Content-Type: text/html; charset=UTF-8
+Keep-Alive: timeout=5, max=1000
+Connection: Keep-Alive
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    []
+</body>
+</html>

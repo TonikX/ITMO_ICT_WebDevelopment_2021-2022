@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md">
+      <h1>Комнаты</h1>
+    </div>
+    <div class="col-md">
+      <nav>
+        <ul class="pagination" style="justify-content: flex-end">
+          {% if not room_list.has_previous %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Previous">
+              {% else %}
+          <li class="page-item">
+            <a class="page-link" href="{% url 'room-list' %}?page={{room_list.previous_page_number}}" aria-label="Previous">
+              {% endif %}
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          {% for page in paginator.page_range %}
+          <li class="page-item"><a class="page-link" href="{% url 'room-list' %}?page={{page}}">{{page}}</a></li>
+          {% endfor %}
+          {% if not room_list.has_next %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Next">
+              {% else %}
+          <li class="page-item">
+            <a class="page-link" href="{% url 'room-list' %}?page={{room_list.next_page_number}}" aria-label="Next">
+              {% endif %}
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <a href="{% url 'room-list' %}" class="badge badge-light ml-2">Все</a>
+      {% for name, subject_name in subjects %}
+      <a href="{% url 'room-list' %}?page={{room_list.number}}&subject={{name}}" class="badge {% if subject != name %} badge-light {% else %} badge-warning{% endif %} ml-2">{{subject_name}}</a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="list-group mt-5 mb-5">
+    {% for room in room_list %}
+    <a href="{% url 'room' room.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <small class="badge" style="color: #fff; background-color: {{room.subject_color}};">{{room.subject_name}}</small>
+        <small>{{room.pub_date|naturaltime}}</small>
+      </div>
+      <h5 class="mb-1 mt-2">{{room.name}}</h5>
+      <p class="mb-1">{{room.description}}</p>
+      <small class="text-grey">{% if room.audio_works %}С микрофоном{% else %} Без микрофона {% endif %}</small>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
