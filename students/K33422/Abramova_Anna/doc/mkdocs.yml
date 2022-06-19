@@ -1,0 +1,5 @@
+site_name: Администрирование отеля
+nav:
+    - Home: index.md
+    - Create model: models/models.md
+    - Endpoints: endpoints/endpoints.md

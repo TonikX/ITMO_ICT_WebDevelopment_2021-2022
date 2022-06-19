@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Owner_update</title>
+	</head>
+	<body>
+		<form method="post"> {% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="Обновить владельца">
+		</form>
+	</body>
+</html>
