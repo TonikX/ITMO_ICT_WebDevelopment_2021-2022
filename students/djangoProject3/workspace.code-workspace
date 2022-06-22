@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "..\\.idea"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\project_first_app"
+		},
+		{
+			"path": "..\\templates"
+		},
+		{
+			"path": "..\\venv"
+		}
+	]
+}
