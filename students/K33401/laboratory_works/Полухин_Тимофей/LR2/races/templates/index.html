@@ -1,0 +1,47 @@
+{% if user.is_authenticated %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+
+    <div class="container">
+        <h1>Профиль</h1>
+        <table>
+            <tbody>
+            <tr>
+                <td>Имя</td>
+                <td>{{ user.first_name }}</td>
+            </tr>
+            <tr>
+                <td>Фамилия</td>
+                <td>{{ user.last_name }}</td>
+            </tr>
+            <tr>
+                <td>Никнейм</td>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <td>Список гонок</td>
+                <td>{% for race in user.races.all %}
+                    <p>{{ race }}</p>
+                    <form method="post" action="{% url 'races:unregister' %}">
+                        {% csrf_token %}
+                        <input style="display: none" value="{{ race.pk }}" name="race">
+                        <button type="submit">Удалить</button>
+                    </form>
+                {% endfor %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <h1>Регистрация на гонку</h1>
+        <form method="post" action="{% url 'races:register' %}">
+            {% csrf_token %}
+            <label>
+                ID гонки
+                <input name="race">
+            </label>
+            <button type="submit">
+                Зарегистрироваться
+            </button>
+        </form>
+    </div>
+{% endif %}
