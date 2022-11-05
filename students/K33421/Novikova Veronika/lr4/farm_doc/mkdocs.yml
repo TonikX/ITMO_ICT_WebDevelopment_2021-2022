@@ -1,0 +1,25 @@
+site_name: Funny Farm
+nav:
+ - Home: index.md
+ - Chicken:
+   - List of chickens: chicken/list.md
+   - Chicken's info: chicken/info.md
+   - Creating a chicken: chicken/create.md
+ - Breed:
+   - List of breeds: breed/list.md
+   - Breed's info: breed/info.md
+   - Creating a breed: breed/create.md
+ - Cage:
+   - List of cells: cage/list.md
+   - Cage's info: cage/info.md
+   - Creating a cage: cage/create.md
+ - User:
+   - List of users: user/list.md
+   - User's info: user/info.md
+ - Work:
+   - List of work: work/list.md
+   - Work's info: work/info.md
+   - Creating a work: work/create.md
+theme:
+ name: material
+
