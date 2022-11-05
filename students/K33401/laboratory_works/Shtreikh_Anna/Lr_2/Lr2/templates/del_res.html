@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+    <title>DeleteReservation</title>
+</head>
+<body>
+    <form method="POST">{% csrf_token %}
+        <p>Delete reservation in {{ object.room.hotel.name }}'s room №{{ object.room.number }}?</p>
+        <input type="submit" value="Confirm" class="btn btn-outline-info btn-lg">
+    </form>
+    <a href="/profile/">Back to profile</a>
+</body>
+</html>

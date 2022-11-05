@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+    <title>HotelClients</title>
+</head>
+<body>
+<h1>#List of {{ hotel.name }}'s guests for the las month</h1>
+<hr>
+{% for res in reserves %}
+    <ul>
+        <li>Name: {{ res.user.first_name }} {{ res.user.last_name }}</li>
+        <li>Room number: {{ res.room.number }}</li>
+        <li>Reservation: {{ res.arrival }}-{{ res.departure }}</li>
+    </ul>
+    <hr/>
+{% empty %}
+    <li>No guests yet.</li>
+    <hr>
+{% endfor %}
+<a href="/hotel/{{ hotel.id }}">>>Back to the hotel</a>
+<br>
+<a href="/">>>Back to the main page</a>
+</body>
+</html>
