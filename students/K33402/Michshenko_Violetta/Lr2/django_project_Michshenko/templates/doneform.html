@@ -1,0 +1,16 @@
+<html>
+    <body>
+        {% if user.is_authenticated %}
+
+        <form method="post" action="">
+            {% csrf_token %}
+            {{form.as_ul}}
+            <input type="submit" value="Сдать" />
+            <!-- <input type="hidden" name="homework" value="{{ request.GET.to }}" /> -->
+        </form>
+        {% else %}
+        <p>Сдать домашнее задание могут сдавать только авторизованные пользователи</p>
+        <a href="{% url 'login' %}">Авторизоваться</a>
+        {% endif %}
+    </body>
+</html>
