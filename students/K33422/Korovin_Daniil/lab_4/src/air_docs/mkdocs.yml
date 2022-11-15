@@ -1,0 +1,15 @@
+site_name: Airport organization system
+nav:
+ - Home: index.md
+ - Interfaces:
+     - "Информация о странице управления экипажем": interfaces/ekipazh.md
+     - "Информация о домашней странице": interfaces/home.md
+     - "Информация о входе в систему": interfaces/login.md
+     - "Информация о личном кабинете": interfaces/personalpage.md
+     - "Информация о самолётах": interfaces/planes.md
+     - "Информация о регистрации": interfaces/register.md
+     - "Информация о рейсах": interfaces/reys.md
+     - "Информация о выходе из аккаунта": interfaces/signout.md
+     - "Информация о транзитных пересадках": interfaces/tranzit.md
+theme:
+  name: material
