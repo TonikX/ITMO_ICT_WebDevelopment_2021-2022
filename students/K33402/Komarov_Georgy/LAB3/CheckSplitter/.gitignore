@@ -1,0 +1,12 @@
+*.py[cod]
+__pycache__/
+
+.idea/
+
+/*.env
+/check_splitter/settings_local.py
+
+*.sqlite3
+*.db
+
+/data/
