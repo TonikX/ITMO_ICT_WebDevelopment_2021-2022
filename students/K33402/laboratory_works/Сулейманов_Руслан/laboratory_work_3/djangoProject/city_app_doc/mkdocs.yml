@@ -1,0 +1,9 @@
+site_name: My Docs
+nav:
+ - Home: index.md
+ - About: about.md
+ - Запросы:
+   - Запросы первый тип: subpage1.md
+   - Запросы второй тип: subpage2.md
+   - Итог: itog.md
+theme: readthedocs
