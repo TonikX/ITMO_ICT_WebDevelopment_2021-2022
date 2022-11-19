@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="main">
+        {% for data in dataset %}.
+            <li>First name: {{ data.first_name }}</li>
+            <li>Second name: {{ data.last_name }}</li>
+            <li>Birthday: {{ data.Birthday }}/day </li>
+            <li>Sex: {{ data.Sex }}</li>
+            <li>Phone: {{ data.Phone }}</li>
+            <li>Nationality: {{ data.Nationality }}</li>
+        <hr/>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

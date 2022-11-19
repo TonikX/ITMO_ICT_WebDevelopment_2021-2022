@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="main">
+        {% for data in dataset %}.
+            <li>First name: {{ data.id_client.first_name}}</li>
+            <li>Last name: {{ data.id_client.last_name}}</li>
+            <li>Birthday: {{ data.id_client.Birthday}}</li>
+            <li>Sex: {{ data.id_client.Sex}}</li>
+            <li>Phone: {{ data.id_client.Phone}}</li>
+            <li>Nationality: {{ data.id_client.Nationality}}</li>
+        <hr/>
+        {% endfor %}
+    </div>
+</body>
+</html>
