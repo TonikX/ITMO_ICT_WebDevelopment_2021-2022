@@ -1,0 +1,134 @@
+[
+  {
+    "model": "cities.city",
+    "pk": 524894,
+    "fields": {
+      "name": "Moscow",
+      "country": "RU",
+      "country_verbose": "Россия",
+      "longitude": 37.606667,
+      "latitude": 55.761665
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 525162,
+    "fields": {
+      "name": "Morozovsk",
+      "country": "RU",
+      "country_verbose": "Россия",
+      "longitude": 41.826111,
+      "latitude": 48.353889
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 498817,
+    "fields": {
+      "name": "Saint Petersburg",
+      "country": "RU",
+      "country_verbose": "Россия",
+      "longitude": 30.264168,
+      "latitude": 59.894444
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 496478,
+    "fields": {
+      "name": "Sestroretsk",
+      "country": "RU",
+      "country_verbose": "Россия",
+      "longitude": 29.963779,
+      "latitude": 60.098019
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 480060,
+    "fields": {
+      "name": "Tver",
+      "country": "RU",
+      "country_verbose": "Россия",
+      "longitude": 35.893059,
+      "latitude": 56.861938
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 511196,
+    "fields": {
+      "name": "Perm",
+      "country": "RU",
+      "country_verbose": "Россия",
+      "longitude": 56.285519,
+      "latitude": 58.01741
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 698740,
+    "fields": {
+      "name": "Odessa",
+      "country": "UA",
+      "country_verbose": "Украина",
+      "longitude": 30.732622,
+      "latitude": 46.477474
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 700022,
+    "fields": {
+      "name": "Nizhnedneprovsk",
+      "country": "UA",
+      "country_verbose": "Украина",
+      "longitude": 35.066666,
+      "latitude": 48.5
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 700182,
+    "fields": {
+      "name": "Mykolayivka",
+      "country": "UA",
+      "country_verbose": "Украина",
+      "longitude": 33.533333,
+      "latitude": 44.549999
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 5128638,
+    "fields": {
+      "name": "New York",
+      "country": "US",
+      "country_verbose": "США",
+      "longitude": -75.499901,
+      "latitude": 43.000351
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 4887398,
+    "fields": {
+      "name": "Chicago",
+      "country": "US",
+      "country_verbose": "США",
+      "longitude": -87.650047,
+      "latitude": 41.850029
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 5344994,
+    "fields": {
+      "name": "East Los Angeles",
+      "country": "US",
+      "country_verbose": "США",
+      "longitude": -118.17202,
+      "latitude": 34.023899
+    }
+  }
+]
