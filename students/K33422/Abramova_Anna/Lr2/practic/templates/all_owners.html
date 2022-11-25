@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>All owners</title>
+	</head>
+	<body>
+		{% for owner in owners %}
+		<h2>{{ owner.first_name }} {{ owner.last_name }}</h2>
+		<p>Дата рождения: {{ owner.birthday }}</p>
+		<p>Номер паспорта: {{ owner.pasport_number }}</p>
+		<p>Домашний адрес: {{ owner.home_address }}</p>
+		<p>Национальность: {{ owner.nation }}</p>
+		<hr>
+		{% endfor %}
+	</body>
+</html>

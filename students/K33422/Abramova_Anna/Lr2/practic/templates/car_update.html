@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Car_update</title>
+	</head>
+	<body>
+		<form method="post" accept-charset="utf-8">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="Обновить машину">
+		</form>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room list</title>
+</head>
+<body>
+
+<div class="main">
+    {% for comment in comments %}
+        <li>Guest: {{ comment.guest }}</li>
+        <li>Text: {{ comment.text }}</li>
+        <li>Rating: {{ comment.rating }}</li>
+        <li>Accommodation: {{ comment.accommodation }}</li>
+        <hr/>
+    {% empty %}
+        No comments
+    {% endfor %}
+</div>
+<br>
+<a href="/comment/">Leave a comment</a><br>
+<a href="/">Home</a>
+</body>
+</html>
+
