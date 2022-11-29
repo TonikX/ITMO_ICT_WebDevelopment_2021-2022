@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load bootstrap_pagination %}
+
+{% block content %}
+    <form>
+        <label for="search-field" class="form-label">Поиск</label>
+        <input type="search" name="q" class="form-control" id="search-field" aria-describedby="search-help">
+        <div id="search-help" class="form-text">Фильтровать домашние задания по названию дисциплины</div>
+
+        <div class="d-flex justify-content-center mt-3">
+            <button class="btn btn-outline-success" type="submit">Поиск</button>
+            {% if request.GET.q %}
+                <button class="btn btn-outline-primary ms-2" type="reset">Очистить</button>
+            {% endif %}
+        </div>
+
+        <script type="application/javascript">
+            document.querySelector('#search-field').value = "{{ request.GET.q }}"
+        </script>
+    </form>
+
+    {% for homework in object_list %}
+        <div class="mt-4">
+            <p><b>{{ homework.discipline }}</b>, {{ homework.name }}</p>
+            <p>Выдана {{ homework.teacher.last_name }} {{ homework.teacher.first_name }} {{ homework.date }}</p>
+            <p>Дедлайн: {{ homework.deadline }}, штрафы: {{ homework.penalty }}</p>
+            <div>
+                <p>{{ homework.text }}</p>
+            </div>
+        </div>
+    {% empty %}
+        {% if request.GET.q %}
+            <p>Домашних заданий по дисциплине <b>{{ request.GET.q }}</b> не найдено</p>
+        {% else %}
+            <p>Домашних заданий пока нет :)</p>
+        {% endif %}
+    {% endfor %}
+
+
+    <div class="d-flex justify-content-center mt-5">
+        {% if paginator.num_pages > 5 %}
+            {% bootstrap_paginate page_obj range=3 show_first_last='true' %}
+        {% elif paginator.num_pages > 1 %}
+            {% bootstrap_paginate page_obj range=5 %}
+        {% endif %}
+    </div>
+{% endblock %}
