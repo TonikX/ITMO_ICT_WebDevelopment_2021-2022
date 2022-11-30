@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment</title>
+</head>
+<body>
+ <form method="POST">
+     {% for comment in object_list %}
+    <h3>{{ comment.commented_tour.name }}</h3>
+    <li>Комментатор:{{ comment.commenting_user }}</li>
+    <li>Рэйтинг:{{ comment.rate }}</li>
+    <li>Дата тура:{{ comment.commented_tour.date_of_tour }}</li>
+    <li><a href="/comment/{{ comment.commented_tour.pk }}">Оставить комментарий</a></li>
+    <li>{{ comment.text }}</li>
+    {% endfor %}
+    <li><a href="/">Выход</a></li>
+</form>
+</body>
+</html>
