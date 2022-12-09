@@ -1,0 +1,21 @@
+{% extends "base_page.html" %}
+{% block title %}Main page{% endblock %}
+{% block content %}
+  <span><h1>Teachers</h1>
+  <ul>
+	{% for teacher in data %}
+    <li>
+    <p><strong>First Name:</strong> {{ teacher.first_name }}</p> 
+    <p><strong>Last Name:</strong> {{ teacher.last_name }}</p>
+    <p><strong>Patronymic:</strong> {{ teacher.patronymic }}</p>
+    <p><strong>Email:</strong> {{ teacher.email }}</p>
+    <p><strong>Room:</strong> {{ teacher.room_id }}</p>
+    actions:  <a href="/teachers/update/{{ teacher.id }}/">Update</a> 
+    <a href="/teachers/delete/{{ teacher.id }}">Delete</a> 
+
+	</li>
+	{% empty %}
+	<li>No teachers yet.</li>
+	{% endfor %}
+  </ul>
+{% endblock %}
