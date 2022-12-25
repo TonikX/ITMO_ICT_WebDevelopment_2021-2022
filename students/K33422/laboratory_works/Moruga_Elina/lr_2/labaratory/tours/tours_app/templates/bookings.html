@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookings list</title>
+</head>
+
+<body>
+  {% include 'header.html' %}
+  <span><h1>Bookings</h1>
+  <ul>
+	{% for bookings in object_list %}
+    <li>
+    <p><strong>User:</strong> {{ bookings.id_user }}</p> 
+    <p><strong>Tour:</strong> {{ bookings.id_tour }}</p>
+    <p><strong>Confirmed by admin:</strong> {{ bookings.status }}</p>
+    actions:  <a href="/bookings/update/{{ bookings.id }}/">Update</a> <a href="/bookings/delete/{{ bookings.id }}/">Delete</a> 
+    <a href="/reviews/create/?booking={{ bookings.id }}/">Write a review</a>
+
+
+	</li>
+	{% empty %}
+	<li>No bokings yet.</li>
+	{% endfor %}
+  </ul>
+</body>
+
+</html>

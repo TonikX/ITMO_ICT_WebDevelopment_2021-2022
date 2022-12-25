@@ -1,0 +1,33 @@
+site_name: Описание сервиса для завучей
+nav:
+ - Home: index.md
+ - Models:
+     - "Teacher": models/teacher.md
+     - "Student": models/student.md
+     - "Subject": models/subject.md
+     - "Room": models/room.md
+     - "Grades": models/grades.md
+     - "Groups": models/groups.md
+     - "StudentsGroup": models/studentsgroup.md
+     - "Timetable": models/timetable.md
+     - "Teaching": models/teaching.md
+ - Views:
+     - "TeacherAPIView": view_teacher/TeacherAPIView.md
+     - "TeacherDelete": view_teacher/TeacherDelete.md
+     - "TeacherUpdate": view_teacher/TeacherUpdate.md
+     - "TeacherCreateView": view_teacher/TeacherCreateView.md
+     - "StudentAPIView": view_student/StudentAPIView.md
+     - "StudentDelete": view_student/StudentDelete.md
+     - "StudentUpdate": view_student/StudentUpdate.md
+     - "StudentCreateView": view_student/StudentCreateView.md
+     - "GradesAPIView": view_grade/GradesAPIView.md
+     - "GradesCreateView": view_grade/GradesCreateView.md
+     - "GradesUpdate": view_grade/GradesUpdate.md
+     - "RoomAPIView": view_room/RoomAPIView.md
+     - "SubjectAPIView": view_subject/SubjectAPIView.md
+     - "TimetableAPIView": view_timetable/TimetableAPIView.md
+     - "TimetableCreateView": view_timetable/TimetableCreateView.md
+     - "TimetableUpdate": view_timetable/TimetableUpdate.md
+
+theme:
+ name: material

@@ -1,0 +1,27 @@
+{% extends "base_page.html" %}
+{% block title %}Main page{% endblock %}
+{% block content %}
+  <span><h1>Timetable</h1>
+    <table border="1">
+        <caption>Тimetable</caption>
+        <tr>
+         <th>Subject</th>
+         <th>Teacher</th>
+         <th>Room</th>
+         <th>Lesson</th>
+         <th>Group</th>
+         <th>Day of week</th>
+         <th>Action</th>
+        </tr>
+     {% for time in data %}
+        <tr><td>{{ time.subject_id }}</td>
+            <td>{{ time.teacher_id }}</td>
+            <td>{{ time.room_id }}</td>
+            <td>{{ time.lesson }}</td>
+            <td>{{ time.group_id }}</td>
+            <td>{{ time.day_of_week }}</td>
+            <td><a href="/timetable/update/{{ time.id }}">Update</a> </td>
+        </tr>
+     {% endfor %}
+       </table>
+{% endblock %}

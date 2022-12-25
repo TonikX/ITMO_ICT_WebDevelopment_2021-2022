@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews list</title>
+</head>
+
+<body>
+  {% include 'header.html' %}
+  <span><h1>Reviews</h1>
+  <ul>
+	{% for review in object_list %}
+    <li>
+    <p><strong>Author:</strong> {{ review.id_user }}</p> 
+    <p><strong>Rate:</strong> {{ review.rate }}</p>
+    <p><strong>Start date:</strong> {{ review.date_start }}</p>
+    <p><strong>End date:</strong> {{ review.date_end }}</p>
+    <p><strong>Content:</strong> {{ review.content }}</p>
+
+	</li>
+	{% empty %}
+	<li>No reviews yet.</li>
+	{% endfor %}
+  </ul>
+</body>
+
+</html>
