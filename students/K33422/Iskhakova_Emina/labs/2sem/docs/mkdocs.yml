@@ -1,0 +1,31 @@
+site_name: Advertising Agency
+nav:
+  - Info: index.md
+  - Титульный лист: course_project/title.md
+  - 0. Введение: course_project/intro.md
+  - 1. Цели и задачи работы: course_project/aims.md
+  - 2. Этапы разработки:  
+    - 1 Контейнеризация и оркестрация:
+      - 1.1 Контейнеризация: labs/lab1/1.1_containerization.md
+      - 1.2 Оркестрация: labs/lab1/1.2_orchestration.md
+    - 2. Возможности Django REST:
+      - 2.1 Тестирование:
+        - 2.1.1 Ручное тестирование: labs/lab2/2.1/2.1.1_manual_filters.md
+        - 2.1.2 Автоматическое: labs/lab2/2.1/2.1.2_auto_filters.md
+      - 2.2 Пагинация:
+        - 2.2.1 Дефолтная: labs/lab2/2.2/2.2.1_default_pagination.md
+        - 2.2.2 Кастомная: labs/lab2/2.2/2.2.2_custom_pagination.md
+      - 2.3 Загрузка файлов: labs/lab2/2.3/2.3.1_file_upload.md
+      - 2.4 Сигналы: labs/lab2/2.4/2.4.1_signals.md
+    - 3. Тестирование Django REST:
+      - 3.1 Тесты на модель: labs/lab3/3.1_model_tests.md
+      - 3.2 Тесты на GET запросы: labs/lab3/3.2_get_tests.md
+      - 3.3 Тесты на POST запросы: labs/lab3/3.3_post_tests.md
+      - 3.4 Тесты на PATCH запросы: labs/lab3/3.4_patch_tests.md
+      - Результаты тестов: labs/lab3/3_results.md
+    - 4. Адаптация интерфейсов Vue.js:
+      - Описание работы интерфейсов: labs/lab4/4_vue.md
+  - 3. Заключение: course_project/final.md
+
+theme:
+  name: readthedocs

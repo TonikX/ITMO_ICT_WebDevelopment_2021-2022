@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  ad_agency_db:
+    container_name: django_db
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=user_name
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=ad_agency_db
+    volumes:
+      - ./dbs/postgres-data:/var/lib/postgresql
+  server:
+    container_name: server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "
+      python3 manage.py makemigrations && python3 manage.py migrate &&
+      python3 manage.py runserver 0.0.0.0:8000";
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ad_agency_db
+  client:
+    container_name: client
+    build: ./ad_agency_vue
+    ports:
+      - "8080:8080"
+    depends_on:
+      - server
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    depends_on:
+      - ad_agency_db
