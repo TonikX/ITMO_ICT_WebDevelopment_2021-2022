@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+    <title>RoomsInHotel</title>
+</head>
+<body>
+<h1>#{{ hotel.name }}'s rooms</h1>
+
+<hr/>
+<ul>
+    {% for object in rooms %}
+        <ul>
+            <h5>Number #{{ object.number }}</h5>
+            <li>Type: {{ object.type }}</li>
+            <li>Bulk: {{ object.bulk }}</li>
+            <li><a href="/hotel/{{ hotel.id }}/room_list/room/{{ object.id }} " class="text-info">More</a></li>
+        </ul>
+        <hr/>
+    {% empty %}
+        <li>No rooms yet.</li>
+        <hr>
+    {% endfor %}
+</ul>
+<a href="/hotel/{{ hotel.id }}">>>>Back to hotel</a>
+<br>
+<a href="/">>>>Back to main page</a>
+</body>
+</html>

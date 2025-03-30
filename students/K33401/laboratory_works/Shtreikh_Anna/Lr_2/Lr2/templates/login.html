@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+    <title>Login</title>
+</head>
+<body>
+<h1>#Log in</h1>
+<div class="jumbotron">
+    <div class="container">
+        <div class="text-center">
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Логин"> </br>
+                <input type="password" name="password" placeholder="Пароль"></br>
+                <hr>
+                <input type="submit" value="Submit" class="btn btn-outline-info btn-lg">
+
+            </form>
+            <br>
+            <a href="/registration/" class="btn btn-outline-info btn-lg">Registration</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

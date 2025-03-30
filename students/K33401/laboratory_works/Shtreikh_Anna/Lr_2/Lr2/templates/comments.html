@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+    <title>Comments</title>
+</head>
+<body>
+    <h1>#What people say about room №{{ room.number }}</h1>
+    {% for comment in comments %}
+        <ul>
+            <h5 class="badge bg-primary text-wrap">{{ comment.user.username }}:</h5>
+            <p >{{ comment.text }}</p>
+            <li>Period of residence: {{ comment.arrival }}-{{ comment.departure }}</li>
+            <li>Rate: {{ comment.rate }}</li>
+        </ul>
+        <hr/>
+    {% empty %}
+        <a>No comments yet.</a>
+    {% endfor %}
+    {% if request.user.is_authenticated %}
+        <p>Add your comment! And rate the room from 1 to 10.</p>
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit" class="btn btn-outline-info btn-lg">
+        </form>
+    {% else %}
+        <a>You are not authenticated to add comments. </a>
+        <a href="/login/">Log in</a>
+    {% endif %}
+    <br>
+    <a href="/hotel/{{ room.hotel.id }}/room_list/room/{{ room.id }}">>>>Back to the room</a>
+</body>
+</html>
